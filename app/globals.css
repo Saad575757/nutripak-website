@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- Material-3 color tokens (from home.html tailwind config) ---- */
+  --color-background: #faf8ff;
+  --color-on-background: #131b2e;
+
+  --color-surface: #faf8ff;
+  --color-surface-bright: #faf8ff;
+  --color-surface-dim: #d2d9f4;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f2f3ff;
+  --color-surface-container: #eaedff;
+  --color-surface-container-high: #e2e7ff;
+  --color-surface-container-highest: #dae2fd;
+  --color-surface-variant: #dae2fd;
+  --color-surface-tint: #3b6755;
+
+  --color-on-surface: #131b2e;
+  --color-on-surface-variant: #414944;
+
+  --color-primary: #00271b;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #0f3e2e;
+  --color-on-primary-container: #7ba994;
+  --color-primary-fixed: #bdedd6;
+  --color-primary-fixed-dim: #a2d1ba;
+  --color-on-primary-fixed: #002116;
+  --color-on-primary-fixed-variant: #224f3e;
+  --color-inverse-primary: #a2d1ba;
+
+  --color-secondary: #006d43;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #56fbab;
+  --color-on-secondary-container: #007146;
+  --color-secondary-fixed: #59fead;
+  --color-secondary-fixed-dim: #31e193;
+  --color-on-secondary-fixed: #002111;
+  --color-on-secondary-fixed-variant: #005231;
+
+  --color-tertiary: #09007c;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #1911af;
+  --color-on-tertiary-container: #9295ff;
+  --color-tertiary-fixed: #e1e0ff;
+  --color-tertiary-fixed-dim: #c0c1ff;
+  --color-on-tertiary-fixed: #07006c;
+  --color-on-tertiary-fixed-variant: #2f2ebe;
+
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  --color-outline: #717974;
+  --color-outline-variant: #c0c8c2;
+  --color-inverse-surface: #283044;
+  --color-inverse-on-surface: #eef0ff;
+
+  /* ---- Spacing scale (rem) ---- */
+  --spacing-margin: 3rem;
+  --spacing-margin-mobile: 1.25rem;
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2.5rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-gutter-sm: 1rem;
+
+  /* ---- Typography: font families (backed by next/font CSS vars) ---- */
+  --font-display-hero: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-display-hero-mobile: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-headline-lg: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-headline-lg-mobile: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-headline-md: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-headline-md-mobile: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-headline-sm: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-title-lg: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-title-md: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-body-lg: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-body-md: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-body-sm: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-label-md: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-label-sm: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-caption: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  /* ---- Type scale (px / line-height / tracking / weight) ---- */
+  --text-display-hero: 64px;
+  --text-display-hero--line-height: 72px;
+  --text-display-hero--letter-spacing: -0.02em;
+  --text-display-hero--font-weight: 400;
+
+  --text-display-hero-mobile: 40px;
+  --text-display-hero-mobile--line-height: 48px;
+  --text-display-hero-mobile--letter-spacing: -0.01em;
+  --text-display-hero-mobile--font-weight: 400;
+
+  --text-headline-lg: 48px;
+  --text-headline-lg--line-height: 56px;
+  --text-headline-lg--letter-spacing: -0.015em;
+  --text-headline-lg--font-weight: 400;
+
+  --text-headline-lg-mobile: 32px;
+  --text-headline-lg-mobile--line-height: 40px;
+  --text-headline-lg-mobile--letter-spacing: -0.01em;
+  --text-headline-lg-mobile--font-weight: 400;
+
+  --text-headline-md: 32px;
+  --text-headline-md--line-height: 40px;
+  --text-headline-md--letter-spacing: -0.01em;
+  --text-headline-md--font-weight: 500;
+
+  --text-headline-md-mobile: 26px;
+  --text-headline-md-mobile--line-height: 34px;
+  --text-headline-md-mobile--letter-spacing: 0em;
+  --text-headline-md-mobile--font-weight: 500;
+
+  --text-headline-sm: 20px;
+  --text-headline-sm--line-height: 28px;
+  --text-headline-sm--letter-spacing: -0.01em;
+  --text-headline-sm--font-weight: 600;
+
+  --text-title-lg: 18px;
+  --text-title-lg--line-height: 26px;
+  --text-title-lg--letter-spacing: -0.005em;
+  --text-title-lg--font-weight: 600;
+
+  --text-title-md: 16px;
+  --text-title-md--line-height: 24px;
+  --text-title-md--font-weight: 600;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+  --text-body-lg--font-weight: 400;
+
+  --text-body-md: 15px;
+  --text-body-md--line-height: 24px;
+  --text-body-md--font-weight: 400;
+
+  --text-body-sm: 13px;
+  --text-body-sm--line-height: 20px;
+  --text-body-sm--font-weight: 400;
+
+  --text-label-md: 14px;
+  --text-label-md--line-height: 20px;
+  --text-label-md--letter-spacing: 0.01em;
+  --text-label-md--font-weight: 600;
+
+  --text-label-sm: 12px;
+  --text-label-sm--line-height: 16px;
+  --text-label-sm--letter-spacing: 0.04em;
+  --text-label-sm--font-weight: 700;
+
+  --text-caption: 11px;
+  --text-caption--line-height: 14px;
+  --text-caption--letter-spacing: 0.02em;
+  --text-caption--font-weight: 500;
+
+  /* ---- Marquee animation ---- */
+  --animate-marquee: marquee 28s linear infinite;
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    overscroll-behavior: none;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Pause marquee on hover */
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Hide scrollbars on any scrollable chip row */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
