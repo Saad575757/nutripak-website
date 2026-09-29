@@ -1,5 +1,13 @@
+import Image from "next/image";
+import Link from "next/link";
+
 import MaterialIcon from "@/components/material-icon";
-import { ABOUT_STATS } from "@/lib/about";
+import {
+  ABOUT_HERO,
+  ABOUT_STATS,
+  HERO_LIFESTYLE_IMAGE,
+} from "@/lib/about";
+import { ROUTES } from "@/lib/site";
 
 export default function AboutHero() {
   return (
@@ -14,48 +22,67 @@ export default function AboutHero() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm tracking-wider uppercase">
               <span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
-              <span>About NUTRIPAK • Purpose &amp; Science</span>
+              <span>{ABOUT_HERO.label}</span>
             </div>
-            <div className="flex items-center gap-4 text-outline font-label-sm text-label-sm">
-              <span>EST. 2021</span>
-              <span>•</span>
-              <span>SAN FRANCISCO &amp; OXFORD</span>
-              <span>•</span>
-              <span className="text-secondary font-bold">CLINICAL MONOGRAPH 04</span>
+            <div className="flex items-center gap-3 text-outline font-label-sm text-label-sm">
+              <span className="text-secondary font-bold uppercase tracking-wider">
+                {ABOUT_HERO.strip}
+              </span>
             </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-            <div className="lg:col-span-8 flex flex-col gap-4">
+            <div className="lg:col-span-7 flex flex-col gap-4">
               <h1 className="font-display-hero text-headline-lg-mobile md:text-display-hero text-primary tracking-tight font-normal leading-[1.08]">
-                Nutrition engineered for cellular truth,{" "}
-                <span className="italic font-light text-surface-tint">not shelf-life.</span>
+                {ABOUT_HERO.headline}
               </h1>
             </div>
-            <div className="lg:col-span-4 flex flex-col gap-4 pb-2">
+            <div className="lg:col-span-5 flex flex-col gap-5 pb-2">
               <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                Founded in 2021 by clinical researchers and nutritional
-                biochemists, NUTRIPAK was created to eliminate synthetic oxides,
-                heavy binders, and marketing fiction from daily longevity
-                regimens.
+                {ABOUT_HERO.intro}
               </p>
-              <div className="flex items-center gap-3 pt-2">
-                <a
-                  className="inline-flex items-center gap-2 text-secondary font-label-md text-label-md hover:text-primary transition-colors"
-                  href="#sustainable-standards"
+              <div className="flex items-center gap-3">
+                <Link
+                  className="inline-flex items-center gap-2 rounded-full bg-secondary hover:bg-on-secondary-container text-on-secondary px-7 py-3 font-label-md text-label-md font-semibold transition-colors"
+                  href={ROUTES.shop}
                 >
-                  <span>Our Sustainable Standards</span>
-                  <MaterialIcon name="arrow_downward" className="text-[18px]" />
-                </a>
-                <span className="text-outline-variant">•</span>
-                <a
-                  className="inline-flex items-center gap-2 text-secondary font-label-md text-label-md hover:text-primary transition-colors"
-                  href="#batch-lookup"
-                >
-                  <span>Verify Batch COA</span>
-                  <MaterialIcon name="verified" className="text-[18px]" />
-                </a>
+                  <span>{ABOUT_HERO.cta}</span>
+                  <MaterialIcon name="east" className="text-[18px]" />
+                </Link>
               </div>
+            </div>
+          </div>
+
+          <div className="relative w-full rounded-2xl overflow-hidden min-h-[420px] bg-surface-container shadow-md">
+            <Image
+              src={HERO_LIFESTYLE_IMAGE}
+              alt="An adult enjoying a healthy, balanced meal at home"
+              fill
+              priority
+              sizes="(min-width: 1024px) 1240px, 100vw"
+              className="absolute inset-0 w-full h-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/25 to-transparent"></div>
+
+            <div className="relative z-10 flex items-end justify-end p-6 md:p-10">
+              <figure className="w-full md:max-w-md rounded-xl bg-surface-container-lowest/95 backdrop-blur-md p-6 shadow-xl flex flex-col gap-4">
+                <MaterialIcon
+                  name="format_quote"
+                  className="text-[28px] text-secondary"
+                  fill
+                />
+                <blockquote className="font-title-lg text-title-lg text-on-surface leading-snug">
+                  {ABOUT_HERO.quote}
+                </blockquote>
+                <figcaption className="flex flex-col">
+                  <span className="font-title-md text-title-md font-bold text-primary">
+                    {ABOUT_HERO.quoteAuthor}
+                  </span>
+                  <span className="font-caption text-caption text-on-surface-variant">
+                    {ABOUT_HERO.quoteRole}
+                  </span>
+                </figcaption>
+              </figure>
             </div>
           </div>
 
@@ -68,14 +95,15 @@ export default function AboutHero() {
                     <span>{stat.label}</span>
                   </div>
                   <div className="flex items-baseline gap-1.5">
-                    <span className="font-headline-md text-headline-md text-primary font-normal">
+                    <span
+                      className={`font-headline-md text-primary font-normal ${
+                        stat.compact
+                          ? "text-[22px] md:text-[26px] leading-tight"
+                          : "text-headline-md"
+                      }`}
+                    >
                       {stat.value}
                     </span>
-                    {stat.suffix ? (
-                      <span className="font-label-sm text-label-sm text-outline font-bold">
-                        {stat.suffix}
-                      </span>
-                    ) : null}
                   </div>
                   <p className="font-body-sm text-body-sm text-on-surface-variant">
                     {stat.description}

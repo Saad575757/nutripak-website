@@ -1,38 +1,92 @@
+export const ABOUT_HERO = {
+  label: "About Nutripak • For Adults at Every Stage",
+  strip: "Subsidiary of Alfalah Healthcare — Pakistan — Adult Nutrition Division",
+  headline: "Thoughtfully crafted nutrition for everyday needs.",
+  intro:
+    "Nutripak's initial objective was to create adult nutrition solutions that consumers could genuinely rely on. Every formula, whether it's for protein support, diabetic care, or daily balanced nutrition, is created in collaboration with medical professionals and nutrition specialists, so the information on the label is supported by more than just advertising.",
+  cta: "Explore Our Products",
+  quote:
+    "Nutrition is not universal. A person controlling diabetes requires a distinct approach compared to someone recovering strength after an illness — this variation is what motivates the creation of each Nutripak formula.",
+  quoteAuthor: "Dr Shabbir",
+  quoteRole: "Medical & Clinical Affairs, Nutripak",
+} as const;
+
 export interface StatItem {
   icon: string;
   label: string;
   value: string;
-  suffix?: string;
   description: string;
+  /** Long text values (e.g. certification names) get a smaller display size. */
+  compact?: boolean;
 }
 
 export const ABOUT_STATS: StatItem[] = [
   {
-    icon: "biotech",
-    label: "BIOAVAILABILITY",
-    value: "100%",
-    description: "Chelated mineral matrix & lipid carriers",
+    icon: "science",
+    label: "NUTRIENTS",
+    value: "26",
+    description: "Essential nutrients in every SUBSET serving",
   },
   {
-    icon: "filter_vintage",
-    label: "PURITY SPEC",
-    value: "0%",
-    description: "Synthetic colorants, titanium dioxide, or talc",
+    icon: "inventory_2",
+    label: "FORMULAS",
+    value: "3",
+    description: "Specialized formulas — SUBSET, ADA-Glu & Proteios",
   },
   {
-    icon: "school",
-    label: "CLINICAL BOARD",
-    value: "Stanford",
-    description: "& Oxford biochemistry advisory fellows",
+    icon: "workspace_premium",
+    label: "CERTIFIED",
+    value: "ISO 9001:22000",
+    description: "SZUTEST & International Halal certified",
+    compact: true,
   },
   {
-    icon: "verified_user",
-    label: "VERIFIED TRUST",
-    value: "4.9",
-    suffix: "/ 5.0",
-    description: "Across 85,000+ subscriber mornings",
+    icon: "medical_services",
+    label: "DOCTOR REVIEWED",
+    value: "5/5",
+    description: "Trusted by healthcare professionals",
   },
 ];
+
+export const ABOUT_ORIGIN = {
+  label: "Our Origin & Standard",
+  heading: "Built for real needs, never a one-size-fits-all shelf",
+  paragraphs: [
+    "Nutripak grew out of a simple observation: nutrition isn’t one-size-fits-all. Someone managing diabetes needs something very different from someone recovering strength after an illness, and both are different again from a person who just needs a more balanced diet.",
+    "So instead of one general product, we built a focused range — each one developed with doctors and nutrition experts for a specific need.",
+  ],
+  founders: [
+    {
+      initials: "EV",
+      name: "Dr. Elena Vance, Ph.D.",
+      meta: "Stanford Clinical Fellow • Biochemistry",
+      tone: "secondary",
+    },
+    {
+      initials: "MS",
+      name: "Marcus Sterling",
+      meta: "Oxford Formulation Chemist • Bio-Design",
+      tone: "primary",
+    },
+  ],
+} as const;
+
+export const ABOUT_PURPOSE = {
+  heading: "Our Purpose",
+  body: "We think good nutrition is one of the simplest ways to change how someone feels day to day. That’s the thinking behind everything we make — products that support adults through whatever stage they are in, whether that’s managing a health condition, rebuilding strength, or just keeping their diet on track. Nothing leaves our facility without being safe, effective, and grounded in real science.",
+} as const;
+
+export const ABOUT_WHO_WE_ARE = {
+  heading: "Who We Are",
+  paragraphs: [
+    "Nutripak grew out of a simple observation: nutrition isn’t one-size-fits-all. Someone managing diabetes needs something very different from someone recovering strength after an illness, and both are different again from a person who just needs a more balanced diet. So instead of one general product, we built a focused range — each one developed with doctors and nutrition experts for a specific need.",
+    "Nutripak is a subsidiary of Alfalah Healthcare, and every formula we produce is manufactured to strict, internationally recognized quality standards.",
+  ],
+} as const;
+
+export const ABOUT_PILLARS_SECTION = {
+  heading: "Why Choose Nutripak",
+} as const;
 
 export interface Pillar {
   icon: string;
@@ -44,172 +98,170 @@ export interface Pillar {
 
 export const ABOUT_PILLARS: Pillar[] = [
   {
-    icon: "adjust",
+    icon: "biotech",
     index: "PILLAR 01",
-    title: "Intracellular Bioavailability",
+    title: "Built on Research",
     description:
-      "We exclusively use amino-acid chelates (such as Albion® TRAACS bisglycinate) and liposomal phytosome carriers. Every nutrient is selected in its native co-enzyme format ready for instantaneous metabolic uptake.",
-    result: "3.4x higher cellular absorption",
+      "Every formula is grounded in clinical study, not guesswork — developed alongside doctors and nutrition experts for a specific health need.",
+    result: "Doctor-developed formulas",
   },
   {
-    icon: "policy",
+    icon: "fact_check",
     index: "PILLAR 02",
-    title: "Radical Batch Transparency",
+    title: "Tested, Batch After Batch",
     description:
-      "Every single bottle is laser-etched with an individual production lot identifier. Customers can review ISO 17025 accredited third-party lab assays verifying heavy metals, microbes, allergens, and active potency.",
-    result: "100% public Certificates of Analysis",
+      "Every batch carries ISO 9001:22000 and SZUTEST certification, plus International Halal Certification, so what’s on the label is what’s actually inside.",
+    result: "ISO, SZUTEST & Halal certified",
   },
   {
-    icon: "spa",
+    icon: "diversity_3",
     index: "PILLAR 03",
-    title: "Botanical Stewardship",
+    title: "For Individual at Every Age",
     description:
-      "Preserved in UV-filtering amber and Miron violet apothecary glass bottles with precision wooden caps. Our repeat subscriptions ship in 100% FSC-certified backyard-compostable barrier pouches.",
-    result: "Zero virgin plastic packaging",
+      "From early adulthood through the senior years, our range covers balanced everyday nutrition, diabetic care, and protein support — three formulas built for three real needs.",
+    result: "3 formulas, 3 specific needs",
   },
 ];
 
-export interface Expert {
-  name: string;
+export const ABOUT_TEAM = {
+  heading: "Our Team",
+  intro:
+    "Every formula passes through our Medical & Clinical Affairs, Research & Development, and Quality Assurance teams before it reaches a single shelf.",
+} as const;
+
+export interface TeamMember {
+  /** Name is pending from the approved doc — role is used as the card headline. */
   role: string;
-  badge: string;
-  meta: string;
-  bio: string;
   focus: string;
-  image: string;
-  alt: string;
+  icon: string;
 }
 
-const EXPERT_IMAGES = {
-  vance:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuC3YoexRVv6b4qyx978lbzP3hTInsJkLO6XlFJPYcMs7uscqwNluJVZemzGvSURVjpmmXNdV8rax1Mvocx-5MEMN0wragnUI3zXNgPcQGWURZxOJRatPTBSN13BPT1HVwDcNXWBs55o2lnAe9FeNU0JyPKicw74O-Eut57ccAk-_fUwzJLbd9QR7hqHVlkU2BnL4QQ9OnPWX4F5vNUlTjoqCV41bBhuGGMGRVxjxIrV4Du_LPxArkJGoA",
-  thorne:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuDSVI2DLi2tZsKbzaV0KeW-bHSCNUQfa9lHAFwXj-tMI3s3udl-QCAcCtNh2KTA2XjXWrrAHf_6U4qlYgZ436nc8MM5X0Ou8he_Q9d2JsQppUj4wXjSnLwRYzs3bUD3zW61j-XP9zgD9-HvgEJR19pLLGfN4PR7NWPVBb4TNt0VrSKXAjVYZmIC1cAb3sM7xKgbID3trzmJuDMJ-F6TC0gM307v8F_F0toSm7WOkuu2o86zNehDg51p3A",
-  lin: "https://lh3.googleusercontent.com/aida-public/AB6AXuALOR6-UOau_TlxrJ42onQ53He-eld6CMA8govgZoCByNTM8cbJa1q47vwysekeue_UY1HTwEXwxp_MqoxGYZ6zo9SsIXYePMwzTeYDLetp14pFGbGAa5b_jWme0gZEYKDLblqtRuXM5gAh7h46lGCIsUnDoHR4OHvlSfoD06utllgrqwklxxgRFXP9IosTm2LXJ3nsAt4o-f4Mtp5uQtAU567QB6lefwMoQ_pH92cxf7UMeuHq1jIPiQ",
-  mercer:
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuCH8hwM44D0K6DmpK0My3iol3KowILtZxCU2vmG-kP0cb_Q0nxTyHnn0qwseetOAJ20vCvvakptxuWj7IiwU4NoVYVwqYo9oq2VLFEZ_L6yMl44dZuKa9JE52grhtR4OoVyLUsKap-0gRa_O_F42MnBzGMa_Cujd8fiwS67zez8i9_38o3oUR156mp_hX_xYObl3jH0A2WdolbkJEAoM62Rcr_UdYALTvktg82aDtUvC6cENiO3YiiArw",
-};
-
-export const ADVISORY_BOARD: Expert[] = [
+export const ABOUT_TEAM_MEMBERS: TeamMember[] = [
   {
-    name: "Dr. Elena Vance, Ph.D.",
-    role: "Nutritional Biochemistry",
-    badge: "Board Lead",
-    meta: "Stanford Research Fellow • 24 Peer-Reviewed Publications",
-    bio: "Leading researcher in mitochondrial bioenergetics and intestinal liposomal micronutrient absorption kinetics.",
-    focus: "Focus: Cellular Energy",
-    image: EXPERT_IMAGES.vance,
-    alt: "Professional portrait of female biochemist Dr. Elena Vance in a lab coat",
+    role: "Medical & Clinical Affairs Lead",
+    focus: "Diabetes & Chronic Care",
+    icon: "medical_services",
   },
   {
-    name: "Dr. Aris Thorne, M.D.",
-    role: "Circadian Biology & Sleep",
-    badge: "Integrative M.D.",
-    meta: "Oxford Health • 18 Yrs Clinical Practice",
-    bio: "Pioneer in non-REM deep restorative sleep architecture and natural endocrine modulation via neuro-adaptogens.",
-    focus: "Focus: Neuro & Rest",
-    image: EXPERT_IMAGES.thorne,
-    alt: "Professional portrait of Dr. Aris Thorne in a clinical research office",
+    role: "R&D Formulation",
+    focus: "Balanced Nutrition",
+    icon: "science",
   },
   {
-    name: "Maya Lin, M.S., R.D.",
-    role: "Microbiome & Gastrointestinal Health",
-    badge: "Microbiome",
-    meta: "UC Berkeley Clinical Nutrition Specialist",
-    bio: "Developer of targeted synbiotic fermentation pathways that withstand hydrochloric stomach acid for colon delivery.",
-    focus: "Focus: Gut Epithelial Barrier",
-    image: EXPERT_IMAGES.lin,
-    alt: "Editorial portrait of Maya Lin, clinical dietitian",
+    role: "Quality Assurance Lead",
+    focus: "Batch Testing & Certification",
+    icon: "verified",
   },
   {
-    name: "Dr. Julian Mercer, Pharm.D.",
-    role: "Bioactive Phytochemicals",
-    badge: "Pharmacognosy",
-    meta: "Chair of Natural Product Chemistry",
-    bio: "Oversees HPLC chemical fingerprinting and supercritical CO2 botanical extraction to guarantee standardize marker percentages.",
-    focus: "Focus: Herbal Standardization",
-    image: EXPERT_IMAGES.mercer,
-    alt: "Portrait of Dr. Julian Mercer examining botanical extract vials",
+    role: "Nutrition & Dietetics",
+    focus: "Protein & Recovery",
+    icon: "restaurant",
   },
 ];
 
-export interface SustainabilityCard {
+export const ABOUT_QUALITY = {
+  heading: "Quality You Can Check",
+  body: "Every Nutripak formula is manufactured under internationally recognized quality and safety standards, so what’s on the label is backed by more than marketing.",
+  certifications: [
+    {
+      icon: "workspace_premium",
+      title: "ISO 9001:22000 Certified",
+      note: "Consistent, audited manufacturing quality",
+    },
+    {
+      icon: "fact_check",
+      title: "SZUTEST Organization Certified",
+      note: "Independent quality verification",
+    },
+    {
+      icon: "mosque",
+      title: "International Halal Certified",
+      note: "Every formula, every batch",
+    },
+  ],
+} as const;
+
+export const ABOUT_COMMITMENT = {
+  heading: "Our Commitment",
+} as const;
+
+export interface CommitmentCard {
   icon: string;
   title: string;
   description: string;
-  label: string;
-  badge: string;
 }
 
-export const SUSTAINABILITY_CARDS: SustainabilityCard[] = [
+export const ABOUT_COMMITMENT_CARDS: CommitmentCard[] = [
   {
-    icon: "science",
-    title: "Biophotonic Miron Violet Glass",
+    icon: "volunteer_activism",
+    title: "For Patients & Adults",
     description:
-      "Filters the full visible light spectrum while permitting energizing violet and infrared frequencies, naturally elongating raw nutrient bioactive potency without synthetic preservatives.",
-    label: "Bioactive Protection",
-    badge: "100% Recyclable",
+      "Nutrition that’s grounded in clinical thinking and actually makes a difference in day-to-day life.",
   },
   {
-    icon: "compost",
-    title: "Backyard-Compostable Refills",
+    icon: "stethoscope",
+    title: "For Healthcare Professionals",
     description:
-      "Our repeat monthly subscription sachets decompose completely in home organic compost within 24 weeks, verified non-toxic to soil microbes and waterways.",
-    label: "Zero Virgin Plastics",
-    badge: "FSC Certified",
+      "A nutrition partner doctors and dietitians feel confident putting their name behind.",
   },
   {
-    icon: "forest",
-    title: "Regenerative Botanical Farms",
+    icon: "shield",
+    title: "For Quality",
     description:
-      "100% of our organic ashwagandha, turmeric root, and elderberry are sourced from family-run agroforestry co-ops that restore soil microbiomes and capture groundwater.",
-    label: "Fair-Trade Direct",
-    badge: "Organic Soil Cert",
-  },
-  {
-    icon: "nest_eco_leaf",
-    title: "Carbon-Neutral Fulfillment",
-    description:
-      "Every package shipped is tracked with real-time carbon auditing, fully balanced through high-durability biochar carbon sequestration in the Pacific Northwest.",
-    label: "Net-Zero Footprint",
-    badge: "Certified B-Corp",
+      "No shortcuts — every product is held to strict safety, testing, and manufacturing standards.",
   },
 ];
 
-export interface Monograph {
-  code: string;
-  tag: string;
+export const ABOUT_OFFER = {
+  heading: "What We Offer",
+  cta: "Explore Our Products",
+} as const;
+
+export interface OfferCard {
+  name: string;
   title: string;
   description: string;
-  journal: string;
+  icon: string;
+  href: string;
 }
 
-export const MONOGRAPHS: Monograph[] = [
+/**
+ * SUBSET / ADA-Glu / Proteios do not have product pages yet, so every card
+ * currently points at the shop. Swap `href` for the real PDP slug once the
+ * product routes exist (see lib/shop.ts for the current slug list).
+ */
+export const ABOUT_OFFER_CARDS: OfferCard[] = [
   {
-    code: "MONOGRAPH 01 • 2022",
-    tag: "RCT Phase II",
-    title: "Liposomal Phospholipid Carrier Dynamics in Gastric Acid Environments",
+    name: "SUBSET",
+    title: "Complete Balanced Nutrition Supplement",
     description:
-      "Demonstrated 4.2x greater serum vitamin retention compared against standard synthetic compressed caplets across 120 healthy human participants over 90 days.",
-    journal: "Journal of Clinical Nutrition",
+      "26 essential macro- and micronutrients in one formula, built to support everyday health and fill in the nutritional gaps a regular diet sometimes leaves behind.",
+    icon: "balance",
+    href: "/shop",
   },
   {
-    code: "MONOGRAPH 02 • 2023",
-    tag: "Multi-Center",
-    title: "Chelated Magnesium Bisglycinate on Non-REM Delta Wave Restoration",
+    name: "ADA-Glu",
+    title: "Specialized Nutrition for Diabetic Management",
     description:
-      "Double-blind polysomnography study tracking sleep architecture improvements and morning cortisol reductions in high-stress professionals.",
-    journal: "Oxford Neuropharmacology",
+      "A carefully controlled mix of macronutrients that supports blood sugar, heart health, and weight management, without giving up on taste or nutrition.",
+    icon: "water_drop",
+    href: "/shop",
   },
   {
-    code: "MONOGRAPH 03 • 2024",
-    tag: "Clinical In-Vivo",
-    title: "Epithelial Tight Junction Permeability & Targeted Synbiotic Fermentation",
+    name: "Proteios",
+    title: "High-Quality Protein Supplement",
     description:
-      "Colon-targeted delivery mechanics showing 98.4% survivability past duodenal bile salts with notable increases in circulating short-chain fatty acids (SCFAs).",
-    journal: "Gastrointestinal Science Annals",
+      "Based on quality whey protein and whey peptides, it is designed to help those who are recuperating from illness or injury, have a protein shortage, or simply need more protein than their diet offers.",
+    icon: "fitness_center",
+    href: "/shop",
   },
 ];
+
+export const ABOUT_PRINCIPLES = {
+  heading: "Our Principles",
+  body: "Trust isn’t something we assume — we work for it. That means working closely with healthcare professionals, holding ourselves to strict quality and safety standards, and being upfront about what’s actually in our products and why.",
+  cta: "Read More About Quality & Safety",
+} as const;
 
 export interface FaqItem {
   question: string;
@@ -218,23 +270,34 @@ export interface FaqItem {
 
 export const ABOUT_FAQS: FaqItem[] = [
   {
-    question: "Where are NUTRIPAK formulations manufactured and tested?",
+    question: "What is Nutripak?",
     answer:
-      "All formulations are blended and packaged in cGMP-certified and NSF-registered cleanrooms located in Utah and Northern California. Every botanical raw ingredient undergoes 4-point verification before blending, followed by double-blind testing at ISO-accredited Eurofins laboratories.",
+      "Nutripak is an adult nutrition brand built on three science-backed supplements: SUBSET for everyday balanced nutrition, ADA-Glu for diabetes management, and Proteios for protein support.",
   },
   {
-    question:
-      "How do I modify, pause, or reschedule my delivery intervals?",
+    question: "How do I choose the right product for me?",
     answer:
-      "You maintain 100% control with zero lock-in contracts. Log in to your NUTRIPAK portal to push shipment dates back by 15, 30, or 60 days with a single tap, swap active formulas, or pause indefinitely. Our Care Concierge can also handle schedule changes on your behalf via live chat.",
+      "It really comes down to what you need: SUBSET for general balanced nutrition, ADA-Glu if you’re managing diabetes, and Proteios if you need extra protein or are recovering strength. Still not sure? Your doctor can help, or you can use the “Find the Right Product” guide on our homepage.",
   },
   {
-    question:
-      "Can I consult with an advisor regarding nutrient contraindications?",
+    question: "Are Nutripak products safe for daily use?",
     answer:
-      "Yes. If you take prescription therapeutics or are pregnant/nursing, choose the \"Clinical Consultation\" category above. Our team will generate an ingredient interaction summary sheet that you can share with your primary care physician.",
+      "Yes — they’re formulated to be used regularly as part of a balanced diet. That said, it’s always worth checking with a healthcare professional before starting anything new, especially if you have an existing health condition.",
   },
 ];
 
-export const LAB_IMAGE =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuDNwBs_Qu383DBf4BW2xVs0_2bp2HzGwWBQhVTBVj1v15KahTHj19sBeMNYvCRjZprzw_7X4ovLQCFK9rzrQjKs4alsccs7rzdGLetMteHFGm29TcrZ5yC8z_iT-jGt3binpOdZ_gqyIBlua4nJO_CY8lyPvlPn6JVRZordDbvRwIi7LxbTuMigIU_dpaNnPsNbPIFtBws_R1jt-hrxj7bfrVjfeJACAQepbBbZY4Piyie0EVuPBAm4eQ";
+export const ABOUT_DOWNLOADS = {
+  heading: "Downloads",
+  /** TODO: point these at the real PDF assets once they are supplied. */
+  items: [
+    { label: "Nutripak Product Guide", href: "/downloads#nutripak-product-guide" },
+    { label: "Nutrition Fact Sheets", href: "/downloads#nutrition-fact-sheets" },
+  ],
+} as const;
+
+/**
+ * TEMPORARY hero image. Replace with the final approved lifestyle shot
+ * (adult/senior enjoying a healthy meal, or a nutritionist reviewing a chart).
+ */
+export const HERO_LIFESTYLE_IMAGE =
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuCj3tzgtaEeOzBHiiqTjHJUqjvuYlKkPMp0Oxz2OylY5-t1iNSbSdJBsRd49PrnTGwoTEB1g03vgz1GazaUNrvPO_ApeMoGehH9XRE3XVs7N9Ljhpofa2fHho8ou0AHsVTJDh6uwRYLGudjqzSv-zdoQ02ApmL3fz8xSn77hu9XLHXyaGDM0MU9CR_TMwZBW_X9lGW3q-ARCFNmJABq_U8ODU3T84aXhalJaN5WQIQJSmsXd3Z70n2Ewg";
