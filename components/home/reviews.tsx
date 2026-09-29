@@ -10,7 +10,7 @@ export default function ReviewsSection() {
             VERIFIED EXPERIENCES
           </span>
           <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">
-            Over 85,000 mornings transformed.
+            Nourishing around 10,000 patients and counting….
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

@@ -10,20 +10,18 @@ export default function GoalCategories() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <span className="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-bold block mb-2">
-              TARGETED WELLNESS
+              OUR NUTRITION RANGE
             </span>
             <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">
-              Find what fits your routine.
+              Complete nutrition, tailored to your needs.
             </h2>
           </div>
           <p className="font-body-md text-body-md text-on-surface-variant max-w-md">
-            Every body operates differently. Choose your focal area to access
-            targeted micro-nutrient formulations tailored to your everyday
-            vitality.
+            Whether you need complete daily nutrition, blood sugar–conscious support, or a protein boost for recovery — we have a range designed for you.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
           {GOAL_CATEGORIES.map((goal) => (
             <Link
               key={goal.slug}
@@ -50,12 +48,12 @@ export default function GoalCategories() {
                   {goal.description}
                 </p>
               </div>
-              <div
+              {/* <div
                 className={`inline-flex items-center gap-1.5 font-label-md text-label-md ${goal.ctaClass} group-hover:gap-2.5 transition-all`}
               >
                 <span>{goal.cta}</span>
                 <MaterialIcon name="arrow_forward" className="text-[18px]" />
-              </div>
+              </div> */}
             </Link>
           ))}
         </div>

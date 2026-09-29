@@ -16,9 +16,9 @@ export default function HomePage() {
       <Hero />
       <TrustStrip />
       <GoalCategories />
-      <QuizSection />
+      {/* <QuizSection /> */}
       <FeaturedProducts />
-      <EditorialBanner />
+      {/* <EditorialBanner /> */}
       <ExpertSection />
       <ReviewsSection />
       <MembershipBanner />

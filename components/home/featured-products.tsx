@@ -10,9 +10,9 @@ import { FEATURED_PRODUCTS, ROUTES, type ProductCard } from "@/lib/site";
 
 const FILTERS = [
   { label: "All Products", active: true },
-  { label: "Daily Foundation", active: false },
-  { label: "Targeted Support", active: false },
-  { label: "Bundles", active: false },
+  { label: "Complete Nutrition", active: false },
+  { label: "Diabetic Care", active: false },
+  { label: "Protein Support", active: false },
 ];
 
 function ProductCardView({ product }: { product: ProductCard }) {
@@ -101,7 +101,7 @@ export default function FeaturedProducts() {
               CLINICALLY PROVEN
             </span>
             <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">
-              Clinically proven favorites.
+              OUR BESTSELLERS
             </h2>
           </div>
           <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 scrollbar-none">

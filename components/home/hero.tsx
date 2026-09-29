@@ -28,16 +28,14 @@ export default function Hero() {
         <div className="lg:col-span-6 flex flex-col items-start gap-6">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-secondary-container/20 text-secondary font-label-sm text-label-sm">
             <span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
-            <span>CLINICALLY FORMULATED • 100% CLEAN INGREDIENTS</span>
+            <span className="uppercase">Trusted Formulation • Premium Quality Ingredients</span>
           </div>
           <h1 className="font-display-hero text-display-hero-mobile md:text-display-hero text-primary tracking-tight leading-[1.08]">
-            Nutrition built <br className="hidden sm:inline" />
-            around <span className="italic font-light text-secondary">your goals.</span>
+            Revitalizing Life. <br className="hidden sm:inline" />
+           Complete  <span className="italic font-light text-secondary">Nutrition.</span>
           </h1>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
-            Discover bioavailable daily supplements designed to make vibrant
-            health effortless. Backed by clinical nutritionists and delivered
-            directly to your doorstep.
+            Quality-driven nutrition for everyday life. Whether you're managing your heart health, staying active, or simply looking to feel your best, our range is thoughtfully formulated to support your energy, strength, and overall wellbeing — at every age and every stage of life
           </p>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto pt-2">
@@ -56,7 +54,7 @@ export default function Hero() {
             </a>
           </div>
 
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4 pt-4">
+          {/* <div className="flex flex-col sm:flex-row sm:items-center gap-4 pt-4">
             <div className="flex items-center gap-1 text-amber-500">
               {[0, 1, 2, 3, 4].map((index) => (
                 <MaterialIcon key={index} name="star" fill className="text-[20px]" />
@@ -67,7 +65,7 @@ export default function Hero() {
               verified wellness routines. Free shipping &amp; 30-day money-back
               guarantee.
             </p>
-          </div>
+          </div> */}
         </div>
 
         <div className="lg:col-span-6 relative flex justify-center items-center">
