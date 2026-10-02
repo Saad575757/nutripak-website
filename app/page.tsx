@@ -6,7 +6,7 @@ import Hero from "@/components/home/hero";
 import HomepageIntro from "@/components/home/homepage-intro";
 import IntroBanner from "@/components/home/intro-banner";
 import MembershipBanner from "@/components/home/membership-banner";
-import QuizSection from "@/components/home/quiz-section";
+import QuizTeaser from "@/components/quiz/quiz-teaser";
 import ReviewsSection from "@/components/home/reviews";
 import TrustStrip from "@/components/home/trust-strip";
 
@@ -18,7 +18,7 @@ export default function HomePage() {
       <Hero />
       <TrustStrip />
       <GoalCategories />
-      {/* <QuizSection /> */}
+      <QuizTeaser />
       <FeaturedProducts />
       {/* <EditorialBanner /> */}
       <ExpertSection />
