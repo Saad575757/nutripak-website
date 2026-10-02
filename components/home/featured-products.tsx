@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import MaterialIcon from "@/components/material-icon";
 import { useCart } from "@/components/cart/cart-context";
+import { formatPkr } from "@/lib/shop";
 import { FEATURED_PRODUCTS, ROUTES, type ProductCard } from "@/lib/site";
 
 const FILTERS = [
@@ -18,12 +19,12 @@ const FILTERS = [
 function ProductCardView({ product }: { product: ProductCard }) {
   const { addItem, openCart } = useCart();
 
-  const handleQuickAdd = () => {
+  const handleOrderNow = () => {
     addItem({
       key: product.slug,
       name: product.name,
-      variant: "Monthly Subscription (15% off)",
-      price: product.subscribePrice,
+      variant: product.variant,
+      price: product.pricePkr,
       image: product.image,
       alt: product.alt,
     });
@@ -34,11 +35,6 @@ function ProductCardView({ product }: { product: ProductCard }) {
     <div className="group flex flex-col justify-between bg-surface-container-lowest rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all">
       <div className="flex flex-col gap-4">
         <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-surface-container-low p-4 flex items-center justify-center">
-          <span
-            className={`absolute top-3 left-3 px-3 py-1 rounded-full ${product.badgeClass} font-label-sm text-[11px] font-bold`}
-          >
-            {product.badge}
-          </span>
           <Image
             src={product.image}
             alt={product.alt}
@@ -48,15 +44,6 @@ function ProductCardView({ product }: { product: ProductCard }) {
           />
         </div>
         <div>
-          <div className="flex items-center gap-1.5 text-amber-500 mb-1">
-            <MaterialIcon name="star" fill className="text-[16px]" />
-            <span className="font-label-sm text-label-sm font-bold text-on-surface">
-              {product.rating}
-            </span>
-            <span className="font-body-sm text-body-sm text-on-surface-variant">
-              ({product.reviews.toLocaleString()} reviews)
-            </span>
-          </div>
           <Link href={ROUTES.product(product.slug)}>
             <h3 className="font-title-lg text-title-lg text-primary mb-1 transition-colors group-hover:text-secondary">
               {product.name}
@@ -68,21 +55,21 @@ function ProductCardView({ product }: { product: ProductCard }) {
         </div>
       </div>
       <div className="pt-6 mt-4 flex flex-col gap-3">
-        <div className="flex items-baseline justify-between gap-2 flex-wrap">
-          <span className="font-title-lg text-title-lg text-primary font-bold">
-            ${product.price.toFixed(2)}
+        <div className="flex flex-col">
+          <span className="font-label-sm text-label-sm uppercase tracking-widest text-outline font-bold">
+            Retail Price
           </span>
-          <span className="font-label-sm text-label-sm text-secondary font-bold">
-            Subscribe &amp; Save 15% (${product.subscribePrice.toFixed(2)})
+          <span className="font-title-lg text-title-lg text-primary font-bold">
+            {formatPkr(product.pricePkr)}
           </span>
         </div>
         <button
           className="w-full py-3.5 rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-semibold transition-all flex items-center justify-center gap-2"
-          onClick={handleQuickAdd}
+          onClick={handleOrderNow}
           type="button"
         >
           <MaterialIcon name="add_shopping_cart" className="text-[18px]" />
-          <span>Quick Add to Bag</span>
+          <span>Order Now</span>
         </button>
       </div>
     </div>

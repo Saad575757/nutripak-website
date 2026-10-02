@@ -1,12 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import MaterialIcon from "@/components/material-icon";
-import {
-  ABOUT_HERO,
-  ABOUT_STATS,
-  HERO_LIFESTYLE_IMAGE,
-} from "@/lib/about";
+import { ABOUT_HERO, ABOUT_STATS } from "@/lib/about";
 import { ROUTES } from "@/lib/site";
 
 export default function AboutHero() {
@@ -53,6 +48,7 @@ export default function AboutHero() {
             </div>
           </div>
 
+          {/* TODO: re-enable once we have a real medical spokesperson.
           <div className="relative w-full rounded-2xl overflow-hidden min-h-[420px] bg-surface-container shadow-md">
             <Image
               src={HERO_LIFESTYLE_IMAGE}
@@ -85,6 +81,7 @@ export default function AboutHero() {
               </figure>
             </div>
           </div>
+          */}
 
           <div className="w-full rounded-xl bg-surface-container p-6 md:p-8 shadow-sm">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">

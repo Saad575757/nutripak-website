@@ -35,7 +35,7 @@ export default function Hero() {
            Complete  <span className="italic font-light text-secondary">Nutrition.</span>
           </h1>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
-            Quality-driven nutrition for everyday life. Whether you're managing your heart health, staying active, or simply looking to feel your best, our range is thoughtfully formulated to support your energy, strength, and overall wellbeing — at every age and every stage of life
+            Quality-driven nutrition for everyday life. Whether you&apos;re managing your heart health, staying active, or simply looking to feel your best, our range is thoughtfully formulated to support your energy, strength, and overall wellbeing — at every age and every stage of life
           </p>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto pt-2">

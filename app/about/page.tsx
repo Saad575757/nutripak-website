@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
 import AboutHero from "@/components/about/about-hero";
-import AdvisoryBoard from "@/components/about/advisory-board";
 import CommitmentSection from "@/components/about/commitment";
 import DownloadsSection from "@/components/about/downloads";
 import FaqSection from "@/components/about/faq";
@@ -11,6 +10,8 @@ import PillarsSection from "@/components/about/pillars";
 import PrinciplesSection from "@/components/about/principles";
 import QualitySection from "@/components/about/quality";
 import StorySections from "@/components/about/story";
+// TODO: re-enable once we actually have a medical team.
+// import AdvisoryBoard from "@/components/about/advisory-board";
 
 export const metadata: Metadata = {
   title: "About Us & Science",
@@ -23,7 +24,7 @@ export default function AboutPage() {
       <OriginSection />
       <StorySections />
       <PillarsSection />
-      <AdvisoryBoard />
+      {/* <AdvisoryBoard /> */}
       <QualitySection />
       <CommitmentSection />
       <OfferSection />

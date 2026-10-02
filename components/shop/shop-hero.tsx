@@ -4,15 +4,13 @@ import { useState } from "react";
 
 import MaterialIcon from "@/components/material-icon";
 import {
-  DELIVERY_FORMS,
-  DIET_TAGS,
   SHOP_CATEGORY_PILLS,
+  SHOP_PRODUCTS,
   SORT_OPTIONS,
 } from "@/lib/shop";
 
 export default function ShopHero() {
   const [activePill, setActivePill] = useState(0);
-  const [deliveryForm, setDeliveryForm] = useState(0);
   const [sort, setSort] = useState(0);
 
   return (
@@ -23,15 +21,13 @@ export default function ShopHero() {
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm uppercase tracking-wider mb-4 shadow-sm">
             <MaterialIcon name="biotech" className="text-[14px]" />
-            Pharmacopeia Grade Supplementation
+            PHARMACOPIA GRADE SUPPLEMENTATION
           </div>
           <h1 className="font-headline-lg text-headline-lg text-primary tracking-tight font-normal mb-4">
-            Clinically Engineered Formulations.
+            Thoughtfully Crafted Nutrition.
           </h1>
           <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-2xl mb-8">
-            Targeted cellular nutrition formulated with 100% chelated minerals,
-            active co-enzymes, and liposomal bioavailability. No synthetic
-            binders, no silica oxides, no artificial flow agents—ever.
+            Thoughtfully crafted nutrition for everyday life. Whether you&apos;re managing your heart health, staying active, or simply looking to feel your best, our range is thoughtfully formulated to support your energy, strength, and overall wellbeing at every age and every stage of life.
           </p>
         </div>
 
@@ -65,40 +61,13 @@ export default function ShopHero() {
         </div>
 
         <div className="mt-6 p-4 rounded-xl bg-surface-container-low flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="relative inline-block">
-              <select
-                aria-label="Delivery Form"
-                className="appearance-none bg-surface-container-lowest text-on-surface font-label-md text-label-md pl-4 pr-10 py-2 rounded-full cursor-pointer shadow-sm hover:bg-surface-bright transition-colors focus:outline-none focus:ring-2 focus:ring-secondary"
-                value={deliveryForm}
-                onChange={(event) => setDeliveryForm(Number(event.target.value))}
-              >
-                {DELIVERY_FORMS.map((form) => (
-                  <option key={form}>{form}</option>
-                ))}
-              </select>
-              <MaterialIcon
-                name="expand_more"
-                className="absolute right-3 top-2.5 text-[18px] pointer-events-none text-on-surface-variant"
-              />
-            </div>
-            <div className="hidden lg:flex items-center gap-2">
-              {DIET_TAGS.map((tag) => (
-                <button
-                  key={tag}
-                  className="px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-primary hover:text-on-primary font-label-sm text-label-sm transition-colors"
-                  type="button"
-                >
-                  {tag}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="flex items-center justify-between md:justify-end gap-4">
-            <span className="font-label-sm text-label-sm text-on-surface-variant">
-              Showing{" "}
-              <strong className="text-primary font-bold">12 Verified Formulations</strong>
-            </span>
+          <span className="font-label-sm text-label-sm text-on-surface-variant">
+            Showing{" "}
+            <strong className="text-primary font-bold">
+              {SHOP_PRODUCTS.length} Formulations
+            </strong>
+          </span>
+          <div className="flex items-center justify-end gap-4">
             <div className="relative inline-block">
               <select
                 aria-label="Sort products by"

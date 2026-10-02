@@ -6,9 +6,9 @@ interface MarqueeMessage {
 }
 
 const MESSAGES: MarqueeMessage[] = [
-  { icon: "local_shipping", text: "FREE SHIPPING ON ORDERS OVER $50" },
-  { icon: "eco", text: "20% OFF YOUR FIRST ROUTINE WITH CODE WELLNESS20" },
-  { icon: "verified", text: "30-DAY HAPPINESS GUARANTEE" },
+  { icon: "local_shipping", text: "FREE SHIPPING ON ORDERS OVER PKR 5,000" },
+  { icon: "verified", text: "CASH ON DELIVERY AVAILABLE" },
+  { icon: "storefront", text: "NUTRIPAK NUTRITION PRODUCTS" },
 ];
 
 function Track({ hidden = false }: { hidden?: boolean }) {

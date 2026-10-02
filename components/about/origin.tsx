@@ -26,6 +26,7 @@ export default function OriginSection() {
           </div>
         </div>
 
+        {/* TODO: re-enable once we have real founders to name.
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-sm">
           {ABOUT_ORIGIN.founders.map((founder) => (
             <div key={founder.name} className="flex items-center gap-3">
@@ -49,6 +50,7 @@ export default function OriginSection() {
             </div>
           ))}
         </div>
+        */}
       </div>
     </section>
   );

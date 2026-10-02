@@ -1,205 +1,256 @@
+export interface ProductFaq {
+  question: string;
+  answer: string;
+  /** Optional sub-bullets rendered under the answer. */
+  points?: string[];
+}
+
 export interface ShopProduct {
   slug: string;
   name: string;
-  badge: string;
-  badgeClass: string;
-  subBadge: string;
-  tag: string;
-  tagClass: string;
-  rating: string;
-  reviews: string;
+  /** Short line used on cards and in listings. */
+  tagline: string;
+  /** Longer line used on the product's own page. */
   description: string;
-  price: number;
-  originalPrice: number;
+  /** Retail price in Pakistani Rupees. */
+  pricePkr: number;
+  variant: string;
   image: string;
   alt: string;
-  variant: string;
+  keyFeatures: string[];
+  faqs: ProductFaq[];
 }
 
 const AIDA = "https://lh3.googleusercontent.com/aida-public/";
 
+/**
+ * Product photography is still placeholder art reused from the previous
+ * catalogue — swap these URLs for final pack shots before launch.
+ */
+const PRODUCT_IMAGES = {
+  proteios:
+    AIDA +
+    "AB6AXuBoa3wK5O5u7zPJ03-0CFGwEIGj296608YzRbAtg5jf3wBH6dwKXVN47ZI_YtO1lTNA3pY78tnkL-r5bEQi6amJitEdX5KOVAAVxDld0JhKBv0k-ZUWAx_OnhqqL4EzcUhLL4EoRrBi30F6bgYeSq8tvidWVhu_FaPXECuLlYxkQjbv7pxS6daOp7MRXEukGZ1ookpJHBLrrxmf4oCHf8DlCdnut1M5MR-JdYNvX4XrntiXctcPuCXFqw",
+  adaGlu:
+    AIDA +
+    "AB6AXuBQ62ZNsWF4Yx5hKH1SpvAAffTTLKNA2gO8SPTjQ9d5xryZnC3J8seKidKfvFOZl2d8H9pXJ3x6ZEZP1gl90JHzX5Oh7mUZO950DZ5WFjsYR7or8AyZCm7IsoszVQVND4ZD67I9ffDKG5L22raGB5PJpVWAIMtCiD2DyHnB5ZfNJSZ1QxVOZmEnwZNcDVS9q6evH_ivAr4YQsX4Xm2R9YdS5qfiUnnRHEurjcov1rmR7hkl0NYB-M_SOw",
+  subset:
+    AIDA +
+    "AB6AXuCGKnqYJG_bfofye3jtQ1tbPzOeY0WfH8kgKpLeEg_kK38YePDQUAjW-OXoNuF7sGevLQoOGSYGyDDDW7toBaOpjEuBQpQxPx5CeC1BxKuc_nF9dB-n7gJW1LbZs_r-fsKFVlrlRTeiwGsPtGOt3rP5pJRYo5TdSruTzRzxfhfIhgN8vhgMBwiUHZ7XmPK8aYfKM1AsmADpBpDickOJT5nzhLDh5EqJKvGFi09PYm86ILvSXMZAqycspg",
+};
+
 export const SHOP_PRODUCTS: ShopProduct[] = [
   {
-    slug: "vitamin-c-d3",
-    name: "Daily Wellness Vitamin C + D3 Complex",
-    badge: "Bestseller",
-    badgeClass: "bg-secondary-container text-on-secondary-fixed",
-    subBadge: "Batch #NP-2024",
-    tag: "Immune & Cellular",
-    tagClass: "bg-primary-fixed text-on-primary-fixed-variant",
-    rating: "4.9",
-    reviews: "1,842",
+    slug: "proteios",
+    name: "PROTEIOS",
+    tagline:
+      "High-quality protein to support strength, recovery, and everyday healing.",
     description:
-      "Liposomal ascorbic acid bound with organic coconut MCT lipids and fermented lichen cholecalciferol for 8x mucosal uptake.",
-    price: 28.9,
-    originalPrice: 34,
-    variant: "60 Bioactive Capsules",
-    image:
-      AIDA +
-      "AB6AXuCcB-9fyucXNWokTBvtAR2YlwZxtGKUeSBFIT-A1nXGt5fb1elQgO6gdOk7UTJJECRUyW_qs51X5zy0Xa2CvjeoaxwoEXaO9sz7F60mkPlKexEWJO_fjGYLGE9Zsm-0IBhy1IfB0z4XN7FZL5Al3wjtsULg1JpyaxfBgLgH8RTXZfKeyd5G9Li6FvLMb7ibKCt7rSX2yCBASdZwmawfs8sXaSq0d0f_OPOPS2cjzddZKm7E1zkmrYBgYw",
-    alt: "Minimalist amber apothecary glass jar and off-white supplement bottle of Nutripak Daily Wellness Vitamin C and D3 complex placed on oak surface with soft morning kitchen light and botanical eucalyptus branch.",
+      "High quality protein to support strength, recovery, and everyday healing.",
+    pricePkr: 2800,
+    variant: "Whey Protein Blend",
+    image: PRODUCT_IMAGES.proteios,
+    alt: "White protein powder tub on a clean wooden kitchen counter in soft natural light.",
+    keyFeatures: [
+      "Premium whey protein blend, 100% natural source of whey protein.",
+      "Peptide rich for rapid absorption and efficient nutrient delivery.",
+      "Helps enhance lean body mass.",
+      "Supports muscle protein synthesis (MPS), recovery and athletic performance.",
+      "Provides immunomodulatory and antioxidant benefits.",
+      "Unflavored, so it mixes easily into routine meals.",
+    ],
+    faqs: [
+      {
+        question: "What is PROTEIOS?",
+        answer:
+          "A premium whey protein blend that is a 100% natural source of whey protein.",
+      },
+      {
+        question: "How does it help the body?",
+        answer:
+          "It supports muscle protein synthesis, helps enhance lean body mass, and supports athletic performance.",
+      },
+      {
+        question: "Does it offer any other benefits?",
+        answer:
+          "Yes. It provides immunomodulatory and antioxidant benefits, and helps nutrient delivery and rapid absorption.",
+      },
+      {
+        question: "Why is it unflavored?",
+        answer:
+          "So it blends easily into the routine diet without changing the taste.",
+      },
+      {
+        question: "Who can use it?",
+        answer:
+          "Active individuals and anyone wanting to raise their protein intake. Patients should use it under medical guidance.",
+      },
+      {
+        question: "How much should be taken daily?",
+        answer: "Follow your doctor’s or dietitian’s advice.",
+      },
+    ],
   },
   {
-    slug: "renew-collagen",
-    name: "Renew Collagen Peptides & Hyaluronic Matrix",
-    badge: "Top Rated",
-    badgeClass: "bg-secondary-fixed text-on-secondary-fixed",
-    subBadge: "99.8% Bioavailability",
-    tag: "Dermal Longevity",
-    tagClass: "bg-surface-variant text-tertiary",
-    rating: "5.0",
-    reviews: "980",
+    slug: "ada-glu",
+    name: "ADA-glu",
+    tagline:
+      "Slow release carbohydrate blend formulated to support blood sugar management.",
     description:
-      "Micro-hydrolyzed Type I & III pasture-raised collagen combined with low-molecular 120mg sodium hyaluronate.",
-    price: 39.1,
-    originalPrice: 46,
-    variant: "450g Marine Collagen Powder",
-    image:
-      AIDA +
-      "AB6AXuBoa3wK5O5u7zPJ03-0CFGwEIGj296608YzRbAtg5jf3wBH6dwKXVN47ZI_YtO1lTNA3pY78tnkL-r5bEQi6amJitEdX5KOVAAVxDld0JhKBv0k-ZUWAx_OnhqqL4EzcUhLL4EoRrBi30F6bgYeSq8tvidWVhu_FaPXECuLlYxkQjbv7pxS6daOp7MRXEukGZ1ookpJHBLrrxmf4oCHf8DlCdnut1M5MR-JdYNvX4XrntiXctcPuCXFqw",
-    alt: "Elegantly styled bone-white cylindrical jar of Nutripak Renew Collagen Peptides and Hyaluronic Acid placed on a clean wooden shelf in sun-drenched Scandinavian bathroom interior.",
+      "Slow release carbohydrate blend designed to fit into a dietary plan for diabetes management.",
+    pricePkr: 3800,
+    variant: "Slow Release Carbohydrate Blend",
+    image: PRODUCT_IMAGES.adaGlu,
+    alt: "Light beige supplement canister on an oak kitchen counter with sliced citrus and natural greenery.",
+    keyFeatures: [
+      "Low glycemic index carbohydrate.",
+      "Contains monounsaturated fatty acids (MUFAs).",
+      "Rich in dietary fibers (FOS).",
+      "Natural source of protein (whey and soy protein isolate).",
+      "Supports heart health and weight management, with essential vitamins and minerals.",
+      "Aids in diabetes management.",
+    ],
+    faqs: [
+      {
+        question:
+          "What is the carbohydrate source, and is it suitable for diabetes?",
+        answer:
+          "ADA-glu uses a low glycemic index carbohydrate (maltodextrin). It is balanced with fiber (FOS), protein, and monounsaturated fats (MUFAs), which together help support a steadier glycemic response as part of a diabetes dietary plan.",
+      },
+      {
+        question: "What is the protein source, and how much does it contain?",
+        answer:
+          "It contains whey and soy protein isolate, with total protein of 19.61% (per 100 g). This quality protein supports muscle maintenance and recovery, which matters for people managing diabetes.",
+      },
+      {
+        question: "What type of fat does it contain?",
+        answer:
+          "The fat source is MUFAs (monounsaturated fatty acids), which support heart health.",
+      },
+      {
+        question: "What is the fiber source, and what is its role?",
+        answer:
+          "The fiber source is FOS, with 2 g of dietary fiber per 100 g. It acts as a prebiotic to support gut health, and fiber helps slow carbohydrate absorption.",
+      },
+      {
+        question: "Does it contain vitamins and minerals?",
+        answer:
+          "Yes, it contains essential vitamins and minerals to support daily nutritional needs.",
+      },
+      {
+        question: "Does it contain sugar substitutes?",
+        answer:
+          "Yes, aspartame (71.82 mg per serving). People with phenylketonuria (PKU) should avoid aspartame.",
+      },
+      {
+        question: "Is it a meal replacement or a supplement?",
+        answer:
+          "It is a nutritional supplement. In controlled quantities, as advised by the doctor or dietitian, it can partly replace a meal.",
+      },
+      {
+        question: "Which patients can use it?",
+        answer:
+          "It is designed for people with diabetes, as part of a dietary plan set by their doctor or dietitian. For Type 1, 2, and gestational diabetes, use only under close medical supervision and glucose monitoring.",
+      },
+    ],
   },
   {
-    slug: "deep-sleep-magnesium",
-    name: "Deep Sleep & Neuro-Calm (Magnesium Glycinate)",
-    badge: "Sleep Science",
-    badgeClass: "bg-tertiary text-on-tertiary",
-    subBadge: "Clinical Strength",
-    tag: "Circadian Rest",
-    tagClass: "bg-tertiary-fixed text-on-tertiary-fixed-variant",
-    rating: "4.9",
-    reviews: "2,110",
+    slug: "subset",
+    name: "SUBSET",
+    tagline:
+      "Balanced macro & micronutrients to support daily strength, energy, and vitality.",
     description:
-      "Fully chelated bisglycinate coupled with fermented L-Theanine and tart cherry phytonutrients. Non-drowsy morning formula.",
-    price: 30.6,
-    originalPrice: 36,
-    variant: "90 Clinical Capsules",
-    image:
-      AIDA +
-      "AB6AXuDfsKTGPdOHBk2pGOugiW2_XG_cAIRipiKLyta1awKys5ftSAN22vMHRwYG_708NKibbYMchh0Dnffy8wC_zRY2EryfjJno0Fe9KvGHKDrBSbFu-kNyrCax3zIVviWjsH6_JtQ7i6omEG9d7jesGtH0A3PbT4umdIB4zuW6kvhiaC68XRX1yXfrPXEx05U6ya9kcxHeACcLjcJHTmhhVzx-PA-72Vbe0ZHAAP18u45X4dTmqvohbedi4A",
-    alt: "Deep dark violet glass supplement jar of Nutripak Neuro-Calm Sleep Magnesium on modern limestone surface with dried lavender and serene twilight mood.",
-  },
-  {
-    slug: "nad-booster",
-    name: "Cellular NAD+ Booster & Resveratrol",
-    badge: "Longevity Hub",
-    badgeClass: "bg-primary text-on-primary",
-    subBadge: "Micronized",
-    tag: "Mitochondrial Power",
-    tagClass: "bg-primary-fixed text-on-primary-fixed-variant",
-    rating: "4.8",
-    reviews: "630",
-    description:
-      "Pharmaceutical-grade Nicotinamide Mononucleotide with trans-resveratrol and quercetin phytosome for mitochondrial repair.",
-    price: 54.4,
-    originalPrice: 64,
-    variant: "30 Liposomal Sachets",
-    image:
-      AIDA +
-      "AB6AXuCwYZb5EbRybxIpwC547XD5zR0rVEs4C0_mBAIaNfdXlTCA71WBT3ifsSRPcqQ9CX5rzdoF94nUiNSooCtUP2u-nlpSwUfyR-TtjTPCplSNd0j_-JIlKyYjiMGHfIY53NmIsu9gf8ellHK9F4vHyyc41GGjz7apFD4B0oXCo8pWx28h3Ao7gr6Sx7vuE642keFIJLVGAqWHDieDY494m4P2mFvrf2679P1avSHWgaKYUl-m1MeRj0RFGA",
-    alt: "High-end amber glass supplement dropper and capsule bottle for Nutripak Cellular NAD+ Booster resting near polished granite laboratory glassware.",
-  },
-  {
-    slug: "synbiotic-50b",
-    name: "Synbiotic 50B Spore Probiotic + Prebiotic",
-    badge: "Stomach Acid Resistant",
-    badgeClass: "bg-secondary-fixed text-on-secondary-fixed",
-    subBadge: "Room Temp Stable",
-    tag: "Gut Microbiome",
-    tagClass: "bg-secondary-container text-on-secondary-fixed",
-    rating: "4.9",
-    reviews: "1,290",
-    description:
-      "Soil-based spore strains that survive 100% of digestive stomach acid, matched with Jerusalem artichoke organic inulin.",
-    price: 32.3,
-    originalPrice: 38,
-    variant: "60 Delayed-Release Capsules",
-    image:
-      AIDA +
-      "AB6AXuA7uvE4cL79IQwtXt6Vqk2d8rRZg6j28o6wunleLHyprxvyTX4EMKFEqXf6jUOCpeC1VDO0y7Grn1s5FWLRWoEKiOMboUmGGYsBP4npZ1VldUIcUM3KoxjE51GRM2VSgZDGOR-sN8lucUJfkOb1lPWfj9x_-qt0oLvNwyhTxrbhUo1gxc_KTc3G4r6O-9tbG0Xb_mRWTrKojIKKwAl31j_srItLPiCACviRfCi3n3oYsQ_s6t49D5e5qQ",
-    alt: "Amber glass pill bottle for Nutripak Synbiotic 50B Spore Probiotic next to fresh organic green botanical herbs and pure clean water beaker.",
-  },
-  {
-    slug: "omega-3-dha",
-    name: "Omega-3 Algal DHA + Astaxanthin",
-    badge: "Zero Heavy Metals",
-    badgeClass: "bg-surface-tint text-on-primary",
-    subBadge: "100% Plant Sourced",
-    tag: "Neuro & Heart",
-    tagClass: "bg-primary-fixed-dim text-on-primary-fixed-variant",
-    rating: "4.9",
-    reviews: "890",
-    description:
-      "Directly harvested ocean algae rich in clean DHA/EPA, reinforced with Icelandic haematococcus microalgae astaxanthin.",
-    price: 33.15,
-    originalPrice: 39,
-    variant: "60 Lipid-Stable Softgels",
-    image:
-      AIDA +
-      "AB6AXuAuSCHLDBzF2HUgoyN2KbUYImQdLrUOeQMIBJHz3yJtt7_xHRpTviueAzg9AqetPj4o70QMa4_5FS5RuSWcsYzvVW2txvFHgPpbaV2vUmVlND_quGgakHwna_o4QcqasA7qbYIFbudZqSBZKcNTNe-QtL0BiRmbThz15mh5vmHLzNmqMHwEeEBRNkuYq3ADbsxMJ10BU-BCoMCeEwiYzf2vPMuIwEjtk8PXJ53E8HwDB7E1DyI29YCkSA",
-    alt: "Glossy dark amber capsules in glass bottle of Nutripak Vegan Omega-3 Algal DHA with deep clean sea greens and pure clinical lighting.",
-  },
-  {
-    slug: "adrenal-ksm66",
-    name: "Adrenal Balance & Organic KSM-66",
-    badge: "Adaptogen",
-    badgeClass: "bg-primary-fixed text-on-primary-fixed-variant",
-    subBadge: "KSM-66 Full Spectrum",
-    tag: "Cortisol Modulation",
-    tagClass: "bg-surface-container text-on-surface-variant",
-    rating: "4.8",
-    reviews: "720",
-    description:
-      "Root-only extraction standardized to 5% withanolides paired with organic Rhodiola rosea to regulate sympathetic stress spikes.",
-    price: 27.2,
-    originalPrice: 32,
-    variant: "90 Root-Only Capsules",
-    image:
-      AIDA +
-      "AB6AXuBF48WkPnn-KPx_XV1gnvra7L9ldHLMnJwlktBhVrTGpXkweEpernj9OhykuqaOoVv6ohI6mPc4IVv4_5Qkfx35Ld17_SJO_bA2xkwzjgH4gCY821A6LSEscV9nVG5j-3ugwOQ-j_gwhtucX0byASdTrXhG26dq2n6Dyzzpe9ZdioyyTeJzN829gs_WZEC3cs_i6JLfnz-w35yxE8A2ZwBe6E6tONdvqJDgZPUJlj_Fb_Nbbo2je151yA",
-    alt: "Modern frosted amber glass container of Nutripak Adrenal Balance KSM-66 Ashwagandha with raw whole botanical roots and pure clean linen cloth.",
-  },
-  {
-    slug: "glucovital-berberine",
-    name: "Metabolic Glucovital Berberine Phytosome",
-    badge: "AMPK Activator",
-    badgeClass: "bg-secondary-container text-on-secondary-fixed",
-    subBadge: "Phytosome Bound",
-    tag: "Metabolic Health",
-    tagClass: "bg-primary-fixed text-on-primary-fixed-variant",
-    rating: "4.9",
-    reviews: "1,040",
-    description:
-      "Phospholipid-complexed Berberis aristata providing 10x greater intestinal absorption for postprandial glucose stability.",
-    price: 35.7,
-    originalPrice: 42,
-    variant: "90 Phytosome Capsules",
-    image:
-      AIDA +
-      "AB6AXuBQ62ZNsWF4Yx5hKH1SpvAAffTTLKNA2gO8SPTjQ9d5xryZnC3J8seKidKfvFOZl2d8H9pXJ3x6ZEZP1gl90JHzX5Oh7mUZO950DZ5WFjsYR7or8AyZCm7IsoszVQVND4ZD67I9ffDKG5L22raGB5PJpVWAIMtCiD2DyHnB5ZfNJSZ1QxVOZmEnwZNcDVS9q6evH_ivAr4YQsX4Xm2R9YdS5qfiUnnRHEurjcov1rmR7hkl0NYB-M_SOw",
-    alt: "Sophisticated light beige supplement cylinder of Nutripak Metabolic Glucovital Berberine on an oak kitchen counter with sliced lemons and natural greenery.",
-  },
-  {
-    slug: "bio-active-multi",
-    name: "Bio-Active Multi Core Foundation",
-    badge: "Foundational",
-    badgeClass: "bg-primary-fixed text-on-primary-fixed-variant",
-    subBadge: "Methylated B-Complex",
-    tag: "Daily Essentials",
-    tagClass: "bg-secondary-container text-on-secondary-fixed",
-    rating: "5.0",
-    reviews: "1,540",
-    description:
-      "24 essential micronutrients in bio-identical forms: methylfolate, methylcobalamin, and chelated trace minerals.",
-    price: 30.6,
-    originalPrice: 36,
-    variant: "60 Tablets",
-    image:
-      AIDA +
-      "AB6AXuCGKnqYJG_bfofye3jtQ1tbPzOeY0WfH8kgKpLeEg_kK38YePDQUAjW-OXoNuF7sGevLQoOGSYGyDDDW7toBaOpjEuBQpQxPx5CeC1BxKuc_nF9dB-n7gJW1LbZs_r-fsKFVlrlRTeiwGsPtGOt3rP5pJRYo5TdSruTzRzxfhfIhgN8vhgMBwiUHZ7XmPK8aYfKM1AsmADpBpDickOJT5nzhLDh5EqJKvGFi09PYm86ILvSXMZAqycspg",
-    alt: "Artisanal glass pill bottle with minimalist clean label of Nutripak Bio-Active Multi Core Foundation surrounded by natural botanical ingredients and clean sunlight.",
+      "Balanced macro & micronutrients to support daily strength, energy, and vitality.",
+    pricePkr: 5500,
+    variant: "Complete Balanced Nutrition Supplement",
+    image: PRODUCT_IMAGES.subset,
+    alt: "Artisanal glass bottle with a minimalist label surrounded by natural botanical ingredients in clean sunlight.",
+    keyFeatures: [
+      "Complete and balanced nutritional supplement for daily health needs.",
+      "Quality protein: whey and soy protein isolate (8.8 g per serving).",
+      "Fiber and healthy fats: FOS fiber and MUFAs.",
+      "Multivitamin and mineral blend to support daily nutrition.",
+      "Energy: 235.9 kcal per serving (54 g powder, 5 level scoops, makes one 230 ml glass).",
+      "Nutrient-dense vs. everyday foods: per 230 ml glass, 6x more calcium than an egg, 5.5x more zinc than a roti, 3.5x more iron than chicken breast (USDA Food Database comparisons).",
+    ],
+    faqs: [
+      {
+        question: "What is the carbohydrate source, and how much does it contain?",
+        answer:
+          "The carbohydrate source is maltodextrin, with some sucrose. It provides quick, easily digested energy, with 34.8 g carbohydrate per serving (64.49% per 100 g).",
+      },
+      {
+        question: "What is the protein source, and how much does it contain?",
+        answer:
+          "It contains whey protein isolate and soy protein isolate, with 8.8 g protein per serving (16.31% per 100 g). This quality protein supports daily protein needs, muscle maintenance and recovery.",
+      },
+      {
+        question: "What type of fat does it contain?",
+        answer:
+          "It contains monounsaturated fatty acids (MUFAs) along with vegetable fats, providing 6.8 g fat per serving (12.63% per 100 g).",
+      },
+      {
+        question: "What is the fiber source, and what is its role?",
+        answer:
+          "The fiber source is FOS (fructo-oligosaccharides). It acts as a prebiotic to support gut health.",
+      },
+      {
+        question: "Does it contain vitamins and minerals?",
+        answer:
+          "Yes, it contains a multivitamin and mineral blend, including vitamins A, D, E, C and B-complex, folic acid, calcium, potassium, magnesium, iron and zinc. Per 230 ml glass it provides about 168 mg calcium and 380 mg potassium.",
+      },
+      {
+        question: "How much energy does one serving provide?",
+        answer: "One serving gives 235.9 kcal (436.87 kcal per 100 g).",
+      },
+      {
+        question: "How is it prepared, and what is one serving?",
+        answer:
+          "One serving is 54 g powder (5 level scoops) mixed in water to make one 230 ml glass.",
+      },
+      {
+        question: "How does one glass compare with everyday foods?",
+        answer: "Per 230 ml glass (USDA Food Database), it has:",
+        points: [
+          "6x more calcium than an egg",
+          "5.5x more zinc than a roti",
+          "3.5x more iron than chicken breast",
+          "1.5x more iron than meat",
+          "3.2x more protein than a cup of rice",
+          "2x more potassium than an apple",
+          "2.3x more vitamin C than a tomato",
+        ],
+      },
+      {
+        question: "Is it a meal replacement or a supplement?",
+        answer:
+          "It is a nutritional supplement for daily health needs. It can be taken in addition to the regular diet, or in the quantity advised by the doctor or dietitian.",
+      },
+      {
+        question: "Who can use it?",
+        answer:
+          "It is a complete and balanced supplement for people who need extra nutrition in their daily diet, as advised by a doctor or dietitian.",
+      },
+      {
+        question: "Is it suitable for diabetic patients?",
+        answer:
+          "SUBSET contains maltodextrin and sucrose, so it is not designed for diabetes management.",
+      },
+    ],
   },
 ];
+
+export function getProductForSlug(slug: string): ShopProduct | undefined {
+  return SHOP_PRODUCTS.find((product) => product.slug === slug);
+}
+
+/** All prices on the site are in Pakistani Rupees. */
+export function formatPkr(value: number): string {
+  return `PKR ${value.toLocaleString("en-PK", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  })}`;
+}
 
 export interface ShopCategoryPill {
   label: string;
@@ -207,28 +258,16 @@ export interface ShopCategoryPill {
 }
 
 export const SHOP_CATEGORY_PILLS: ShopCategoryPill[] = [
-  { label: "All Formulations", count: "14" },
-  { label: "Daily Essentials", count: "4" },
-  { label: "Deep Rest & Sleep", count: "2" },
-  { label: "Cellular Energy", count: "3" },
-  { label: "Immune & Defense", count: "2" },
-  { label: "Digestive & Gut Health", count: "3" },
+  { label: "All Formulations", count: "3" },
+  { label: "General Nutrition Supplement", count: "1" },
+  { label: "Diabetic Care Supplement", count: "1" },
+  { label: "Protein Supplement", count: "1" },
 ];
-
-export const DELIVERY_FORMS = [
-  "Delivery Form: All",
-  "Bioactive Capsules",
-  "Liposomal Liquid",
-  "Bio-fermented Powder",
-];
-
-export const DIET_TAGS = ["Vegan", "Non-GMO", "Soy-Free", "ISO 17025 Certified"];
 
 export const SORT_OPTIONS = [
-  "Sort: Clinician Recommended",
-  "Sort: Most Popular",
+  "Sort: Featured",
   "Sort: Price: Low to High",
-  "Sort: Highest Bioavailability Score",
+  "Sort: Price: High to Low",
 ];
 
 export interface PledgeItem {
@@ -241,30 +280,30 @@ export interface PledgeItem {
 export const PLEDGE_ITEMS: PledgeItem[] = [
   {
     icon: "science",
-    title: "100% Chelated Forms",
+    title: "Quality Ingredients",
     description:
-      "Every mineral is pre-bound to bio-identical amino acids, avoiding digestive competition and preventing common GI irritation.",
+      "Every ingredient is selected for how well it is absorbed and how comfortably it sits in your daily routine.",
     iconClass: "bg-primary-fixed text-on-primary-fixed-variant",
   },
   {
     icon: "verified",
-    title: "Third-Party ISO Tested",
+    title: "Third-Party Tested",
     description:
-      "Every production lot undergoes rigorous liquid chromatography and mass spectrometry. Full Certificates of Analysis (COAs) are published online.",
+      "Every production lot is independently assayed for potency and purity before it reaches you.",
     iconClass: "bg-secondary-container text-on-secondary-fixed",
   },
   {
-    icon: "light_mode",
-    title: "Miron UV-Glass Defense",
+    icon: "nutrition",
+    title: "Nutrient-Dense Formulas",
     description:
-      "Biophotonic violet glassware filters the complete spectrum of visible light while admitting rejuvenating infrared and UVA frequencies.",
+      "Balanced macro and micronutrient profiles designed to fill the gaps a regular diet sometimes leaves behind.",
     iconClass: "bg-tertiary-fixed text-on-tertiary-fixed-variant",
   },
   {
     icon: "recycling",
-    title: "Carbon-Neutral Refills",
+    title: "Responsible Packaging",
     description:
-      "Subscribe once for the biophotonic glass keepsake, followed by zero-plastic 100% backyard compostable bio-pouch refills.",
+      "Sealed for freshness and quality, so every serving is as reliable as the last.",
     iconClass: "bg-surface-container-highest text-primary",
   },
 ];

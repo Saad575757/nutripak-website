@@ -13,9 +13,9 @@ const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: "PRODUCTS",
     links: [
-      { label: "SUBSET", href: ROUTES.shop },
-      { label: "ADA-Glu", href: ROUTES.shop },
-      { label: "Proteios", href: ROUTES.shop },
+      { label: "SUBSET", href: ROUTES.product("subset") },
+      { label: "ADA-Glu", href: ROUTES.product("ada-glu") },
+      { label: "Proteios", href: ROUTES.product("proteios") },
       { label: "Find the Right Product", href: `${ROUTES.home}#quiz-section` },
       { label: "Download Product Guide", href: `${ROUTES.about}#downloads` },
     ],
@@ -23,9 +23,9 @@ const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: "NUTRITION SCIENCE",
     links: [
-      { label: "Balanced Nutrition", href: ROUTES.shop },
-      { label: "Diabetes Care", href: ROUTES.shop },
-      { label: "Protein & Recovery", href: ROUTES.shop },
+      { label: "Balanced Nutrition", href: ROUTES.product("subset") },
+      { label: "Diabetes Care", href: ROUTES.product("ada-glu") },
+      { label: "Protein & Recovery", href: ROUTES.product("proteios") },
       { label: "General Health", href: ROUTES.shop },
     ],
   },
@@ -35,14 +35,14 @@ const FOOTER_COLUMNS: FooterColumn[] = [
       { label: "Media & Blog", href: ROUTES.blog },
       { label: "Health Tips", href: ROUTES.blog },
       { label: "Nutrition Fact Sheets", href: `${ROUTES.about}#downloads` },
-      { label: "For Healthcare Professionals", href: `${ROUTES.about}#team` },
+      { label: "For Healthcare Professionals", href: ROUTES.contact },
     ],
   },
   {
     title: "ABOUT",
     links: [
       { label: "About Nutripak", href: ROUTES.about },
-      { label: "Our Team", href: `${ROUTES.about}#team` },
+      { label: "Our Team", href: ROUTES.about },
       { label: "Quality & Safety", href: `${ROUTES.about}#quality` },
       { label: "Careers", href: ROUTES.contact },
     ],
@@ -51,6 +51,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
     title: "SUPPORT",
     links: [
       { label: "Contact Us", href: ROUTES.contact },
+      { label: "Send a Query", href: `${ROUTES.contact}#query` },
       { label: "FAQs", href: `${ROUTES.about}#faq` },
       { label: "Where to Buy", href: ROUTES.shop },
       { label: "Request Samples", href: ROUTES.contact },

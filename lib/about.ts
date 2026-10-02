@@ -225,11 +225,6 @@ export interface OfferCard {
   href: string;
 }
 
-/**
- * SUBSET / ADA-Glu / Proteios do not have product pages yet, so every card
- * currently points at the shop. Swap `href` for the real PDP slug once the
- * product routes exist (see lib/shop.ts for the current slug list).
- */
 export const ABOUT_OFFER_CARDS: OfferCard[] = [
   {
     name: "SUBSET",
@@ -237,7 +232,7 @@ export const ABOUT_OFFER_CARDS: OfferCard[] = [
     description:
       "26 essential macro- and micronutrients in one formula, built to support everyday health and fill in the nutritional gaps a regular diet sometimes leaves behind.",
     icon: "balance",
-    href: "/shop",
+    href: "/products/subset",
   },
   {
     name: "ADA-Glu",
@@ -245,7 +240,7 @@ export const ABOUT_OFFER_CARDS: OfferCard[] = [
     description:
       "A carefully controlled mix of macronutrients that supports blood sugar, heart health, and weight management, without giving up on taste or nutrition.",
     icon: "water_drop",
-    href: "/shop",
+    href: "/products/ada-glu",
   },
   {
     name: "Proteios",
@@ -253,7 +248,7 @@ export const ABOUT_OFFER_CARDS: OfferCard[] = [
     description:
       "Based on quality whey protein and whey peptides, it is designed to help those who are recuperating from illness or injury, have a protein shortage, or simply need more protein than their diet offers.",
     icon: "fitness_center",
-    href: "/shop",
+    href: "/products/proteios",
   },
 ];
 

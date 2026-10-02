@@ -5,6 +5,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -57,15 +58,26 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>(() => toItems(SEED_CART));
   const [isOpen, setIsOpen] = useState(false);
 
+  /**
+   * Guards the storage read against re-running. StrictMode double-invokes
+   * effects in dev, and without this the second pass would read back the seed
+   * cart that the persist effect had already written, discarding the real one.
+   */
+  const hydrated = useRef(false);
+
   useEffect(() => {
+    if (hydrated.current) return;
+    hydrated.current = true;
+
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
-      if (raw) {
+      // An emptied cart is stored as [], so only fall back to the seed when
+      // nothing has been saved yet.
+      if (raw !== null) {
         const parsed = JSON.parse(raw) as CartItem[];
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          // One-time hydration of the persisted cart after mount. The server
-          // renders the seed cart; applying stored state here avoids SSR
-          // hydration mismatches on first paint.
+        if (Array.isArray(parsed)) {
+          // The server renders the seed cart; applying stored state here avoids
+          // SSR hydration mismatches on first paint.
           // eslint-disable-next-line react-hooks/set-state-in-effect
           setItems(parsed);
         }
@@ -76,6 +88,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
+    if (!hydrated.current) return;
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
     } catch {

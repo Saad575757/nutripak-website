@@ -5,11 +5,8 @@ import Link from "next/link";
 
 import MaterialIcon from "@/components/material-icon";
 import { useCart } from "@/components/cart/cart-context";
+import { formatPkr } from "@/lib/shop";
 import { FREE_SHIPPING_THRESHOLD, ROUTES } from "@/lib/site";
-
-function formatPrice(value: number) {
-  return `$${value.toFixed(2)}`;
-}
 
 export default function CartDrawer() {
   const {
@@ -24,7 +21,7 @@ export default function CartDrawer() {
 
   const freeShippingUnlocked = subtotal >= FREE_SHIPPING_THRESHOLD;
   const progressPct = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
-  const remaining = FREE_SHIPPING_THRESHOLD - subtotal;
+  const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
 
   return (
     <>
@@ -67,7 +64,7 @@ export default function CartDrawer() {
           ) : (
             <>
               <div className="flex items-center justify-between text-secondary font-label-sm text-label-sm mb-1.5 font-bold">
-                <span>You are {formatPrice(remaining)} away from FREE shipping</span>
+                <span>You are {formatPkr(remaining)} away from FREE shipping</span>
                 <span>{Math.round(progressPct)}%</span>
               </div>
               <div className="w-full bg-surface-container rounded-full h-2 overflow-hidden">
@@ -138,7 +135,7 @@ export default function CartDrawer() {
                       </button>
                     </div>
                     <span className="font-title-md text-title-md font-bold text-primary">
-                      {formatPrice(item.price * item.quantity)}
+                      {formatPkr(item.price * item.quantity)}
                     </span>
                   </div>
                 </div>
@@ -162,7 +159,7 @@ export default function CartDrawer() {
                 Subtotal
               </span>
               <span className="font-title-lg text-title-lg font-bold text-primary">
-                {formatPrice(subtotal)}
+                {formatPkr(subtotal)}
               </span>
             </div>
             <Link
@@ -172,7 +169,7 @@ export default function CartDrawer() {
               Proceed to Checkout
             </Link>
             <span className="font-caption text-caption text-center text-on-surface-variant">
-              Shipping calculated at next step. Flexible skip or cancel.
+              Cash on delivery. Delivery is free over PKR 5,000.
             </span>
           </div>
         )}

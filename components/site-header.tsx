@@ -82,7 +82,7 @@ export default function SiteHeader() {
           </button>
           <div className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm cursor-pointer hover:bg-surface-container-high transition-colors">
             <MaterialIcon name="payments" className="text-[16px] text-secondary" />
-            <span>$ USD</span>
+            <span>PKR</span>
           </div>
           <button
             aria-label="Account"
