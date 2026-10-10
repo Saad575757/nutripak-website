@@ -2,6 +2,8 @@ import MaterialIcon from "@/components/material-icon";
 import type { ShopProduct } from "@/lib/shop";
 
 export default function ProductFaq({ product }: { product: ShopProduct }) {
+  if (product.faqs.length === 0) return null;
+
   return (
     <section className="w-full py-16 md:py-24">
       <div className="max-w-[1320px] mx-auto px-margin-mobile md:px-margin flex flex-col gap-10">

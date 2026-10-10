@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import CategoriesHero from "@/components/categories/categories-hero";
 import GoalSection from "@/components/categories/goal-section";
+import { getCatalogProducts } from "@/lib/catalog";
 import { AVAILABLE_GOALS } from "@/lib/goals";
 
 export const metadata: Metadata = {
@@ -10,12 +11,23 @@ export const metadata: Metadata = {
     "Browse Nutripak nutrition by goal — complete nutrition, diabetic care, and protein support for muscle and recovery.",
 };
 
-export default function CategoriesPage() {
+/** Refresh from the dashboard database at most this often. */
+export const revalidate = 30;
+
+export default async function CategoriesPage() {
+  const products = await getCatalogProducts();
+
   return (
     <div className="flex flex-col w-full">
       <CategoriesHero />
       {AVAILABLE_GOALS.map((goal) => (
-        <GoalSection goal={goal} key={goal.slug} />
+        <GoalSection
+          goal={goal}
+          key={goal.slug}
+          products={products.filter((product) =>
+            goal.productSlugs.includes(product.slug),
+          )}
+        />
       ))}
     </div>
   );

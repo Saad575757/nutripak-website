@@ -2,12 +2,17 @@ import Link from "next/link";
 
 import MaterialIcon from "@/components/material-icon";
 import ProductCard from "@/components/shop/product-card";
-import { productsForGoal, type Goal } from "@/lib/goals";
+import type { Goal } from "@/lib/goals";
+import type { ShopProduct } from "@/lib/shop";
 import { ROUTES } from "@/lib/site";
 
-export default function GoalSection({ goal }: { goal: Goal }) {
-  const products = productsForGoal(goal);
-
+export default function GoalSection({
+  goal,
+  products,
+}: {
+  goal: Goal;
+  products: ShopProduct[];
+}) {
   return (
     <section
       className="w-full py-14 md:py-20 scroll-mt-32"

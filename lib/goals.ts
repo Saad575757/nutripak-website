@@ -1,5 +1,3 @@
-import { SHOP_PRODUCTS, type ShopProduct } from "@/lib/shop";
-
 export interface Goal {
   slug: string;
   label: string;
@@ -88,10 +86,4 @@ export const AVAILABLE_GOALS = GOALS.filter((goal) => goal.available);
 
 export function getGoal(slug: string): Goal | undefined {
   return GOALS.find((goal) => goal.slug === slug);
-}
-
-export function productsForGoal(goal: Goal): ShopProduct[] {
-  return goal.productSlugs
-    .map((slug) => SHOP_PRODUCTS.find((product) => product.slug === slug))
-    .filter((product): product is ShopProduct => product !== undefined);
 }

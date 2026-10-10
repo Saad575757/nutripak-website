@@ -9,8 +9,14 @@ import MembershipBanner from "@/components/home/membership-banner";
 import QuizTeaser from "@/components/quiz/quiz-teaser";
 import ReviewsSection from "@/components/home/reviews";
 import TrustStrip from "@/components/home/trust-strip";
+import { getCatalogProducts } from "@/lib/catalog";
 
-export default function HomePage() {
+/** Refresh from the dashboard database at most this often. */
+export const revalidate = 30;
+
+export default async function HomePage() {
+  const products = await getCatalogProducts();
+
   return (
     <div className="flex flex-col w-full">
       <HomepageIntro />
@@ -19,9 +25,9 @@ export default function HomePage() {
       <TrustStrip />
       <GoalCategories />
       {/* <QuizTeaser /> */}
-      <FeaturedProducts />
+      <FeaturedProducts products={products} />
       {/* <EditorialBanner /> */}
-      <ExpertSection />
+      {/* <ExpertSection /> */}
       <ReviewsSection />
       <MembershipBanner />
     </div>

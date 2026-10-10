@@ -1,4 +1,4 @@
-import { SHOP_PRODUCTS } from "@/lib/shop";
+import { SHOP_PRODUCTS, type ShopProduct } from "@/lib/shop";
 
 export const ROUTES = {
   home: "/",
@@ -17,7 +17,7 @@ export const ROUTES = {
   blog: "/blog",
 } as const;
 
-interface CartItemSeed {
+export interface CartItemSeed {
   key: string;
   name: string;
   variant: string;
@@ -26,37 +26,19 @@ interface CartItemSeed {
   alt: string;
 }
 
-/** Sample cart contents shown on first load — the real product range. */
-export const SEED_CART: CartItemSeed[] = SHOP_PRODUCTS.map((product) => ({
-  key: product.slug,
-  name: product.name,
-  variant: product.variant,
-  price: product.pricePkr,
-  image: product.image,
-  alt: product.alt,
-}));
-
-export interface ProductCard {
-  slug: string;
-  name: string;
-  description: string;
-  pricePkr: number;
-  variant: string;
-  image: string;
-  alt: string;
+export function toCartSeed(products: ShopProduct[]): CartItemSeed[] {
+  return products.map((product) => ({
+    key: product.slug,
+    name: product.name,
+    variant: product.variant,
+    price: product.pricePkr,
+    image: product.image,
+    alt: product.alt,
+  }));
 }
 
-/** Homepage product rail. Mirrors SHOP_PRODUCTS. */
-export const FEATURED_PRODUCTS: ProductCard[] = SHOP_PRODUCTS.map((product) => ({
-  slug: product.slug,
-  name: product.name,
-  description: product.tagline,
-  pricePkr: product.pricePkr,
-  variant: product.variant,
-  image: product.image,
-  alt: product.alt,
-}));
-
+/** Sample cart contents shown on first load — the real product range. */
+export const SEED_CART: CartItemSeed[] = toCartSeed(SHOP_PRODUCTS);
 
 export interface Review {
   quote: string;

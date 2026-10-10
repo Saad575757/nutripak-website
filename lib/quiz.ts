@@ -1,5 +1,5 @@
 import { getGoal } from "@/lib/goals";
-import { SHOP_PRODUCTS, type ShopProduct } from "@/lib/shop";
+import type { ShopProduct } from "@/lib/shop";
 
 export type ProductSlug = "proteios" | "ada-glu" | "subset";
 
@@ -133,7 +133,10 @@ export interface QuizResult {
 }
 
 /** Tallies the chosen options and returns the highest-scoring product. */
-export function scoreQuiz(answers: Record<string, string>): QuizResult | null {
+export function scoreQuiz(
+  answers: Record<string, string>,
+  products: ShopProduct[],
+): QuizResult | null {
   const totals: Record<ProductSlug, number> = {
     proteios: 0,
     "ada-glu": 0,
@@ -151,10 +154,12 @@ export function scoreQuiz(answers: Record<string, string>): QuizResult | null {
   }
 
   // Scanned in catalogue order, so ties resolve predictably.
-  const scored = SHOP_PRODUCTS.map((product) => ({
-    product,
-    total: totals[product.slug as ProductSlug] ?? 0,
-  })).filter((entry) => entry.total > 0);
+  const scored = products
+    .map((product) => ({
+      product,
+      total: totals[product.slug as ProductSlug] ?? 0,
+    }))
+    .filter((entry) => entry.total > 0);
 
   const winner = scored.reduce(
     (best, entry) => (entry.total > best.total ? entry : best),

@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import MaterialIcon from "@/components/material-icon";
 import Quiz from "@/components/quiz/quiz";
+import { getCatalogProducts } from "@/lib/catalog";
 import { ROUTES } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -11,7 +12,12 @@ export const metadata: Metadata = {
     "Answer three quick questions and we'll point you to the Nutripak formula that matches your goals.",
 };
 
-export default function QuizPage() {
+/** Refresh from the dashboard database at most this often. */
+export const revalidate = 30;
+
+export default async function QuizPage() {
+  const products = await getCatalogProducts();
+
   return (
     <div className="flex flex-col w-full">
       <section className="w-full bg-primary text-on-primary">
@@ -47,7 +53,7 @@ export default function QuizPage() {
         </div>
       </section>
 
-      <Quiz />
+      <Quiz products={products} />
     </div>
   );
 }

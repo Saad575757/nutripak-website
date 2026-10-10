@@ -6,6 +6,8 @@ export default function ProductFeatures({
 }: {
   product: ShopProduct;
 }) {
+  if (product.keyFeatures.length === 0) return null;
+
   return (
     <section className="w-full py-16 md:py-20 bg-surface-container-low">
       <div className="max-w-[1320px] mx-auto px-margin-mobile md:px-margin">

@@ -6,10 +6,10 @@ import { useState } from "react";
 
 import MaterialIcon from "@/components/material-icon";
 import { QUIZ_QUESTIONS, scoreQuiz, type QuizResult } from "@/lib/quiz";
-import { formatPkr } from "@/lib/shop";
+import { formatPkr, type ShopProduct } from "@/lib/shop";
 import { ROUTES } from "@/lib/site";
 
-export default function Quiz() {
+export default function Quiz({ products }: { products: ShopProduct[] }) {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [result, setResult] = useState<QuizResult | null>(null);
@@ -30,7 +30,7 @@ export default function Quiz() {
     }
 
     setAnswers(nextAnswers);
-    setResult(scoreQuiz(nextAnswers));
+    setResult(scoreQuiz(nextAnswers, products));
   };
 
   const back = () => {

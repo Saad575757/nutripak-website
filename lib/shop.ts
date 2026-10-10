@@ -8,6 +8,8 @@ export interface ProductFaq {
 export interface ShopProduct {
   slug: string;
   name: string;
+  /** Dashboard SKU — stable key that ties a storefront product to its DB row. */
+  sku: string;
   /** Short line used on cards and in listings. */
   tagline: string;
   /** Longer line used on the product's own page. */
@@ -43,6 +45,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
   {
     slug: "proteios",
     name: "PROTEIOS",
+    sku: "NPK-PRT-003",
     tagline:
       "High-quality protein to support strength, recovery, and everyday healing.",
     description:
@@ -94,6 +97,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
   {
     slug: "ada-glu",
     name: "ADA-glu",
+    sku: "NPK-ADA-002",
     tagline:
       "Slow release carbohydrate blend formulated to support blood sugar management.",
     description:
@@ -157,6 +161,7 @@ export const SHOP_PRODUCTS: ShopProduct[] = [
   {
     slug: "subset",
     name: "SUBSET",
+    sku: "NPK-SUB-001",
     tagline:
       "Balanced macro & micronutrients to support daily strength, energy, and vitality.",
     description:

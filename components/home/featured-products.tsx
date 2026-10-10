@@ -6,8 +6,8 @@ import { useState } from "react";
 
 import MaterialIcon from "@/components/material-icon";
 import { useCart } from "@/components/cart/cart-context";
-import { formatPkr } from "@/lib/shop";
-import { FEATURED_PRODUCTS, ROUTES, type ProductCard } from "@/lib/site";
+import { formatPkr, type ShopProduct } from "@/lib/shop";
+import { ROUTES } from "@/lib/site";
 
 const FILTERS = [
   { label: "All Products", active: true },
@@ -16,7 +16,7 @@ const FILTERS = [
   { label: "Protein Support", active: false },
 ];
 
-function ProductCardView({ product }: { product: ProductCard }) {
+function ProductCardView({ product }: { product: ShopProduct }) {
   const { addItem, openCart } = useCart();
 
   const handleOrderNow = () => {
@@ -76,7 +76,11 @@ function ProductCardView({ product }: { product: ProductCard }) {
   );
 }
 
-export default function FeaturedProducts() {
+export default function FeaturedProducts({
+  products,
+}: {
+  products: ShopProduct[];
+}) {
   const [activeFilter, setActiveFilter] = useState(0);
 
   return (
@@ -110,7 +114,7 @@ export default function FeaturedProducts() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {FEATURED_PRODUCTS.map((product) => (
+          {products.map((product) => (
             <ProductCardView key={product.slug} product={product} />
           ))}
         </div>

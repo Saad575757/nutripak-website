@@ -10,7 +10,7 @@ import {
   type ReactNode,
 } from "react";
 
-import { SEED_CART } from "@/lib/site";
+import { SEED_CART, type CartItemSeed } from "@/lib/site";
 
 export interface CartItem {
   key: string;
@@ -40,9 +40,7 @@ const CartContext = createContext<CartContextValue | null>(null);
 
 const STORAGE_KEY = "nutripak.cart.v1";
 
-function toItems(
-  seeds: typeof SEED_CART
-): CartItem[] {
+function toItems(seeds: CartItemSeed[]): CartItem[] {
   return seeds.map((seed) => ({
     key: seed.key,
     name: seed.name,
@@ -54,8 +52,14 @@ function toItems(
   }));
 }
 
-export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>(() => toItems(SEED_CART));
+export function CartProvider({
+  children,
+  seed = SEED_CART,
+}: {
+  children: ReactNode;
+  seed?: CartItemSeed[];
+}) {
+  const [items, setItems] = useState<CartItem[]>(() => toItems(seed));
   const [isOpen, setIsOpen] = useState(false);
 
   /**

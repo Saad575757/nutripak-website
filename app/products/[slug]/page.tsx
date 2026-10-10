@@ -4,13 +4,14 @@ import { notFound } from "next/navigation";
 import ProductFaq from "@/components/product/product-faq";
 import ProductFeatures from "@/components/product/product-features";
 import ProductHero from "@/components/product/product-hero";
-import {
-  SHOP_PRODUCTS,
-  getProductForSlug,
-} from "@/lib/shop";
+import { getCatalogProduct, getCatalogSlugs } from "@/lib/catalog";
 
-export function generateStaticParams() {
-  return SHOP_PRODUCTS.map((product) => ({ slug: product.slug }));
+/** Refresh from the dashboard database at most this often. */
+export const revalidate = 30;
+
+export async function generateStaticParams() {
+  const slugs = await getCatalogSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -19,7 +20,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductForSlug(slug);
+  const product = await getCatalogProduct(slug);
   if (!product) return {};
   return {
     title: `${product.name} — Nutripak`,
@@ -33,7 +34,7 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = getProductForSlug(slug);
+  const product = await getCatalogProduct(slug);
   if (!product) notFound();
 
   return (

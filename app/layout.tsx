@@ -7,8 +7,13 @@ import { CartProvider } from "@/components/cart/cart-context";
 import CartDrawer from "@/components/cart/cart-drawer";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
+import { getCatalogProducts } from "@/lib/catalog";
+import { toCartSeed } from "@/lib/site";
 
 import "./globals.css";
+
+/** Keep the seeded cart in step with dashboard pricing. */
+export const revalidate = 30;
 
 const newsreader = Newsreader({
   subsets: ["latin"],
@@ -31,11 +36,13 @@ export const metadata: Metadata = {
     "Science-backed daily supplements crafted for tangible wellness results. Browse our clinically formulated routines, delivered to your doorstep.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const products = await getCatalogProducts();
+
   return (
     <html lang="en" className={`${newsreader.variable} ${jakarta.variable}`}>
       <head>
@@ -52,7 +59,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-background font-body-md text-on-surface antialiased">
-        <CartProvider>
+        <CartProvider seed={toCartSeed(products)}>
           <div className="fixed top-0 left-0 w-full z-50">
             <AnnouncementBar />
             <SiteHeader />

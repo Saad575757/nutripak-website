@@ -3,13 +3,9 @@
 import { useState } from "react";
 
 import MaterialIcon from "@/components/material-icon";
-import {
-  SHOP_CATEGORY_PILLS,
-  SHOP_PRODUCTS,
-  SORT_OPTIONS,
-} from "@/lib/shop";
+import { SHOP_CATEGORY_PILLS, SORT_OPTIONS } from "@/lib/shop";
 
-export default function ShopHero() {
+export default function ShopHero({ count }: { count: number }) {
   const [activePill, setActivePill] = useState(0);
   const [sort, setSort] = useState(0);
 
@@ -64,7 +60,7 @@ export default function ShopHero() {
           <span className="font-label-sm text-label-sm text-on-surface-variant">
             Showing{" "}
             <strong className="text-primary font-bold">
-              {SHOP_PRODUCTS.length} Formulations
+              {count} Formulations
             </strong>
           </span>
           <div className="flex items-center justify-end gap-4">
