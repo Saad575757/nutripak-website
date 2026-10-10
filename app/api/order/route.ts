@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { deliveryFeeFor, orderReference, totalFor } from "@/lib/checkout";
+import { isDatabaseConfigured, newId, query, withTransaction } from "@/lib/db";
 import { renderBrandedEmail } from "@/lib/email-template";
 import { sendMail } from "@/lib/mailer";
 import { PAYMENT_METHOD } from "@/lib/shipping";
@@ -11,6 +12,7 @@ export const runtime = "nodejs";
 interface OrderItemPayload {
   name?: unknown;
   variant?: unknown;
+  slug?: unknown;
   price?: unknown;
   quantity?: unknown;
 }
@@ -46,6 +48,7 @@ export async function POST(request: Request) {
     .map((item) => ({
       name: String(item.name ?? "").trim(),
       variant: String(item.variant ?? "").trim(),
+      slug: String(item.slug ?? "").trim(),
       price: Number(item.price ?? 0),
       quantity: Number(item.quantity ?? 0),
     }))
@@ -95,6 +98,24 @@ export async function POST(request: Request) {
   ]
     .filter((line): line is string => line !== null)
     .join("\n");
+
+  try {
+    await saveOrder({
+      reference,
+      customerName: fullName,
+      customerPhone: phone,
+      customerEmail: email,
+      address,
+      city,
+      notes,
+      subtotal,
+      delivery,
+      total,
+      items,
+    });
+  } catch (error) {
+    console.error("Order could not be saved to the database:", error);
+  }
 
   try {
     await sendMail({
@@ -158,4 +179,93 @@ export async function POST(request: Request) {
   }
 
   return NextResponse.json({ ok: true, reference, total });
+}
+
+interface PersistedOrderItem {
+  name: string;
+  slug: string;
+  price: number;
+  quantity: number;
+}
+
+interface PersistedOrder {
+  reference: string;
+  customerName: string;
+  customerPhone: string;
+  customerEmail: string;
+  address: string;
+  city: string;
+  notes: string;
+  subtotal: number;
+  delivery: number;
+  total: number;
+  items: PersistedOrderItem[];
+}
+
+/**
+ * Mirrors the submitted order into the dashboard database. Best-effort: the
+ * email notification remains the guarantee that an order was captured, so a
+ * database hiccup is logged rather than surfaced to the customer.
+ */
+async function saveOrder(order: PersistedOrder): Promise<void> {
+  if (!isDatabaseConfigured()) return;
+
+  const slugs = Array.from(
+    new Set(order.items.map((item) => item.slug).filter(Boolean)),
+  );
+
+  const products = slugs.length
+    ? await query<{ id: string; slug: string; sku: string }>(
+        `SELECT id, slug, sku FROM "Product" WHERE slug = ANY($1::text[])`,
+        [slugs],
+      )
+    : null;
+
+  const bySlug = new Map(
+    (products?.rows ?? []).map((row) => [row.slug, row]),
+  );
+
+  await withTransaction(async (client) => {
+    const orderId = newId();
+
+    await client.query(
+      `INSERT INTO "Order"
+         (id, "orderNumber", "customerName", "customerPhone", "customerEmail",
+          address, city, notes, subtotal, "deliveryCharges", total,
+          "paymentMethod", "createdAt", "updatedAt")
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12, now(), now())`,
+      [
+        orderId,
+        order.reference,
+        order.customerName,
+        order.customerPhone,
+        order.customerEmail || null,
+        order.address,
+        order.city,
+        order.notes || null,
+        order.subtotal,
+        order.delivery,
+        order.total,
+        "COD",
+      ],
+    );
+
+    for (const item of order.items) {
+      const product = bySlug.get(item.slug);
+      await client.query(
+        `INSERT INTO "OrderItem"
+           (id, "orderId", "productId", "productName", sku, "unitPrice", quantity)
+         VALUES ($1,$2,$3,$4,$5,$6,$7)`,
+        [
+          newId(),
+          orderId,
+          product?.id ?? null,
+          item.name,
+          product?.sku ?? item.slug,
+          item.price,
+          item.quantity,
+        ],
+      );
+    }
+  });
 }

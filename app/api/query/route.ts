@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { isDatabaseConfigured, newId, query } from "@/lib/db";
 import { renderBrandedEmail } from "@/lib/email-template";
 import { sendMail } from "@/lib/mailer";
 
@@ -64,6 +65,12 @@ export async function POST(request: Request) {
   });
 
   try {
+    await saveContact({ name, email, topic, message });
+  } catch (error) {
+    console.error("Contact could not be saved to the database:", error);
+  }
+
+  try {
     await sendMail({
       subject: `Nutripak enquiry — ${topic}`,
       text,
@@ -79,4 +86,24 @@ export async function POST(request: Request) {
   }
 
   return NextResponse.json({ ok: true });
+}
+
+/**
+ * Mirrors a contact enquiry into the dashboard database. Best-effort: the
+ * email notification remains the guarantee that the enquiry was captured.
+ */
+async function saveContact(contact: {
+  name: string;
+  email: string;
+  topic: string;
+  message: string;
+}): Promise<void> {
+  if (!isDatabaseConfigured()) return;
+
+  await query(
+    `INSERT INTO "Contact"
+       (id, name, email, topic, message, status, "createdAt", "updatedAt")
+     VALUES ($1,$2,$3,$4,$5,'NEW', now(), now())`,
+    [newId(), contact.name, contact.email, contact.topic, contact.message],
+  );
 }

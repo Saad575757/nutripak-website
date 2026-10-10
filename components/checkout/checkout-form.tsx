@@ -76,6 +76,7 @@ export default function CheckoutForm() {
         body: JSON.stringify({
           ...details,
           items: items.map((item) => ({
+            slug: item.key,
             name: item.name,
             variant: item.variant,
             price: item.price,
