@@ -110,8 +110,7 @@ export const TRUST_FEATURES: TrustFeature[] = [
   },
 ];
 
-export const HERO_IMAGE =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuCsTjhMAMTAacZy8mJR2ser5JZDFlYXPhR0kq1S6_s_irPRya4QUjUbwq-U_Opy2xxD6kVks3BmFNtMns5zLWjVj-ccjHhRHC53yA_p34G75-2bkcl18IgB0iYjhhZ0eKBrI6I3EE7rCDBHvISYmX3fpyv9qqS0wsnkHFYRyUr8a9cBS2gDArM3xgdKtxztnjGEDFRCynucrNjqGzhh05Y2jYB0eAjEqKGwku_txFJrrypB9Ohi7fCQ7Q";
+export const HERO_IMAGE = "/home-hero.jpeg";
 
 export const EDITORIAL_IMAGE =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuCj3tzgtaEeOzBHiiqTjHJUqjvuYlKkPMp0Oxz2OylY5-t1iNSbSdJBsRd49PrnTGwoTEB1g03vgz1GazaUNrvPO_ApeMoGehH9XRE3XVs7N9Ljhpofa2fHho8ou0AHsVTJDh6uwRYLGudjqzSv-zdoQ02ApmL3fz8xSn77hu9XLHXyaGDM0MU9CR_TMwZBW_X9lGW3q-ARCFNmJABq_U8ODU3T84aXhalJaN5WQIQJSmsXd3Z70n2Ewg";
