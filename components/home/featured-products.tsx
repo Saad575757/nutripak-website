@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import MaterialIcon from "@/components/material-icon";
 import { useCart } from "@/components/cart/cart-context";
@@ -32,7 +32,7 @@ function ProductCardView({ product }: { product: ShopProduct }) {
   };
 
   return (
-    <div className="group flex flex-col justify-between bg-surface-container-lowest rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all">
+    <div className="group flex flex-col justify-between h-full bg-surface-container-lowest rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all">
       <div className="flex flex-col gap-4">
         <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-surface-container-low p-4 flex items-center justify-center">
           <Image
@@ -82,6 +82,30 @@ export default function FeaturedProducts({
   products: ShopProduct[];
 }) {
   const [activeFilter, setActiveFilter] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [perView, setPerView] = useState(3);
+
+  // Show 3 products on desktop, 1 on mobile; step is one card at a time.
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 768px)");
+    const update = () => setPerView(media.matches ? 3 : 1);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  // Once the dashboard ships more than three products, present them as a
+  // carousel instead of a wrapping grid.
+  const isCarousel = products.length > 3;
+  const maxIndex = Math.max(0, products.length - perView);
+  const showPrev = activeIndex > 0;
+  const showNext = activeIndex < maxIndex;
+
+  const step = (direction: number) => {
+    setActiveIndex((index) =>
+      Math.min(Math.max(index + direction, 0), maxIndex)
+    );
+  };
 
   return (
     <section className="w-full py-16 md:py-24 px-margin-mobile md:px-margin" id="featured-products">
@@ -95,29 +119,73 @@ export default function FeaturedProducts({
               OUR BESTSELLERS
             </h2>
           </div>
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 scrollbar-none">
-            {FILTERS.map((filter, index) => (
-              <button
-                key={filter.label}
-                className={`px-5 py-2.5 rounded-full font-label-sm text-label-sm whitespace-nowrap transition-colors ${
-                  activeFilter === index
-                    ? "bg-primary text-on-primary"
-                    : "bg-surface-container text-on-surface hover:bg-surface-container-high"
-                }`}
-                onClick={() => setActiveFilter(index)}
-                type="button"
-              >
-                {filter.label}
-              </button>
-            ))}
+          <div className="flex items-center justify-between md:justify-end gap-4">
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 scrollbar-none">
+              {FILTERS.map((filter, index) => (
+                <button
+                  key={filter.label}
+                  className={`px-5 py-2.5 rounded-full font-label-sm text-label-sm whitespace-nowrap transition-colors ${
+                    activeFilter === index
+                      ? "bg-primary text-on-primary"
+                      : "bg-surface-container text-on-surface hover:bg-surface-container-high"
+                  }`}
+                  onClick={() => setActiveFilter(index)}
+                  type="button"
+                >
+                  {filter.label}
+                </button>
+              ))}
+            </div>
+            {isCarousel ? (
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  aria-label="Previous products"
+                  className="w-11 h-11 rounded-full bg-surface-container hover:bg-surface-container-high text-primary flex items-center justify-center transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  disabled={!showPrev}
+                  onClick={() => step(-1)}
+                  type="button"
+                >
+                  <MaterialIcon name="chevron_left" className="text-[22px]" />
+                </button>
+                <button
+                  aria-label="Next products"
+                  className="w-11 h-11 rounded-full bg-surface-container hover:bg-surface-container-high text-primary flex items-center justify-center transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  disabled={!showNext}
+                  onClick={() => step(1)}
+                  type="button"
+                >
+                  <MaterialIcon name="chevron_right" className="text-[22px]" />
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {products.map((product) => (
-            <ProductCardView key={product.slug} product={product} />
-          ))}
-        </div>
+        {isCarousel ? (
+          <div className="overflow-hidden -mx-2.5 md:-mx-4">
+            <div
+              className="flex transition-transform duration-500 ease-out"
+              style={{
+                transform: `translateX(-${(activeIndex * 100) / perView}%)`,
+              }}
+            >
+              {products.map((product) => (
+                <div
+                  key={product.slug}
+                  className="w-full md:w-1/3 shrink-0 px-2.5 md:px-4 h-full"
+                >
+                  <ProductCardView product={product} />
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {products.map((product) => (
+              <ProductCardView key={product.slug} product={product} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

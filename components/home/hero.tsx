@@ -41,9 +41,9 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto pt-2">
             <a
               className="inline-flex items-center justify-center gap-2 rounded-full bg-secondary-container hover:bg-secondary-fixed text-on-secondary-fixed px-7 py-4 font-label-md text-label-md uppercase tracking-wider shadow-md transition-all hover:scale-[1.02] active:scale-95 text-center"
-              href="#quiz-section"
+              href="/about"
             >
-              <span>Take the 2-Minute Quiz</span>
+              <span>Discover Our Story</span>
               <MaterialIcon name="arrow_forward" className="text-[18px]" />
             </a>
             <a
