@@ -40,7 +40,7 @@ function ProductCardView({ product }: { product: ShopProduct }) {
             alt={product.alt}
             width={800}
             height={800}
-            className="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-300"
           />
         </div>
         <div>
