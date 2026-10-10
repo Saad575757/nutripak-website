@@ -7,14 +7,14 @@ import ArticleHero from "@/components/blog/article-hero";
 import ArticleBody from "@/components/blog/article-body";
 import AuthorBio from "@/components/blog/author-bio";
 import FurtherReading from "@/components/blog/further-reading";
-import { BLOG_ARTICLES, LEAD_ARTICLE, getArticleBySlug } from "@/lib/blog";
+import { BLOG_ARTICLES, getArticleBySlug } from "@/lib/blog";
 
 interface BlogArticlePageProps {
   params: Promise<{ slug: string }>;
 }
 
 export function generateStaticParams() {
-  return [LEAD_ARTICLE, ...BLOG_ARTICLES].map((article) => ({ slug: article.slug }));
+  return BLOG_ARTICLES.map((article) => ({ slug: article.slug }));
 }
 
 export async function generateMetadata({

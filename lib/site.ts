@@ -10,14 +10,12 @@ export const ROUTES = {
   confirmation: "/order-confirmation",
   about: "/about",
   contact: "/contact",
+  delivery: "/delivery",
   /** Goals are sections on one page rather than separate routes for now. */
   goalAnchor: (slug: string) => `/categories#${slug}`,
   quiz: "/quiz",
   blog: "/blog",
 } as const;
-
-/** Free standard shipping in PKR. */
-export const FREE_SHIPPING_THRESHOLD = 5000;
 
 interface CartItemSeed {
   key: string;

@@ -7,7 +7,7 @@ export default function ArticleHero({ doc }: { doc: ArticleDocument }) {
   if ("src" in doc.hero) {
     return (
       <div className="mb-16">
-        <div className="w-full h-[360px] md:h-[460px] rounded-xl overflow-hidden shadow-sm bg-surface-container">
+        <div className="relative w-full h-[360px] md:h-[460px] rounded-xl overflow-hidden shadow-sm bg-surface-container">
           <Image
             src={doc.hero.src}
             alt={doc.hero.alt}

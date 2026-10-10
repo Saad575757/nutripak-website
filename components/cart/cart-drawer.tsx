@@ -6,7 +6,8 @@ import Link from "next/link";
 import MaterialIcon from "@/components/material-icon";
 import { useCart } from "@/components/cart/cart-context";
 import { formatPkr } from "@/lib/shop";
-import { FREE_SHIPPING_THRESHOLD, ROUTES } from "@/lib/site";
+import { ROUTES } from "@/lib/site";
+import { FREE_SHIPPING_THRESHOLD } from "@/lib/shipping";
 
 export default function CartDrawer() {
   const {
@@ -169,8 +170,9 @@ export default function CartDrawer() {
               Proceed to Checkout
             </Link>
             <span className="font-caption text-caption text-center text-on-surface-variant">
-              Cash on delivery. Delivery is free over PKR 5,000.
-            </span>
+                Cash on delivery. Free delivery over{" "}
+                {FREE_SHIPPING_THRESHOLD.toLocaleString("en-PK")}.
+              </span>
           </div>
         )}
       </div>

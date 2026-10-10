@@ -7,9 +7,7 @@ import { useState, type FormEvent } from "react";
 import MaterialIcon from "@/components/material-icon";
 import { useCart } from "@/components/cart/cart-context";
 import {
-  DELIVERY_FEE,
   EMPTY_CHECKOUT,
-  PAYMENT_METHOD,
   deliveryFeeFor,
   orderReference,
   totalFor,
@@ -17,9 +15,17 @@ import {
   type CheckoutDetails,
   type CheckoutField,
 } from "@/lib/checkout";
-import { CONTACT_SHARED_DETAILS, OFFICES } from "@/lib/contact";
+import { CONTACT_CHANNELS } from "@/lib/contact";
 import { formatPkr } from "@/lib/shop";
-import { FREE_SHIPPING_THRESHOLD, ROUTES } from "@/lib/site";
+import { ROUTES } from "@/lib/site";
+import {
+  COD_ORDER_LIMIT,
+  DELIVERY_FEE,
+  DELIVERY_WINDOW_DAYS,
+  FREE_SHIPPING_THRESHOLD,
+  PAYMENT_METHOD,
+  requiresPartialAdvance,
+} from "@/lib/shipping";
 
 const CHECKOUT_FORM_ID = "checkout-form";
 
@@ -40,6 +46,7 @@ export default function CheckoutForm() {
   const delivery = deliveryFeeFor(subtotal);
   const total = totalFor(subtotal);
   const remainingForFreeShipping = FREE_SHIPPING_THRESHOLD - subtotal;
+  const needsAdvance = requiresPartialAdvance(subtotal);
 
   const update = (field: keyof CheckoutDetails) => (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -71,10 +78,12 @@ export default function CheckoutForm() {
               Order placed
             </h1>
             <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-              Thank you, {details.fullName.split(" ")[0]}. We will call you on{" "}
+              Thank you, {details.fullName.split(" ")[0]}. Our team will call or
+              message you on{" "}
               <span className="text-primary font-semibold">{details.phone}</span>{" "}
-              to confirm your delivery. Please have {PAYMENT_METHOD.toLowerCase()}{" "}
-              ready.
+              within a few hours to confirm your order before it is packed. Your
+              rider arrives within {DELIVERY_WINDOW_DAYS} business days — please
+              keep {PAYMENT_METHOD.toLowerCase()} ready.
             </p>
 
             <dl className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
@@ -105,23 +114,26 @@ export default function CheckoutForm() {
               </div>
             </dl>
 
-            <p className="font-caption text-caption text-on-surface-variant">
-              Questions about this order? Call us on{" "}
-              <a
-                className="text-secondary font-semibold hover:underline"
-                href={OFFICES[0].phoneHref}
-              >
-                {OFFICES[0].phone}
-              </a>{" "}
-              or email{" "}
-              <a
-                className="text-secondary font-semibold hover:underline"
-                href={CONTACT_SHARED_DETAILS.emailHref}
-              >
-                {CONTACT_SHARED_DETAILS.email}
-              </a>
-              .
-            </p>
+            <div className="flex flex-col gap-4">
+              <p className="font-body-md text-body-md text-on-surface-variant">
+                Questions about this order? Our team is reachable on call,
+                WhatsApp, or email.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {CONTACT_CHANNELS.map((channel) => (
+                  <a
+                    key={channel.label}
+                    className="inline-flex items-center gap-2 rounded-full border border-primary px-5 py-2.5 font-label-sm text-label-sm font-semibold text-primary hover:bg-primary hover:text-on-primary transition-colors"
+                    href={channel.href}
+                  >
+                    <MaterialIcon name={channel.icon} className="text-[18px]" />
+                    <span>
+                      {channel.label}: {channel.value}
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </div>
 
             <Link
               className="inline-flex items-center gap-2 rounded-full bg-primary hover:bg-primary-container text-on-primary px-8 py-3.5 font-label-md text-label-md font-bold transition-colors"
@@ -314,20 +326,35 @@ export default function CheckoutForm() {
               <h2 className="font-title-lg text-title-lg text-primary">
                 Payment
               </h2>
-              <div className="flex items-center gap-3 rounded-xl bg-surface-container-low p-4">
+              <div className="flex items-start gap-3 rounded-xl bg-surface-container-low p-4">
                 <MaterialIcon
                   name="payments"
-                  className="text-[22px] text-secondary"
+                  className="text-[22px] text-secondary shrink-0"
                 />
-                <div className="flex flex-col">
+                <div className="flex flex-col gap-1">
                   <span className="font-body-md text-body-md text-primary font-semibold">
                     {PAYMENT_METHOD}
                   </span>
-                  <span className="font-caption text-caption text-on-surface-variant">
+                  <span className="font-caption text-caption text-on-surface-variant leading-relaxed">
                     Pay the courier when your order arrives.
                   </span>
                 </div>
               </div>
+
+              {needsAdvance ? (
+                <div className="flex items-start gap-3 rounded-xl bg-surface-container p-4 border border-outline-variant">
+                  <MaterialIcon
+                    name="info"
+                    className="text-[20px] text-secondary shrink-0"
+                  />
+                  <p className="font-caption text-caption text-on-surface-variant leading-relaxed">
+                    This order is above Rs.{" "}
+                    {COD_ORDER_LIMIT.toLocaleString("en-PK")}, so we will ask for a
+                    partial advance to confirm it. Our team will call you to
+                    arrange the amount.
+                  </p>
+                </div>
+              ) : null}
             </div>
           </form>
 
@@ -381,10 +408,17 @@ export default function CheckoutForm() {
                 </div>
               </div>
 
-              {remainingForFreeShipping > 0 && (
+              {remainingForFreeShipping > 0 ? (
                 <p className="font-caption text-caption text-on-surface-variant">
-                  Add {formatPkr(remainingForFreeShipping)} more for free delivery
-                  (currently {formatPkr(DELIVERY_FEE)}).
+                  Add {formatPkr(remainingForFreeShipping)} more to your cart for
+                  free delivery — a standard charge of{" "}
+                  {formatPkr(DELIVERY_FEE)} applies below Rs.{" "}
+                  {FREE_SHIPPING_THRESHOLD.toLocaleString("en-PK")} for now.
+                </p>
+              ) : (
+                <p className="font-caption text-caption text-on-surface-variant">
+                  Free delivery applied. Delivery charges are waived
+                  automatically on this order.
                 </p>
               )}
 
@@ -398,8 +432,10 @@ export default function CheckoutForm() {
               </button>
 
               <p className="font-caption text-caption text-on-surface-variant text-center">
-                By placing this order you agree to be contacted to confirm delivery.
-                These products are not a substitute for medical treatment.
+                We may call or message to verify your order before it ships. Your
+                parcel arrives within {DELIVERY_WINDOW_DAYS} business days
+                depending on your city. These products are not a substitute for
+                medical treatment.
               </p>
             </div>
           </aside>

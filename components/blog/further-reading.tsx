@@ -4,6 +4,8 @@ import { ROUTES } from "@/lib/site";
 import { RELATED_ARTICLES } from "@/lib/blog";
 
 export default function FurtherReading() {
+  if (RELATED_ARTICLES.length === 0) return null;
+
   return (
     <div className="mt-20 pt-12">
       <div className="flex items-center justify-between mb-8">

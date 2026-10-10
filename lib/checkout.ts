@@ -1,10 +1,4 @@
-import { FREE_SHIPPING_THRESHOLD } from "@/lib/site";
-
-/** Flat delivery fee in PKR, applied below the free-shipping threshold. */
-export const DELIVERY_FEE = 250;
-
-/** The only payment method currently offered. */
-export const PAYMENT_METHOD = "Cash on delivery";
+import { DELIVERY_FEE, FREE_SHIPPING_THRESHOLD } from "@/lib/shipping";
 
 export const CHECKOUT_FIELDS = {
   fullName: "Full name",

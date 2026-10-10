@@ -1,4 +1,5 @@
 import MaterialIcon from "@/components/material-icon";
+import { FREE_SHIPPING_THRESHOLD } from "@/lib/shipping";
 
 interface MarqueeMessage {
   icon: string;
@@ -6,7 +7,10 @@ interface MarqueeMessage {
 }
 
 const MESSAGES: MarqueeMessage[] = [
-  { icon: "local_shipping", text: "FREE SHIPPING ON ORDERS OVER PKR 5,000" },
+  {
+    icon: "local_shipping",
+    text: `FREE SHIPPING ON ORDERS OVER RS. ${FREE_SHIPPING_THRESHOLD.toLocaleString("en-PK")}`,
+  },
   { icon: "verified", text: "CASH ON DELIVERY AVAILABLE" },
   { icon: "storefront", text: "NUTRIPAK NUTRITION PRODUCTS" },
 ];

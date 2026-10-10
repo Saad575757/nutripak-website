@@ -26,6 +26,41 @@ export const WEBSITE = "www.nutripak.net";
 export const WEBSITE_HREF = "https://www.nutripak.net";
 export const EMAIL = "nutripak.np@gmail.com";
 
+/** Primary order-enquiry line, shared by call and WhatsApp. */
+export const PHONE = "0313-3346732";
+export const PHONE_E164 = "+923133346732";
+export const PHONE_HREF = `tel:${PHONE_E164}`;
+export const WHATSAPP_HREF = `https://wa.me/${PHONE_E164.replace("+", "")}`;
+
+export interface ContactChannel {
+  icon: string;
+  label: string;
+  value: string;
+  href: string;
+}
+
+/** The three ways a customer is told to reach the order desk. */
+export const CONTACT_CHANNELS: ContactChannel[] = [
+  {
+    icon: "call",
+    label: "Call",
+    value: PHONE,
+    href: PHONE_HREF,
+  },
+  {
+    icon: "chat",
+    label: "WhatsApp",
+    value: PHONE,
+    href: WHATSAPP_HREF,
+  },
+  {
+    icon: "mail",
+    label: "Email",
+    value: EMAIL,
+    href: `mailto:${EMAIL}`,
+  },
+];
+
 export const OFFICES: Office[] = [
   {
     id: "regional-office",
@@ -38,8 +73,8 @@ export const OFFICES: Office[] = [
       "Korangi,",
       "Karachi, Pakistan.",
     ],
-    phone: "+92 313-3346732",
-    phoneHref: "tel:+923133346732",
+    phone: PHONE_E164,
+    phoneHref: PHONE_HREF,
     website: WEBSITE,
     websiteHref: WEBSITE_HREF,
     email: EMAIL,
@@ -69,6 +104,9 @@ export const OFFICES: Office[] = [
 export const CONTACT_SHARED_DETAILS = {
   website: WEBSITE,
   websiteHref: WEBSITE_HREF,
+  phone: PHONE,
+  phoneHref: PHONE_HREF,
+  whatsappHref: WHATSAPP_HREF,
   email: EMAIL,
   emailHref: `mailto:${EMAIL}`,
 };
