@@ -17,6 +17,8 @@ export const ROUTES = {
   blog: "/blog",
   login: "/login",
   signup: "/signup",
+  forgotPassword: "/forgot-password",
+  resetPassword: "/reset-password",
   account: "/account",
 } as const;
 

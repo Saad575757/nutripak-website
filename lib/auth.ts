@@ -1,4 +1,5 @@
 import {
+  createHash,
   randomBytes,
   scrypt as scryptCallback,
   timingSafeEqual,
@@ -7,13 +8,20 @@ import { promisify } from "node:util";
 
 import { cookies } from "next/headers";
 
-import { isDatabaseConfigured, newId, query } from "@/lib/db";
+import {
+  isDatabaseConfigured,
+  newId,
+  query,
+  withTransaction,
+} from "@/lib/db";
 
 const scrypt = promisify(scryptCallback);
 
 const SESSION_COOKIE = "np_session";
 const SESSION_LIFETIME_DAYS = 30;
 const SESSION_LIFETIME_SECONDS = SESSION_LIFETIME_DAYS * 24 * 60 * 60;
+
+const RESET_TOKEN_LIFETIME_MINUTES = 60;
 
 export interface CustomerProfile {
   id: string;
@@ -28,6 +36,7 @@ export abstract class AuthError extends Error {}
 
 export class ValidationError extends AuthError {}
 export class InvalidCredentialsError extends AuthError {}
+export class InvalidResetTokenError extends AuthError {}
 export class DatabaseUnavailableError extends AuthError {}
 
 export const isValidEmail = (value: string) =>
@@ -173,4 +182,104 @@ export async function createCustomer(input: NewCustomerInput) {
     throw error;
   }
   return id;
+}
+
+/** Reset tokens are stored hashed so a database leak cannot be replayed. */
+function hashResetToken(token: string): string {
+  return createHash("sha256").update(token).digest("hex");
+}
+
+/**
+ * Creates a single-use password-reset token for an active account.
+ * Returns `null` when no matching account exists so callers can respond
+ * generically and avoid leaking which emails are registered.
+ */
+export async function createPasswordResetToken(
+  email: string,
+): Promise<{ token: string; name: string } | null> {
+  if (!isDatabaseConfigured()) {
+    throw new DatabaseUnavailableError(
+      "Password reset is unavailable right now.",
+    );
+  }
+
+  const result = await query<{ id: string; name: string }>(
+    `SELECT id, name FROM "Customer"
+     WHERE email = $1 AND status = 'ACTIVE' LIMIT 1`,
+    [email],
+  );
+  const customer = result.rows[0];
+  if (!customer) return null;
+
+  const token = randomBytes(32).toString("base64url");
+  const tokenHash = hashResetToken(token);
+
+  await query(
+    `DELETE FROM "PasswordResetToken"
+     WHERE "customerId" = $1 AND "usedAt" IS NULL`,
+    [customer.id],
+  );
+  await query(
+    `INSERT INTO "PasswordResetToken"
+       (id, "customerId", "tokenHash", "expiresAt", "createdAt")
+     VALUES ($1, $2, $3, now() + $4::interval, now())`,
+    [
+      newId(),
+      customer.id,
+      tokenHash,
+      `${RESET_TOKEN_LIFETIME_MINUTES} minutes`,
+    ],
+  );
+
+  return { token, name: customer.name };
+}
+
+/**
+ * Consumes a reset token and sets a new password. The token is single-use, and
+ * every existing session for the account is cleared so a stolen session cannot
+ * survive the reset.
+ */
+export async function resetPasswordWithToken(
+  token: string,
+  newPassword: string,
+): Promise<void> {
+  if (!isDatabaseConfigured()) {
+    throw new DatabaseUnavailableError(
+      "Password reset is unavailable right now.",
+    );
+  }
+  if (newPassword.length < 8) {
+    throw new ValidationError("Password must be at least 8 characters.");
+  }
+
+  const result = await query<{ customerId: string }>(
+    `SELECT "customerId" FROM "PasswordResetToken"
+     WHERE "tokenHash" = $1 AND "usedAt" IS NULL AND "expiresAt" > now()
+     LIMIT 1`,
+    [hashResetToken(token)],
+  );
+  const record = result.rows[0];
+  if (!record) {
+    throw new InvalidResetTokenError(
+      "This reset link is invalid or has expired. Please request a new one.",
+    );
+  }
+
+  const passwordHash = await hashPassword(newPassword);
+
+  await withTransaction(async (client) => {
+    await client.query(
+      `UPDATE "Customer" SET "passwordHash" = $1, "updatedAt" = now()
+       WHERE id = $2`,
+      [passwordHash, record.customerId],
+    );
+    await client.query(
+      `UPDATE "PasswordResetToken" SET "usedAt" = now()
+       WHERE "customerId" = $1 AND "usedAt" IS NULL`,
+      [record.customerId],
+    );
+    await client.query(`DELETE FROM "Session" WHERE "customerId" = $1`, [
+      record.customerId,
+    ]);
+  });
 }

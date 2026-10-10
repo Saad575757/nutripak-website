@@ -46,17 +46,29 @@ export interface MailInput {
   html?: string;
   /** Optional reply-to, usually the address the visitor entered. */
   replyTo?: string;
+  /**
+   * Optional recipient override. Defaults to the shared `MAIL_TO` inboxes used
+   * by form submissions; transactional messages such as password resets target
+   * the account owner instead.
+   */
+  to?: string | string[];
 }
 
-/** Sends a message to every configured recipient. */
-export async function sendMail({ subject, text, html, replyTo }: MailInput) {
+/** Sends a message to the given recipients (or the configured inboxes). */
+export async function sendMail({
+  subject,
+  text,
+  html,
+  replyTo,
+  to,
+}: MailInput) {
   if (!SMTP_PASS) {
     throw new Error("SMTP_PASS is not configured");
   }
 
   await getTransporter().sendMail({
     from: `Nutripak <${MAIL_FROM}>`,
-    to: MAIL_TO,
+    to: to ?? MAIL_TO,
     subject,
     text,
     ...(html ? { html } : {}),

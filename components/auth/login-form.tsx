@@ -71,9 +71,17 @@ export default function LoginForm() {
       </div>
 
       <div>
-        <label className={labelClass} htmlFor="login-password">
-          Password
-        </label>
+        <div className="flex items-center justify-between gap-2 mb-2">
+          <label className={`${labelClass} mb-0`} htmlFor="login-password">
+            Password
+          </label>
+          <Link
+            className="font-caption text-caption text-secondary font-bold hover:underline"
+            href={ROUTES.forgotPassword}
+          >
+            Forgot password?
+          </Link>
+        </div>
         <input
           autoComplete="current-password"
           className={inputClass}
