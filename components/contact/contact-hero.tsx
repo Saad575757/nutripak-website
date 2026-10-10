@@ -41,6 +41,22 @@ export default function ContactHero() {
 
           <div className="flex flex-col gap-3 self-start lg:self-end">
             <a
+              className="flex items-center gap-3 px-4 py-3 rounded-xl bg-secondary text-on-secondary shadow-sm hover:shadow-md hover:bg-on-secondary-container transition-colors"
+              href={CONTACT_SHARED_DETAILS.whatsappHref}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <span className="material-symbols-outlined text-[24px]">chat</span>
+              <div>
+                <p className="font-label-md text-label-md font-bold">
+                  Chat on WhatsApp
+                </p>
+                <p className="font-caption text-caption opacity-90">
+                  {CONTACT_SHARED_DETAILS.phone}
+                </p>
+              </div>
+            </a>
+            <a
               className="flex items-center gap-3 px-4 py-3 rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow"
               href={CONTACT_SHARED_DETAILS.websiteHref}
               target="_blank"

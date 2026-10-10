@@ -61,8 +61,16 @@ const FOOTER_COLUMNS: FooterColumn[] = [
 ];
 
 const SOCIAL_LINKS = [
-  { label: "Facebook", href: "https://www.facebook.com", icon: "facebook" },
-  { label: "Instagram", href: "https://www.instagram.com", icon: "instagram" },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/share/1Vk4EKW3kz/?mibextid=wwXIfr",
+    icon: "facebook",
+  },
+  {
+    label: "Instagram",
+    href: "https://instagram.com/nutripak1?exln=d216bDJhcGU2ZXZl",
+    icon: "instagram",
+  },
 ] as const;
 
 type SocialIconName = (typeof SOCIAL_LINKS)[number]["icon"];

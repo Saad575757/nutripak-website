@@ -42,6 +42,9 @@ export default function CheckoutForm() {
     {}
   );
   const [reference, setReference] = useState<string | null>(null);
+  const [placedTotal, setPlacedTotal] = useState<number | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const delivery = deliveryFeeFor(subtotal);
   const total = totalFor(subtotal);
@@ -55,15 +58,52 @@ export default function CheckoutForm() {
     setErrors((current) => ({ ...current, [field]: undefined }));
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (submitting) return;
+
     const found = validateCheckout(details);
     setErrors(found);
     if (Object.keys(found).length > 0) return;
 
-    // TODO: POST the order to your backend here. Nothing is transmitted yet.
-    setReference(orderReference());
-    clearCart();
+    setSubmitting(true);
+    setSubmitError("");
+
+    try {
+      const response = await fetch("/api/order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...details,
+          items: items.map((item) => ({
+            name: item.name,
+            variant: item.variant,
+            price: item.price,
+            quantity: item.quantity,
+          })),
+        }),
+      });
+
+      if (!response.ok) {
+        const data = (await response.json().catch(() => null)) as
+          | { error?: string }
+          | null;
+        throw new Error(data?.error ?? "Something went wrong.");
+      }
+
+      const data = (await response.json()) as {
+        reference?: string;
+        total?: number;
+      };
+      setPlacedTotal(typeof data.total === "number" ? data.total : total);
+      setReference(data.reference ?? orderReference());
+      clearCart();
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error ? error.message : "Something went wrong.",
+      );
+      setSubmitting(false);
+    }
   };
 
   if (reference) {
@@ -100,7 +140,7 @@ export default function CheckoutForm() {
                   Order total
                 </dt>
                 <dd className="font-title-md text-title-md text-primary font-bold mt-1">
-                  {formatPkr(total)}
+                  {formatPkr(placedTotal ?? total)}
                 </dd>
               </div>
               <div className="rounded-xl bg-surface-container-low p-4 sm:col-span-2">
@@ -423,13 +463,24 @@ export default function CheckoutForm() {
               )}
 
               <button
-                className="w-full py-4 rounded-full bg-secondary-container hover:bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md font-bold uppercase tracking-wider transition-all shadow-md inline-flex items-center justify-center gap-2"
+                className="w-full py-4 rounded-full bg-secondary-container hover:bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md font-bold uppercase tracking-wider transition-all shadow-md inline-flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                 type="submit"
                 form={CHECKOUT_FORM_ID}
+                disabled={submitting}
               >
                 <MaterialIcon name="lock" className="text-[18px]" />
-                <span>Place order · {formatPkr(total)}</span>
+                <span>
+                  {submitting
+                    ? "Placing order…"
+                    : `Place order · ${formatPkr(total)}`}
+                </span>
               </button>
+
+              {submitError ? (
+                <p className="rounded-xl bg-error-container/40 px-4 py-3 font-caption text-caption text-on-error-container text-center">
+                  {submitError}
+                </p>
+              ) : null}
 
               <p className="font-caption text-caption text-on-surface-variant text-center">
                 We may call or message to verify your order before it ships. Your

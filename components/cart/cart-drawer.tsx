@@ -165,6 +165,7 @@ export default function CartDrawer() {
             </div>
             <Link
               href={ROUTES.checkout}
+              onClick={closeCart}
               className="w-full py-4 rounded-full bg-secondary-container hover:bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md font-bold uppercase tracking-wider transition-all shadow-md inline-flex items-center justify-center"
             >
               Proceed to Checkout

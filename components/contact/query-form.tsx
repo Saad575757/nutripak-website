@@ -10,23 +10,45 @@ export default function QueryForm() {
   const [email, setEmail] = useState("");
   const [topic, setTopic] = useState(QUERY_TOPICS[0]);
   const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle",
+  );
+  const [error, setError] = useState("");
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (status === "sending") return;
 
-    const body = [
-      `Name: ${name}`,
-      `Reply to: ${email}`,
-      `Topic: ${topic}`,
-      "",
-      message,
-    ].join("\n");
+    setStatus("sending");
+    setError("");
 
-    const href = `mailto:${CONTACT_SHARED_DETAILS.email}?subject=${encodeURIComponent(
-      `Nutripak enquiry — ${topic}`,
-    )}&body=${encodeURIComponent(body)}`;
+    try {
+      const response = await fetch("/api/query", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, topic, message }),
+      });
 
-    window.location.href = href;
+      if (!response.ok) {
+        const data = (await response.json().catch(() => null)) as
+          | { error?: string }
+          | null;
+        throw new Error(data?.error ?? "Something went wrong.");
+      }
+
+      setStatus("sent");
+      setName("");
+      setEmail("");
+      setTopic(QUERY_TOPICS[0]);
+      setMessage("");
+    } catch (submitError) {
+      setStatus("error");
+      setError(
+        submitError instanceof Error
+          ? submitError.message
+          : "Something went wrong.",
+      );
+    }
   };
 
   const inputClass =
@@ -54,6 +76,15 @@ export default function QueryForm() {
               </a>
               .
             </p>
+            <a
+              className="mt-2 inline-flex items-center justify-center gap-2 self-start rounded-full bg-secondary hover:bg-on-secondary-container text-on-secondary px-6 py-3 font-label-md text-label-md font-bold transition-colors"
+              href={CONTACT_SHARED_DETAILS.whatsappHref}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <MaterialIcon name="chat" className="text-[18px]" />
+              <span>Chat on WhatsApp — {CONTACT_SHARED_DETAILS.phone}</span>
+            </a>
           </div>
 
           <div className="lg:col-span-7 rounded-2xl bg-surface-container-lowest p-8 md:p-10 shadow-md">
@@ -127,16 +158,30 @@ export default function QueryForm() {
 
               <div className="flex flex-col sm:flex-row sm:items-center gap-4 pt-2">
                 <button
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-secondary hover:bg-on-secondary-container text-on-secondary px-8 py-3.5 font-label-md text-label-md font-bold transition-colors"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-secondary hover:bg-on-secondary-container text-on-secondary px-8 py-3.5 font-label-md text-label-md font-bold transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                   type="submit"
+                  disabled={status === "sending"}
                 >
-                  <span>Send query</span>
+                  <span>{status === "sending" ? "Sending…" : "Send query"}</span>
                   <MaterialIcon name="send" className="text-[18px]" />
                 </button>
                 <p className="font-caption text-caption text-on-surface-variant">
-                  Submitting opens your email app with the message pre-filled.
+                  We&apos;ll reply to the email you provide.
                 </p>
               </div>
+
+              {status === "sent" ? (
+                <p className="flex items-center gap-2 rounded-xl bg-secondary-container/40 px-4 py-3 font-body-sm text-body-sm text-on-secondary-fixed">
+                  <MaterialIcon name="check_circle" className="text-[18px]" />
+                  <span>Thank you — your query has been sent. We&apos;ll be in touch soon.</span>
+                </p>
+              ) : null}
+
+              {status === "error" ? (
+                <p className="rounded-xl bg-error-container/40 px-4 py-3 font-body-sm text-body-sm text-on-error-container">
+                  {error}
+                </p>
+              ) : null}
             </form>
           </div>
         </div>

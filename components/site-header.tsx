@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 
 import MaterialIcon from "@/components/material-icon";
 import { useCart } from "@/components/cart/cart-context";
+import { WHATSAPP_HREF } from "@/lib/contact";
 import { LOGO_IMAGE, ROUTES } from "@/lib/site";
 
 interface NavLink {
@@ -103,12 +104,15 @@ export default function SiteHeader() {
               {count}
             </span>
           </button>
-          <Link
-            href={ROUTES.quiz}
-            className="hidden lg:inline-flex items-center justify-center rounded-full bg-secondary-container text-on-secondary-fixed hover:bg-secondary-fixed font-label-md text-label-md px-5 py-2.5 transition-all shadow-sm font-semibold ml-2"
+          <a
+            href={WHATSAPP_HREF}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="hidden lg:inline-flex items-center justify-center gap-1.5 rounded-full bg-secondary-container text-on-secondary-fixed hover:bg-secondary-fixed font-label-md text-label-md px-5 py-2.5 transition-all shadow-sm font-semibold ml-2"
           >
-            Take the Quiz
-          </Link>
+            <MaterialIcon name="chat" className="text-[18px]" />
+            <span>Chat on WhatsApp</span>
+          </a>
           <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-1">
             <MaterialIcon name="person" className="text-on-primary text-[18px]" />
           </div>
