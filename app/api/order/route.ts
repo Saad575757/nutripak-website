@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { getCurrentCustomer } from "@/lib/auth";
 import { deliveryFeeFor, orderReference, totalFor } from "@/lib/checkout";
 import { isDatabaseConfigured, newId, query, withTransaction } from "@/lib/db";
 import { renderBrandedEmail } from "@/lib/email-template";
@@ -69,6 +70,8 @@ export async function POST(request: Request) {
   const total = totalFor(subtotal);
   const reference = orderReference();
 
+  const customer = await getCurrentCustomer();
+
   const lines = [
     `New order: ${reference}`,
     "",
@@ -102,6 +105,7 @@ export async function POST(request: Request) {
   try {
     await saveOrder({
       reference,
+      customerId: customer?.id ?? null,
       customerName: fullName,
       customerPhone: phone,
       customerEmail: email,
@@ -190,6 +194,7 @@ interface PersistedOrderItem {
 
 interface PersistedOrder {
   reference: string;
+  customerId: string | null;
   customerName: string;
   customerPhone: string;
   customerEmail: string;
@@ -230,13 +235,14 @@ async function saveOrder(order: PersistedOrder): Promise<void> {
 
     await client.query(
       `INSERT INTO "Order"
-         (id, "orderNumber", "customerName", "customerPhone", "customerEmail",
-          address, city, notes, subtotal, "deliveryCharges", total,
-          "paymentMethod", "createdAt", "updatedAt")
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12, now(), now())`,
+         (id, "orderNumber", "customerId", "customerName", "customerPhone",
+          "customerEmail", address, city, notes, subtotal, "deliveryCharges",
+          total, "paymentMethod", "createdAt", "updatedAt")
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13, now(), now())`,
       [
         orderId,
         order.reference,
+        order.customerId,
         order.customerName,
         order.customerPhone,
         order.customerEmail || null,

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import MaterialIcon from "@/components/material-icon";
+import AuthStatus from "@/components/auth/auth-status";
 import { useCart } from "@/components/cart/cart-context";
 import { WHATSAPP_HREF } from "@/lib/contact";
 import { LOGO_IMAGE, ROUTES } from "@/lib/site";
@@ -86,13 +87,7 @@ export default function SiteHeader() {
             <MaterialIcon name="payments" className="text-[16px] text-secondary" />
             <span>PKR</span>
           </div>
-          <button
-            aria-label="Account"
-            className="w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors"
-            type="button"
-          >
-            <MaterialIcon name="person_outline" className="text-[20px]" />
-          </button>
+          <AuthStatus />
           <button
             aria-label="Shopping Cart"
             className="relative w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors"
@@ -113,9 +108,6 @@ export default function SiteHeader() {
             <MaterialIcon name="chat" className="text-[18px]" />
             <span>Chat on WhatsApp</span>
           </a>
-          <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-1">
-            <MaterialIcon name="person" className="text-on-primary text-[18px]" />
-          </div>
         </div>
       </div>
     </header>

@@ -15,6 +15,9 @@ export const ROUTES = {
   goalAnchor: (slug: string) => `/categories#${slug}`,
   quiz: "/quiz",
   blog: "/blog",
+  login: "/login",
+  signup: "/signup",
+  account: "/account",
 } as const;
 
 export interface CartItemSeed {
