@@ -235,6 +235,11 @@
     overscroll-behavior: none;
   }
 
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
   ::-webkit-scrollbar {
     display: none;
   }
