@@ -1,3 +1,5 @@
+import MembershipCta from "@/components/home/membership-cta";
+
 export default function MembershipBanner() {
   return (
     <section className="w-full py-12 px-margin-mobile md:px-margin">
@@ -15,12 +17,7 @@ export default function MembershipBanner() {
           </p>
         </div>
         <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0">
-          <button
-            className="rounded-full bg-secondary-container hover:bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md px-8 py-4 font-bold uppercase tracking-wider transition-all"
-            type="button"
-          >
-            Join Nutripak Club
-          </button>
+          <MembershipCta />
         </div>
       </div>
     </section>

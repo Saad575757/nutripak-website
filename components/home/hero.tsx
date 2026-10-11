@@ -78,7 +78,7 @@ export default function Hero() {
               height={1080}
               className="w-full h-auto aspect-square object-cover rounded-2xl"
             />
-            {HERO_PILLS.map((pill) => (
+            {/* {HERO_PILLS.map((pill) => (
               <div
                 key={pill.label}
                 className={`absolute ${pill.position} hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-md shadow-lg`}
@@ -88,7 +88,7 @@ export default function Hero() {
                   {pill.label}
                 </span>
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
       </div>

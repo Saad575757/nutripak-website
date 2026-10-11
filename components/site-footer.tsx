@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { useState, type FormEvent } from "react";
 
+import MaterialIcon from "@/components/material-icon";
 import { ROUTES } from "@/lib/site";
 
 interface FooterColumn {
@@ -107,6 +109,39 @@ const PAYMENT_BADGES = [
 ];
 
 export default function SiteFooter() {
+  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [subscribed, setSubscribed] = useState(false);
+  const [subscribeError, setSubscribeError] = useState("");
+
+  const handleSubscribe = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
+    setSubscribeError("");
+
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, source: "footer" }),
+      });
+      const data = (await response.json().catch(() => null)) as
+        | { error?: string }
+        | null;
+      if (!response.ok) {
+        throw new Error(data?.error ?? "Could not subscribe right now.");
+      }
+      setSubscribed(true);
+    } catch (error) {
+      setSubscribeError(
+        error instanceof Error ? error.message : "Could not subscribe right now.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <footer className="w-full bg-surface-container-low pt-16 pb-12 mt-space-xl">
       <div className="max-w-[1320px] mx-auto px-margin-mobile md:px-margin">
@@ -121,23 +156,43 @@ export default function SiteFooter() {
             </p>
           </div>
           <div className="w-full lg:w-auto flex-1 max-w-md">
-            <form
-              className="flex flex-col sm:flex-row gap-2"
-              onSubmit={(event) => event.preventDefault()}
-            >
-              <input
-                className="w-full px-4 py-3 rounded-full bg-surface-container-lowest border-0 font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-secondary"
-                placeholder="Enter your personal email"
-                type="email"
-                aria-label="Email address"
-              />
-              <button
-                className="rounded-full bg-primary text-on-primary font-label-md text-label-md px-6 py-3 hover:bg-primary-container transition-colors whitespace-nowrap font-semibold"
-                type="submit"
+            {subscribed ? (
+              <p className="flex items-center justify-center sm:justify-start gap-2 font-label-md text-label-md font-semibold text-primary">
+                <MaterialIcon
+                  name="check_circle"
+                  className="text-secondary text-[20px]"
+                />
+                Thanks! You&apos;re on the list.
+              </p>
+            ) : (
+              <form
+                className="flex flex-col sm:flex-row gap-2"
+                noValidate
+                onSubmit={handleSubscribe}
               >
-                Subscribe
-              </button>
-            </form>
+                <input
+                  className="w-full px-4 py-3 rounded-full bg-surface-container-lowest border-0 font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-secondary"
+                  placeholder="Enter your personal email"
+                  type="email"
+                  aria-label="Email address"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  required
+                />
+                <button
+                  className="rounded-full bg-primary text-on-primary font-label-md text-label-md px-6 py-3 hover:bg-primary-container transition-colors whitespace-nowrap font-semibold disabled:opacity-60 disabled:cursor-not-allowed"
+                  type="submit"
+                  disabled={submitting}
+                >
+                  {submitting ? "Subscribing…" : "Subscribe"}
+                </button>
+              </form>
+            )}
+            {subscribeError ? (
+              <p className="mt-2 font-caption text-caption text-error">
+                {subscribeError}
+              </p>
+            ) : null}
           </div>
         </div>
 

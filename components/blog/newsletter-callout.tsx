@@ -1,10 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 
 export default function NewsletterCallout() {
   const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubscribe = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
+    setError("");
+
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, source: "blog" }),
+      });
+      const data = (await response.json().catch(() => null)) as
+        | { error?: string }
+        | null;
+      if (!response.ok) {
+        throw new Error(data?.error ?? "Could not subscribe right now.");
+      }
+      setSubmitted(true);
+    } catch (caught) {
+      setError(
+        caught instanceof Error
+          ? caught.message
+          : "Could not subscribe right now.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <section className="w-full max-w-[1320px] mx-auto px-margin-mobile md:px-margin mb-8">
@@ -21,7 +53,7 @@ export default function NewsletterCallout() {
             formulation updates, and biochemical insights into digestible Friday
             morning dispatches.
           </p>
-          {subscribed ? (
+          {submitted ? (
             <p className="text-primary font-label-md text-label-md font-semibold py-3 flex items-center justify-center gap-2">
               <span className="material-symbols-outlined text-secondary text-[20px]">check_circle</span>
               Thank you for subscribing to The Nutripak Chronicle.
@@ -29,11 +61,8 @@ export default function NewsletterCallout() {
           ) : (
             <form
               className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto"
-              onSubmit={(event) => {
-                event.preventDefault();
-                if (!email.trim()) return;
-                setSubscribed(true);
-              }}
+              noValidate
+              onSubmit={handleSubscribe}
             >
               <input
                 className="w-full px-5 py-3 rounded-full bg-surface-container-lowest text-body-md font-body-md text-on-surface placeholder:text-outline focus:outline-none shadow-sm"
@@ -44,13 +73,17 @@ export default function NewsletterCallout() {
                 onChange={(event) => setEmail(event.target.value)}
               />
               <button
-                className="rounded-full bg-primary text-on-primary px-7 py-3 font-label-md text-label-md font-semibold hover:bg-primary-container transition-colors shadow-sm whitespace-nowrap"
+                className="rounded-full bg-primary text-on-primary px-7 py-3 font-label-md text-label-md font-semibold hover:bg-primary-container transition-colors shadow-sm whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed"
                 type="submit"
+                disabled={submitting}
               >
-                Subscribe
+                {submitting ? "Subscribing…" : "Subscribe"}
               </button>
             </form>
           )}
+          {error ? (
+            <p className="font-caption text-caption text-error mt-2">{error}</p>
+          ) : null}
           <p className="font-caption text-caption text-outline mt-3">
             Strictly zero spam. Unsubscribe with a single click at any time.
           </p>
