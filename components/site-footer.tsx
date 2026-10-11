@@ -18,7 +18,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
       { label: "SUBSET", href: ROUTES.product("subset") },
       { label: "ADA-Glu", href: ROUTES.product("ada-glu") },
       { label: "Proteios", href: ROUTES.product("proteios") },
-      { label: "Find the Right Product", href: `${ROUTES.home}#quiz-section` },
+      // { label: "Find the Right Product", href: `${ROUTES.home}#quiz-section` },
       { label: "Download Product Guide", href: `${ROUTES.about}#downloads` },
     ],
   },
