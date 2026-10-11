@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import EditProfileForm from "@/components/auth/edit-profile-form";
 import LogoutButton from "@/components/auth/logout-button";
 import MaterialIcon from "@/components/material-icon";
 import { getCurrentCustomer } from "@/lib/auth";
@@ -141,6 +142,11 @@ export default async function AccountPage() {
                   </dd>
                 </div>
               </div>
+
+              <EditProfileForm
+                initialName={customer.name}
+                initialPhone={customer.phone}
+              />
 
               <LogoutButton />
             </div>

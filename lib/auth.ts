@@ -139,6 +139,31 @@ export interface NewCustomerInput {
   phone?: string;
 }
 
+export interface UpdateProfileInput {
+  name: string;
+  phone?: string;
+}
+
+export async function updateCustomerProfile(
+  customerId: string,
+  input: UpdateProfileInput,
+): Promise<void> {
+  if (!isDatabaseConfigured()) {
+    throw new DatabaseUnavailableError(
+      "Profile updates are unavailable right now.",
+    );
+  }
+  if (input.name.length < 2) {
+    throw new ValidationError("Please enter your full name.");
+  }
+
+  await query(
+    `UPDATE "Customer" SET name = $1, phone = $2, "updatedAt" = now()
+     WHERE id = $3`,
+    [input.name, input.phone?.trim() || null, customerId],
+  );
+}
+
 export async function createCustomer(input: NewCustomerInput) {
   if (!isDatabaseConfigured()) {
     throw new DatabaseUnavailableError("Account sign-up is unavailable right now.");
