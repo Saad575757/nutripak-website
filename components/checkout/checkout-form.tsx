@@ -119,12 +119,21 @@ export default function CheckoutForm() {
               Order placed
             </h1>
             <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-              Thank you, {details.fullName.split(" ")[0]}. Our team will call or
-              message you on{" "}
+              Thank you, dear{" "}
+              <span className="text-primary font-semibold">
+                {details.fullName.split(" ")[0]}
+              </span>
+              . Your order has been received. Our team will call or message you
+              on{" "}
               <span className="text-primary font-semibold">{details.phone}</span>{" "}
-              within a few hours to confirm your order before it is packed. Your
-              rider arrives within {DELIVERY_WINDOW_DAYS} business days — please
-              keep {PAYMENT_METHOD.toLowerCase()} ready.
+              within a few hours to confirm it is ready for dispatch. Your order
+              should reach you within {DELIVERY_WINDOW_DAYS} business days.
+              Please keep{" "}
+              <span className="text-primary font-semibold">
+                {formatPkr(placedTotal ?? total)}
+              </span>{" "}
+              ready to pay the courier, so your delivery is quick and
+              hassle-free.
             </p>
 
             <dl className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
@@ -157,8 +166,8 @@ export default function CheckoutForm() {
 
             <div className="flex flex-col gap-4">
               <p className="font-body-md text-body-md text-on-surface-variant">
-                Questions about this order? Our team is reachable on call,
-                WhatsApp, or email.
+                Question about your order? Our team is reachable on call,
+                WhatsApp or email.
               </p>
               <div className="flex flex-wrap gap-3">
                 {CONTACT_CHANNELS.map((channel) => (

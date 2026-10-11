@@ -15,6 +15,7 @@ export const ROUTES = {
   goalAnchor: (slug: string) => `/categories#${slug}`,
   quiz: "/quiz",
   blog: "/blog",
+  faqs: "/faqs",
   login: "/login",
   signup: "/signup",
   forgotPassword: "/forgot-password",

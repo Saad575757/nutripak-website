@@ -1,5 +1,8 @@
+import Link from "next/link";
+
 import MaterialIcon from "@/components/material-icon";
 import { ABOUT_FAQS } from "@/lib/about";
+import { ROUTES } from "@/lib/site";
 
 export default function FaqSection() {
   return (
@@ -31,6 +34,16 @@ export default function FaqSection() {
               </p>
             </details>
           ))}
+        </div>
+
+        <div className="flex justify-center">
+          <Link
+            className="inline-flex items-center gap-2 rounded-full border border-primary px-6 py-3 font-label-md text-label-md font-semibold text-primary hover:bg-primary hover:text-on-primary transition-colors"
+            href={ROUTES.faqs}
+          >
+            <MaterialIcon name="help" className="text-[18px]" />
+            <span>View all product FAQs</span>
+          </Link>
         </div>
       </div>
     </section>

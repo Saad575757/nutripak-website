@@ -54,7 +54,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
     links: [
       { label: "Contact Us", href: ROUTES.contact },
       { label: "Send a Query", href: `${ROUTES.contact}#query` },
-      { label: "FAQs", href: `${ROUTES.about}#faq` },
+      { label: "FAQs", href: ROUTES.faqs },
       { label: "Delivery & Payment", href: ROUTES.delivery },
       { label: "Where to Buy", href: ROUTES.shop },
       { label: "Request Samples", href: ROUTES.contact },

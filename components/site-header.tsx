@@ -23,6 +23,7 @@ const NAV_LINKS: NavLink[] = [
   { label: "Blog", href: ROUTES.blog, badge: "NEW" },
   // { label: "Build Routine", href: ROUTES.quiz, badge: "NEW" },
   { label: "Learn", href: ROUTES.about },
+  { label: "FAQs", href: ROUTES.faqs },
   { label: "About", href: ROUTES.about },
 ];
 
