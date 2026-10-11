@@ -1,14 +1,25 @@
 "use client";
 
-import { useState } from "react";
-
 import MaterialIcon from "@/components/material-icon";
-import { SHOP_CATEGORY_PILLS, SORT_OPTIONS } from "@/lib/shop";
+import { SORT_OPTIONS, type ShopCategoryPill } from "@/lib/shop";
 
-export default function ShopHero({ count }: { count: number }) {
-  const [activePill, setActivePill] = useState(0);
-  const [sort, setSort] = useState(0);
+interface ShopHeroProps {
+  categories: ShopCategoryPill[];
+  activeCategory: string;
+  onCategoryChange: (slug: string) => void;
+  sort: number;
+  onSortChange: (sort: number) => void;
+  count: number;
+}
 
+export default function ShopHero({
+  categories,
+  activeCategory,
+  onCategoryChange,
+  sort,
+  onSortChange,
+  count,
+}: ShopHeroProps) {
   return (
     <section className="w-full relative overflow-hidden py-12 lg:py-16">
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-surface-container-low via-surface to-background pointer-events-none"></div>
@@ -28,18 +39,18 @@ export default function ShopHero({ count }: { count: number }) {
         </div>
 
         <div className="flex items-center gap-2 overflow-x-auto pb-4 no-scrollbar -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0">
-          {SHOP_CATEGORY_PILLS.map((pill, index) => {
-            const active = activePill === index;
+          {categories.map((pill) => {
+            const active = activeCategory === pill.slug;
             return (
               <button
-                key={pill.label}
+                key={pill.slug}
                 className={`whitespace-nowrap px-5 py-2.5 rounded-full font-label-md text-label-md transition-all flex items-center gap-2 ${
                   active
                     ? "bg-primary text-on-primary shadow-sm"
                     : "bg-surface-container hover:bg-surface-container-high text-on-surface"
                 }`}
                 type="button"
-                onClick={() => setActivePill(index)}
+                onClick={() => onCategoryChange(pill.slug)}
               >
                 <span>{pill.label}</span>
                 <span
@@ -69,10 +80,12 @@ export default function ShopHero({ count }: { count: number }) {
                 aria-label="Sort products by"
                 className="appearance-none bg-surface-container-lowest text-on-surface font-label-md text-label-md pl-4 pr-9 py-2 rounded-full cursor-pointer shadow-sm hover:bg-surface-bright transition-colors focus:outline-none focus:ring-2 focus:ring-secondary"
                 value={sort}
-                onChange={(event) => setSort(Number(event.target.value))}
+                onChange={(event) => onSortChange(Number(event.target.value))}
               >
-                {SORT_OPTIONS.map((option) => (
-                  <option key={option}>{option}</option>
+                {SORT_OPTIONS.map((option, index) => (
+                  <option key={option} value={index}>
+                    {option}
+                  </option>
                 ))}
               </select>
               <MaterialIcon

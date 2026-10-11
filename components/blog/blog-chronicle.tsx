@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 
-import { BlogArticle, BLOG_ARTICLES, BLOG_CATEGORIES, CATEGORY_LABELS, CHRONICLE_SHOWING } from "@/lib/blog";
+import { BlogArticle, BLOG_ARTICLES, BLOG_CATEGORIES, CATEGORY_LABELS } from "@/lib/blog";
 import { DialVisual, HelixVisual, MicrobiologyVisual, WaveVisual } from "@/components/blog/blog-visuals";
 
 function ArticleVisual({ article }: { article: BlogArticle }) {
@@ -137,7 +137,10 @@ export default function BlogChronicle() {
             Latest Articles
           </h3>
         </div>
-        <span className="font-caption text-caption text-outline">{CHRONICLE_SHOWING}</span>
+        <span className="font-caption text-caption text-outline">
+          Showing {filteredArticles.length}{" "}
+          {filteredArticles.length === 1 ? "article" : "articles"}
+        </span>
       </div>
       <section className="w-full max-w-[1320px] mx-auto px-margin-mobile md:px-margin mb-20">
         {filteredArticles.length > 0 ? (

@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 
 import BiochemistBanner from "@/components/shop/biochemist-banner";
 import QualityStrip from "@/components/shop/quality-strip";
-import ShopCatalog from "@/components/shop/shop-catalog";
-import ShopHero from "@/components/shop/shop-hero";
+import ShopBrowser from "@/components/shop/shop-browser";
 import ShopNotice from "@/components/shop/shop-notice";
 import { getCatalogProducts } from "@/lib/catalog";
 
@@ -22,8 +21,7 @@ export default async function ShopPage() {
   return (
     <div className="w-full flex flex-col gap-0">
       <ShopNotice />
-      <ShopHero count={products.length} />
-      <ShopCatalog products={products} />
+      <ShopBrowser products={products} />
       <QualityStrip />
       <BiochemistBanner />
     </div>

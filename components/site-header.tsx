@@ -19,7 +19,7 @@ interface NavLink {
 const NAV_LINKS: NavLink[] = [
   { label: "Shop", href: ROUTES.shop },
   { label: "Goals", href: ROUTES.categories },
-  { label: "Best Sellers", href: `${ROUTES.shop}#best-sellers` },
+  { label: "Best Sellers", href: `${ROUTES.home}#featured-products` },
   { label: "Blog", href: ROUTES.blog, badge: "NEW" },
   // { label: "Build Routine", href: ROUTES.quiz, badge: "NEW" },
   { label: "Learn", href: ROUTES.about },

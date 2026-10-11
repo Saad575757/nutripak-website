@@ -87,3 +87,16 @@ export const AVAILABLE_GOALS = GOALS.filter((goal) => goal.available);
 export function getGoal(slug: string): Goal | undefined {
   return GOALS.find((goal) => goal.slug === slug);
 }
+
+/**
+ * Filters a product list to the members of a goal. Unknown/"all" slugs return
+ * the full list so the shop can use a single code path for every pill.
+ */
+export function filterProductsByGoal<T extends { slug: string }>(
+  products: T[],
+  goalSlug: string,
+): T[] {
+  const goal = getGoal(goalSlug);
+  if (!goal || !goal.available) return products;
+  return products.filter((product) => goal.productSlugs.includes(product.slug));
+}

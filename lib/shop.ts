@@ -258,16 +258,10 @@ export function formatPkr(value: number): string {
 }
 
 export interface ShopCategoryPill {
+  slug: string;
   label: string;
-  count: string;
+  count: number;
 }
-
-export const SHOP_CATEGORY_PILLS: ShopCategoryPill[] = [
-  { label: "All Formulations", count: "3" },
-  { label: "General Nutrition Supplement", count: "1" },
-  { label: "Diabetic Care Supplement", count: "1" },
-  { label: "Protein Supplement", count: "1" },
-];
 
 export const SORT_OPTIONS = [
   "Sort: Featured",

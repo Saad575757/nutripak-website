@@ -2,18 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import MaterialIcon from "@/components/material-icon";
 import { useCart } from "@/components/cart/cart-context";
+import { AVAILABLE_GOALS, filterProductsByGoal } from "@/lib/goals";
 import { formatPkr, type ShopProduct } from "@/lib/shop";
 import { ROUTES } from "@/lib/site";
 
 const FILTERS = [
-  { label: "All Products", active: true },
-  { label: "Complete Nutrition", active: false },
-  { label: "Diabetic Care", active: false },
-  { label: "Protein Support", active: false },
+  { slug: "all", label: "All Products" },
+  ...AVAILABLE_GOALS.map((goal) => ({ slug: goal.slug, label: goal.label })),
 ];
 
 function ProductCardView({ product }: { product: ShopProduct }) {
@@ -81,7 +80,7 @@ export default function FeaturedProducts({
 }: {
   products: ShopProduct[];
 }) {
-  const [activeFilter, setActiveFilter] = useState(0);
+  const [activeFilter, setActiveFilter] = useState("all");
   const [activeIndex, setActiveIndex] = useState(0);
   const [perView, setPerView] = useState(3);
 
@@ -94,10 +93,20 @@ export default function FeaturedProducts({
     return () => media.removeEventListener("change", update);
   }, []);
 
+  const visible = useMemo(
+    () => filterProductsByGoal(products, activeFilter),
+    [products, activeFilter],
+  );
+
+  const selectFilter = (slug: string) => {
+    setActiveFilter(slug);
+    setActiveIndex(0);
+  };
+
   // Once the dashboard ships more than three products, present them as a
   // carousel instead of a wrapping grid.
-  const isCarousel = products.length > 3;
-  const maxIndex = Math.max(0, products.length - perView);
+  const isCarousel = visible.length > 3;
+  const maxIndex = Math.max(0, visible.length - perView);
   const showPrev = activeIndex > 0;
   const showNext = activeIndex < maxIndex;
 
@@ -121,15 +130,15 @@ export default function FeaturedProducts({
           </div>
           <div className="flex items-center justify-between md:justify-end gap-4">
             <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 scrollbar-none">
-              {FILTERS.map((filter, index) => (
+              {FILTERS.map((filter) => (
                 <button
-                  key={filter.label}
+                  key={filter.slug}
                   className={`px-5 py-2.5 rounded-full font-label-sm text-label-sm whitespace-nowrap transition-colors ${
-                    activeFilter === index
+                    activeFilter === filter.slug
                       ? "bg-primary text-on-primary"
                       : "bg-surface-container text-on-surface hover:bg-surface-container-high"
                   }`}
-                  onClick={() => setActiveFilter(index)}
+                  onClick={() => selectFilter(filter.slug)}
                   type="button"
                 >
                   {filter.label}
@@ -161,7 +170,16 @@ export default function FeaturedProducts({
           </div>
         </div>
 
-        {isCarousel ? (
+        {visible.length === 0 ? (
+          <div className="rounded-2xl bg-surface-container p-12 flex flex-col items-center gap-4 text-center">
+            <span className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-surface-container-high text-on-surface-variant">
+              <MaterialIcon name="search_off" className="text-[28px]" />
+            </span>
+            <p className="font-body-md text-body-md text-on-surface-variant">
+              No products in this category yet.
+            </p>
+          </div>
+        ) : isCarousel ? (
           <div className="overflow-hidden -mx-2.5 md:-mx-4">
             <div
               className="flex transition-transform duration-500 ease-out"
@@ -169,7 +187,7 @@ export default function FeaturedProducts({
                 transform: `translateX(-${(activeIndex * 100) / perView}%)`,
               }}
             >
-              {products.map((product) => (
+              {visible.map((product) => (
                 <div
                   key={product.slug}
                   className="w-full md:w-1/3 shrink-0 px-2.5 md:px-4 h-full"
@@ -181,7 +199,7 @@ export default function FeaturedProducts({
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {products.map((product) => (
+            {visible.map((product) => (
               <ProductCardView key={product.slug} product={product} />
             ))}
           </div>

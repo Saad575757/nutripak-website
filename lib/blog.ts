@@ -49,7 +49,6 @@ export const BLOG_ARTICLES: BlogArticle[] = [
 
 export const CHRONICLE_ISSUE = "Issue No. 42";
 export const CHRONICLE_ISSN = "ISSN 2831-9014";
-export const CHRONICLE_SHOWING = "Showing 1 article";
 
 export interface ArticleSection {
   heading: string;
