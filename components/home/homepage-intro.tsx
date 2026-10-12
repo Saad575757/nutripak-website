@@ -9,7 +9,7 @@ const HOLD_MS = 2500;
 /** Duration of the wipe, and of the gap before the overlay unmounts. */
 const EXIT_MS = 700;
 
-const HEADLINE = ["Better nutrition.", "Built around you."];
+const HEADLINE = ["Revitalizing Life.", "Complete Nutrition."];
 
 const PRODUCTS = ["PROTEIOS", "ADA-Glu", "SUBSET"];
 
