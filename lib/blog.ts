@@ -26,9 +26,8 @@ export interface BlogArticle {
   image?: { src: string; alt: string };
 }
 
-/** Placeholder stock image — swap for final Nutripak photography before launch. */
 const PREGNANCY_IMAGE = {
-  src: "https://images.pexels.com/photos/6991891/pexels-photo-6991891.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  src: "/blog1.webp",
   alt: "Pregnant woman taking her daily vitamins and supplements at a table",
 };
 

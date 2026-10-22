@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -15,6 +16,8 @@ interface NavLink {
   href: string;
   badge?: string;
 }
+
+const LOGO_IMAGE = "/nutripak-logo.webp";
 
 const NAV_LINKS: NavLink[] = [
   { label: "Shop", href: ROUTES.shop },
@@ -51,16 +54,14 @@ export default function SiteHeader() {
       <header className="w-full bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
       <div className="h-20 max-w-[1320px] mx-auto px-margin-mobile md:px-margin flex items-center justify-between gap-space-md">
         <Link href={ROUTES.home} className="flex items-center gap-3 shrink-0" aria-label="Nutripak home">
-          {/* <Image
+          <Image
             src={LOGO_IMAGE}
             alt="NUTRIPAK Official Brand Logo"
-            width={160}
-            height={32}
-            className="h-8 w-auto object-contain"
-          /> */}
-          <span className="font-headline-sm text-headline-sm text-primary tracking-tight font-bold">
-            NUTRIPAK
-          </span>
+            width={1823}
+            height={681}
+            priority
+            className="h-14 w-auto object-contain"
+          />
         </Link>
 
         <nav className="hidden xl:flex items-center gap-space-lg">
@@ -142,9 +143,20 @@ export default function SiteHeader() {
         }`}
       >
         <div className="p-5 bg-primary-container flex items-center justify-between">
-          <span className="font-headline-sm text-headline-sm text-on-primary tracking-tight font-bold">
-            NUTRIPAK
-          </span>
+          <Link
+            href={ROUTES.home}
+            onClick={() => setMenuOpen(false)}
+            className="inline-flex items-center rounded-lg bg-surface-container-lowest px-3 py-1.5"
+            aria-label="Nutripak home"
+          >
+            <Image
+              src={LOGO_IMAGE}
+              alt="NUTRIPAK Official Brand Logo"
+              width={1823}
+              height={681}
+              className="h-10 w-auto object-contain"
+            />
+          </Link>
           <button
             className="w-8 h-8 rounded-full bg-on-primary/10 hover:bg-on-primary/20 flex items-center justify-center text-on-primary transition-colors"
             onClick={() => setMenuOpen(false)}

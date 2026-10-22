@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 
@@ -145,6 +146,24 @@ export default function SiteFooter() {
   return (
     <footer className="w-full bg-surface-container-low pt-16 pb-12 mt-space-xl">
       <div className="max-w-[1320px] mx-auto px-margin-mobile md:px-margin">
+        <div className="mb-12 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <Link href={ROUTES.home} aria-label="Nutripak home" className="inline-flex w-fit">
+            <Image
+              src="/nutripak-logo.webp"
+              alt="NUTRIPAK Official Brand Logo"
+              width={1823}
+              height={681}
+              className="h-16 w-auto object-contain"
+            />
+          </Link>
+          <div className="flex items-center gap-4 sm:justify-end">
+            <span className="hidden h-px w-16 bg-gradient-to-r from-transparent to-secondary sm:block" />
+            <p className="font-headline-sm text-headline-sm tracking-tight text-primary sm:text-right">
+              Better nutrition,{" "}
+              <span className="italic text-secondary">built around you.</span>
+            </p>
+          </div>
+        </div>
         <div className="p-space-lg md:p-space-xl rounded-xl bg-surface-container mb-16 flex flex-col lg:flex-row items-center justify-between gap-space-lg">
           <div className="max-w-xl text-center lg:text-left">
             <h3 className="font-headline-md text-headline-md text-primary font-normal leading-tight mb-2">

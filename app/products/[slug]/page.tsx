@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import ProductFaq from "@/components/product/product-faq";
 import ProductFeatures from "@/components/product/product-features";
 import ProductHero from "@/components/product/product-hero";
+import ProductReviews from "@/components/product/product-reviews";
 import { getCatalogProduct, getCatalogSlugs } from "@/lib/catalog";
 
 /** Refresh from the dashboard database at most this often. */
@@ -41,6 +42,7 @@ export default async function ProductPage({
     <div className="flex flex-col">
       <ProductHero product={product} />
       <ProductFeatures product={product} />
+      <ProductReviews slug={product.slug} productName={product.name} />
       <ProductFaq product={product} />
     </div>
   );

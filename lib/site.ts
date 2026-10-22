@@ -55,20 +55,20 @@ export interface Review {
 export const REVIEWS: Review[] = [
   {
     quote:
-      "“After 3 weeks of the Energy + Sleep pack, the 3 PM brain fog completely vanished. Game changer for long clinical shifts!”",
-    author: "Sarah M.",
+      "“SUBSET has replaced my rushed breakfast on busy mornings. One glass keeps me full until lunch, and I no longer skip meals during school runs.”",
+    author: "Ayesha R.",
     meta: "Verified Subscriber • 6 Mos",
   },
   {
     quote:
-      "“The quiz recommended exactly what my bloodwork said I was deficient in. Superior bioavailability and no upset stomach.”",
-    author: "Dr. David K.",
+      "“I add PROTEIOS to my oats and daal because it is unflavoured. No bloating, no aftertaste, and my recovery after training feels noticeably better.”",
+    author: "Hamza T.",
     meta: "Verified Subscriber • 1 Yr",
   },
   {
     quote:
-      "“Subscriptions are completely seamless, and the frosted glass bottles look gorgeous on my kitchen counter. Love Nutripak.”",
-    author: "Maya L.",
+      "“My father uses ADA-glu with breakfast as part of his diabetes diet plan. His meal timing is more consistent and his readings have been steadier.”",
+    author: "Fatima N.",
     meta: "Verified Subscriber • 4 Mos",
   },
 ];

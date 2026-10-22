@@ -9,12 +9,12 @@ export default function ProductFaq({ product }: { product: ShopProduct }) {
 
   return (
     <section className="w-full py-16 md:py-24">
-      <div className="max-w-[1320px] mx-auto px-margin-mobile md:px-margin flex flex-col gap-10">
-        <h2 className="font-headline-md text-headline-md-mobile md:text-headline-md text-primary font-normal">
+      <div className="mx-auto flex max-w-3xl flex-col gap-10 px-margin-mobile md:px-margin">
+        <h2 className="text-center font-headline-md text-headline-md-mobile md:text-headline-md text-primary font-normal">
           Frequently Asked Questions
         </h2>
 
-        <div className="max-w-3xl w-full flex flex-col gap-4">
+        <div className="flex w-full flex-col gap-4">
           {product.faqs.map((faq, index) => (
             <details
               key={faq.question}
@@ -58,7 +58,7 @@ export default function ProductFaq({ product }: { product: ShopProduct }) {
         </div>
 
         <Link
-          className="inline-flex w-fit items-center gap-2 rounded-full border border-primary px-6 py-3 font-label-md text-label-md font-semibold text-primary hover:bg-primary hover:text-on-primary transition-colors"
+          className="mx-auto inline-flex w-fit items-center gap-2 rounded-full border border-primary px-6 py-3 font-label-md text-label-md font-semibold text-primary hover:bg-primary hover:text-on-primary transition-colors"
           href={ROUTES.faqs}
         >
           <MaterialIcon name="help" className="text-[18px]" />

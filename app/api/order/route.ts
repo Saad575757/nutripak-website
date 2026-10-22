@@ -6,9 +6,14 @@ import { isDatabaseConfigured, newId, query, withTransaction } from "@/lib/db";
 import { renderBrandedEmail } from "@/lib/email-template";
 import { sendMail } from "@/lib/mailer";
 import { PAYMENT_METHOD } from "@/lib/shipping";
-import { formatPkr } from "@/lib/shop";
+import { SHOP_PRODUCTS, formatPkr } from "@/lib/shop";
 
 export const runtime = "nodejs";
+
+/** Static slug → SKU map; dashboard slugs get the SKU appended on edit. */
+const BASE_SKU_BY_SLUG = new Map(
+  SHOP_PRODUCTS.map((product) => [product.slug, product.sku]),
+);
 
 interface OrderItemPayload {
   name?: unknown;
@@ -218,17 +223,27 @@ async function saveOrder(order: PersistedOrder): Promise<void> {
   const slugs = Array.from(
     new Set(order.items.map((item) => item.slug).filter(Boolean)),
   );
+  const skus = Array.from(
+    new Set(
+      slugs
+        .map((slug) => BASE_SKU_BY_SLUG.get(slug))
+        .filter((sku): sku is string => Boolean(sku)),
+    ),
+  );
 
   const products = slugs.length
     ? await query<{ id: string; slug: string; sku: string }>(
-        `SELECT id, slug, sku FROM "Product" WHERE slug = ANY($1::text[])`,
-        [slugs],
+        `SELECT id, slug, sku FROM "Product"
+         WHERE slug = ANY($1::text[]) OR sku = ANY($2::text[])`,
+        [slugs, skus],
       )
     : null;
 
-  const bySlug = new Map(
-    (products?.rows ?? []).map((row) => [row.slug, row]),
-  );
+  const byKey = new Map<string, { id: string; slug: string; sku: string }>();
+  for (const row of products?.rows ?? []) {
+    byKey.set(row.slug, row);
+    byKey.set(row.sku, row);
+  }
 
   await withTransaction(async (client) => {
     const orderId = newId();
@@ -257,7 +272,8 @@ async function saveOrder(order: PersistedOrder): Promise<void> {
     );
 
     for (const item of order.items) {
-      const product = bySlug.get(item.slug);
+      const product =
+        byKey.get(item.slug) ?? byKey.get(BASE_SKU_BY_SLUG.get(item.slug) ?? "");
       await client.query(
         `INSERT INTO "OrderItem"
            (id, "orderId", "productId", "productName", sku, "unitPrice", quantity)

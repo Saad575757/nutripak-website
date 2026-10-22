@@ -28,7 +28,7 @@ export default function FaqsPage() {
             <span className="text-secondary-container font-semibold">FAQs</span>
           </nav>
 
-          <div className="flex flex-col gap-4 max-w-3xl">
+          <div className="flex max-w-3xl flex-col gap-4">
             <span className="font-label-sm text-label-sm uppercase tracking-[0.28em] text-secondary-container font-bold">
               Help centre
             </span>
@@ -58,23 +58,23 @@ export default function FaqsPage() {
       </section>
 
       <section className="w-full py-14 md:py-20">
-        <div className="max-w-[1320px] mx-auto px-margin-mobile md:px-margin flex flex-col gap-16">
+        <div className="mx-auto flex max-w-3xl flex-col gap-16 px-margin-mobile md:px-margin">
           {FAQ_GROUPS.map((group) => (
             <div
               className="flex flex-col gap-6 scroll-mt-32"
               id={group.slug}
               key={group.slug}
             >
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col items-center gap-2 text-center">
                 <h2 className="font-headline-md text-headline-md-mobile md:text-headline-md text-primary font-normal">
                   {group.title}
                 </h2>
-                <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+                <p className="font-body-md text-body-md text-on-surface-variant">
                   {group.description}
                 </p>
               </div>
 
-              <div className="max-w-3xl w-full flex flex-col gap-4">
+              <div className="flex w-full flex-col gap-4">
                 {group.items.map((faq) => (
                   <details
                     key={faq.question}
