@@ -4,13 +4,13 @@ import nodemailer, { type Transporter } from "nodemailer";
  * SMTP configuration for outbound form submissions.
  *
  * Values come from environment variables so credentials never live in the repo.
- * Defaults match the Hostinger mailbox used by the site (auth: saad@gosoftlabs.com).
+ * Defaults match the Gmail mailbox used by the site (auth: nutripak.np@gmail.com).
  * Set SMTP_PASS in `.env.local` before deploying — without it, sends will fail.
  */
-const SMTP_HOST = process.env.SMTP_HOST ?? "smtp.hostinger.com";
+const SMTP_HOST = process.env.SMTP_HOST ?? "smtp.gmail.com";
 const SMTP_PORT = Number(process.env.SMTP_PORT ?? 465);
 const SMTP_SECURE = (process.env.SMTP_SECURE ?? "true") !== "false";
-const SMTP_USER = process.env.SMTP_USER ?? "saad@gosoftlabs.com";
+const SMTP_USER = process.env.SMTP_USER ?? "nutripak.np@gmail.com";
 const SMTP_PASS = process.env.SMTP_PASS ?? "";
 
 /** Verified sender address for all transactional form mail. */
