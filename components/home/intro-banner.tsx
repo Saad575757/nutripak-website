@@ -3,7 +3,7 @@ import MaterialIcon from "@/components/material-icon";
 export default function IntroBanner() {
   return (
     <section className="w-full bg-primary text-on-primary py-3.5 px-margin-mobile md:px-margin shadow-inner">
-      <div className="max-w-[1320px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+      <div className="max-w-[1320px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-1 md:gap-3 text-center sm:text-left">
         <div className="flex items-center gap-3">
           <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-secondary-container text-on-secondary-fixed">
             <MaterialIcon name="verified_user" className="text-[16px]" />
