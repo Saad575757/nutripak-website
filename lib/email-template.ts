@@ -42,15 +42,15 @@ export interface BrandedEmailOptions {
 }
 
 const COLORS = {
-  primary: "#00271b",
-  secondary: "#006d43",
-  accent: "#56fbab",
-  surface: "#f2f3ff",
-  border: "#e2e7ff",
-  body: "#eaedff",
-  text: "#131b2e",
-  muted: "#717974",
-  pageText: "#414944",
+  primary: "#00695c",
+  secondary: "#000080",
+  accent: "#aed254",
+  surface: "#ffffff",
+  border: "#e5e1d3",
+  body: "#faf9f3",
+  text: "#16211d",
+  muted: "#6f7a74",
+  pageText: "#47534d",
 };
 
 function renderRows(rows: EmailKeyValue[]): string {
@@ -166,7 +166,7 @@ export function renderBrandedEmail({
             <tr>
               <td style="background:${COLORS.primary};padding:28px 32px;">
                 <div style="font-size:22px;font-weight:700;color:#ffffff;letter-spacing:3px;">NUTRIPAK</div>
-                <div style="font-size:12px;color:#a2d1ba;margin-top:4px;">Nutrition that fits your goal</div>
+                <div style="font-size:12px;color:#a7d9d0;margin-top:4px;">Nutrition that fits your goal</div>
               </td>
             </tr>
             <tr>

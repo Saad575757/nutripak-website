@@ -3,24 +3,6 @@ import Image from "next/image";
 import MaterialIcon from "@/components/material-icon";
 import { HERO_IMAGE } from "@/lib/site";
 
-const HERO_PILLS = [
-  {
-    icon: "spa",
-    label: "Bioavailable Chelated Minerals",
-    position: "top-6 right-6",
-  },
-  {
-    icon: "science",
-    label: "3rd-Party Lab Tested",
-    position: "bottom-16 left-6",
-  },
-  {
-    icon: "eco",
-    label: "Zero Synthetic Fillers",
-    position: "bottom-6 right-6",
-  },
-];
-
 export default function Hero() {
   return (
     <section className="w-full py-12 md:py-20 px-margin-mobile md:px-margin relative overflow-hidden">

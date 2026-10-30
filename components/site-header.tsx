@@ -20,12 +20,11 @@ interface NavLink {
 const LOGO_IMAGE = "/nutripak-logo.webp";
 
 const NAV_LINKS: NavLink[] = [
+  { label: "Home", href: ROUTES.home },
   { label: "Shop", href: ROUTES.shop },
   { label: "Goals", href: ROUTES.categories },
-  { label: "Best Sellers", href: `${ROUTES.home}#featured-products` },
-  { label: "Blog", href: ROUTES.blog, badge: "NEW" },
-  // { label: "Build Routine", href: ROUTES.quiz, badge: "NEW" },
-  { label: "Learn", href: ROUTES.about },
+  { label: "Find Your Formula", href: ROUTES.quiz, badge: "NEW" },
+  { label: "Blog", href: ROUTES.blog },
   { label: "FAQs", href: ROUTES.faqs },
   { label: "About", href: ROUTES.about },
 ];
@@ -36,8 +35,11 @@ export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const isActive = (href: string) => {
+    if (href === ROUTES.home) {
+      return pathname === ROUTES.home;
+    }
     if (href === ROUTES.shop) {
-      return pathname === ROUTES.shop || pathname === ROUTES.home;
+      return pathname === ROUTES.shop || pathname.startsWith("/products");
     }
     return pathname === href || pathname.startsWith(href);
   };

@@ -31,7 +31,7 @@ function ProductCardView({ product }: { product: ShopProduct }) {
   };
 
   return (
-    <div className="group flex flex-col justify-between h-full bg-surface-container-lowest rounded-3xl p-5 shadow-sm hover:shadow-xl transition-all">
+    <div className="group flex flex-col justify-between h-full bg-surface-container-lowest rounded-3xl p-5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       <div className="flex flex-col gap-4">
         <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-surface-container-low  flex items-center justify-center">
           <Image

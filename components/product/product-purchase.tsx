@@ -11,14 +11,17 @@ export default function ProductPurchase({ product }: { product: ShopProduct }) {
   const [quantity, setQuantity] = useState(1);
 
   const handleOrderNow = () => {
-    addItem({
-      key: product.slug,
-      name: product.name,
-      variant: product.variant,
-      price: product.pricePkr,
-      image: product.image,
-      alt: product.alt,
-    });
+    addItem(
+      {
+        key: product.slug,
+        name: product.name,
+        variant: product.variant,
+        price: product.pricePkr,
+        image: product.image,
+        alt: product.alt,
+      },
+      quantity,
+    );
     openCart();
   };
 

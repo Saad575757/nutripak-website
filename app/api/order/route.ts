@@ -5,7 +5,7 @@ import { deliveryFeeFor, orderReference, totalFor } from "@/lib/checkout";
 import { isDatabaseConfigured, newId, query, withTransaction } from "@/lib/db";
 import { renderBrandedEmail } from "@/lib/email-template";
 import { sendMail } from "@/lib/mailer";
-import { PAYMENT_METHOD } from "@/lib/shipping";
+import { PAYMENT_METHOD, DELIVERY_WINDOW_DAYS } from "@/lib/shipping";
 import { SHOP_PRODUCTS, formatPkr } from "@/lib/shop";
 
 export const runtime = "nodejs";
@@ -31,6 +31,7 @@ interface OrderPayload {
   city?: unknown;
   postalCode?: unknown;
   notes?: unknown;
+  referral?: unknown;
   items?: OrderItemPayload[];
 }
 
@@ -49,6 +50,7 @@ export async function POST(request: Request) {
   const city = String(payload.city ?? "").trim();
   const postalCode = String(payload.postalCode ?? "").trim();
   const notes = String(payload.notes ?? "").trim();
+  const referral = String(payload.referral ?? "").trim().slice(0, 240);
 
   const items = (Array.isArray(payload.items) ? payload.items : [])
     .map((item) => ({
@@ -103,6 +105,7 @@ export async function POST(request: Request) {
     `Delivery: ${delivery === 0 ? "Free" : formatPkr(delivery)}`,
     `Total: ${formatPkr(total)}`,
     `Payment: ${PAYMENT_METHOD}`,
+    referral ? `Attribution: ${referral}` : null,
   ]
     .filter((line): line is string => line !== null)
     .join("\n");
@@ -116,7 +119,9 @@ export async function POST(request: Request) {
       customerEmail: email,
       address,
       city,
-      notes,
+      notes: [notes, referral ? `Referral: ${referral}` : ""]
+        .filter(Boolean)
+        .join("\n"),
       subtotal,
       delivery,
       total,
@@ -174,6 +179,14 @@ export async function POST(request: Request) {
               { label: "Payment", value: PAYMENT_METHOD },
             ],
           },
+          ...(referral
+            ? [
+                {
+                  title: "Attribution",
+                  rows: [{ label: "Referral", value: referral }],
+                },
+              ]
+            : []),
         ],
         footerNote: "Confirm this order with the customer before dispatch.",
       }),
@@ -185,6 +198,107 @@ export async function POST(request: Request) {
       { error: "We could not submit your order. Please try again." },
       { status: 502 },
     );
+  }
+
+  // Customer-facing confirmation. Best-effort: the order is already captured
+  // and the admin inbox has been notified, so a mail hiccup must not make the
+  // customer think their order failed.
+  if (email) {
+    const customerLines = [
+      `Your Nutripak order is confirmed: ${reference}`,
+      "",
+      `Hi ${fullName},`,
+      "",
+      "Thank you for your order. Our team will call or message you on",
+      `${phone} within a few hours to confirm the order before dispatch.`,
+      "",
+      "Order summary",
+      ...items.map(
+        (item) =>
+          `- ${item.name} (${item.variant}) x${item.quantity} — ${formatPkr(
+            item.price * item.quantity,
+          )}`,
+      ),
+      "",
+      `Subtotal: ${formatPkr(subtotal)}`,
+      `Delivery: ${delivery === 0 ? "Free" : formatPkr(delivery)}`,
+      `Total: ${formatPkr(total)}`,
+      `Payment: ${PAYMENT_METHOD}`,
+      "",
+      "Delivery details",
+      `Address: ${address}`,
+      `City: ${city}`,
+      postalCode ? `Postal code: ${postalCode}` : null,
+      `Delivery window: ${DELIVERY_WINDOW_DAYS} business days`,
+      notes ? `Notes: ${notes}` : null,
+      "",
+      "Need help? Reply to this email or message us on WhatsApp.",
+    ]
+      .filter((line): line is string => line !== null)
+      .join("\n");
+
+    try {
+      await sendMail({
+        to: email,
+        subject: `Order confirmed — ${reference}`,
+        text: customerLines,
+        html: renderBrandedEmail({
+          preheader: `Order ${reference} confirmed — total ${formatPkr(total)}`,
+          heading: "Your order is confirmed",
+          intro: `Thank you, ${fullName}. Order ${reference} has been received. Our team will call or message you on ${phone} within a few hours to confirm dispatch.`,
+          sections: [
+            {
+              title: "Order",
+              rows: [
+                { label: "Order number", value: reference },
+                { label: "Total", value: formatPkr(total) },
+                { label: "Payment", value: PAYMENT_METHOD },
+              ],
+            },
+            {
+              title: "Items",
+              items: items.map((item) => ({
+                name: item.name,
+                meta: `${item.variant} · Qty ${item.quantity}`,
+                amount: formatPkr(item.price * item.quantity),
+              })),
+            },
+            {
+              title: "Summary",
+              rows: [
+                { label: "Subtotal", value: formatPkr(subtotal) },
+                {
+                  label: "Delivery",
+                  value: delivery === 0 ? "Free" : formatPkr(delivery),
+                },
+                { label: "Total", value: formatPkr(total) },
+              ],
+            },
+            {
+              title: "Delivery",
+              rows: [
+                { label: "Name", value: fullName },
+                { label: "Phone", value: phone },
+                { label: "Address", value: address },
+                { label: "City", value: city },
+                ...(postalCode
+                  ? [{ label: "Postal code", value: postalCode }]
+                  : []),
+                {
+                  label: "Delivery window",
+                  value: `${DELIVERY_WINDOW_DAYS} business days`,
+                },
+                ...(notes ? [{ label: "Notes", value: notes }] : []),
+              ],
+            },
+          ],
+          footerNote:
+            "Need help? Reply to this email or message us on WhatsApp. Keep your order number handy.",
+        }),
+      });
+    } catch (error) {
+      console.error("Customer confirmation email failed:", error);
+    }
   }
 
   return NextResponse.json({ ok: true, reference, total });

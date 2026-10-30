@@ -6,6 +6,7 @@ import { useState, type FormEvent } from "react";
 
 import MaterialIcon from "@/components/material-icon";
 import { useCart } from "@/components/cart/cart-context";
+import { readStoredReferral } from "@/lib/analytics";
 import {
   EMPTY_CHECKOUT,
   deliveryFeeFor,
@@ -75,6 +76,7 @@ export default function CheckoutForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...details,
+          referral: readStoredReferral(),
           items: items.map((item) => ({
             slug: item.key,
             name: item.name,
@@ -135,6 +137,17 @@ export default function CheckoutForm() {
               ready to pay the courier, so your delivery is quick and
               hassle-free.
             </p>
+
+            {details.email ? (
+              <p className="w-full rounded-xl bg-surface-container-low px-4 py-3 font-body-sm text-body-sm text-on-surface-variant">
+                A confirmation with your order number, summary, and delivery
+                details has been sent to{" "}
+                <span className="text-primary font-semibold">
+                  {details.email}
+                </span>
+                .
+              </p>
+            ) : null}
 
             <dl className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
               <div className="rounded-xl bg-surface-container-low p-4">
@@ -285,7 +298,7 @@ export default function CheckoutForm() {
 
               <Field
                 error={errors.email}
-                hint="Optional — we only use this for order updates."
+                hint="Optional — used for your order confirmation and updates."
                 id="checkout-email"
                 label="Email address"
               >

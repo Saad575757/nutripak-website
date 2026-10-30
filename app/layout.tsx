@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Newsreader, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, Lobster_Two } from "next/font/google";
 
 import AiAssistant from "@/components/ai-assistant";
 import AnnouncementBar from "@/components/announcement-bar";
+import ReferralTracker from "@/components/analytics/referral-tracker";
 import { CartProvider } from "@/components/cart/cart-context";
 import CartDrawer from "@/components/cart/cart-drawer";
 import SiteFooter from "@/components/site-footer";
@@ -15,15 +16,16 @@ import "./globals.css";
 /** Keep the seeded cart in step with dashboard pricing. */
 export const revalidate = 30;
 
-const newsreader = Newsreader({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-newsreader",
+  variable: "--font-inter",
   display: "swap",
 });
 
-const jakarta = Plus_Jakarta_Sans({
+const lobsterTwo = Lobster_Two({
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-jakarta",
+  variable: "--font-lobster",
   display: "swap",
 });
 
@@ -44,7 +46,7 @@ export default async function RootLayout({
   const products = await getCatalogProducts();
 
   return (
-    <html lang="en" className={`${newsreader.variable} ${jakarta.variable}`}>
+    <html lang="en" className={`${lobsterTwo.variable} ${inter.variable}`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -59,12 +61,18 @@ export default async function RootLayout({
         />
       </head>
       <body className="bg-background font-body-md text-on-surface antialiased">
+        <a className="skip-link" href="#main-content">
+          Skip to content
+        </a>
         <CartProvider seed={toCartSeed(products)}>
+          <ReferralTracker />
           <div className="fixed top-0 left-0 w-full z-50">
             <AnnouncementBar />
             <SiteHeader />
           </div>
-          <main className="w-full pt-28 bg-surface">{children}</main>
+          <main id="main-content" className="w-full pt-28 bg-surface">
+            {children}
+          </main>
           <SiteFooter />
           <CartDrawer />
           <AiAssistant />

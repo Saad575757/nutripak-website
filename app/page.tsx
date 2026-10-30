@@ -1,5 +1,3 @@
-import EditorialBanner from "@/components/home/editorial-banner";
-import ExpertSection from "@/components/home/expert-section";
 import FeaturedProducts from "@/components/home/featured-products";
 import GoalCategories from "@/components/home/goal-categories";
 import Hero from "@/components/home/hero";
@@ -24,7 +22,7 @@ export default async function HomePage() {
       <Hero />
       <TrustStrip />
       <GoalCategories />
-      {/* <QuizTeaser /> */}
+      <QuizTeaser />
       <FeaturedProducts products={products} />
       {/* <EditorialBanner /> */}
       {/* <ExpertSection /> */}

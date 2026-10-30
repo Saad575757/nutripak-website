@@ -29,7 +29,7 @@ interface CartContextValue {
   isOpen: boolean;
   openCart: () => void;
   closeCart: () => void;
-  addItem: (item: Omit<CartItem, "quantity">) => void;
+  addItem: (item: Omit<CartItem, "quantity">, quantity?: number) => void;
   removeItem: (key: string) => void;
   increment: (key: string) => void;
   decrement: (key: string) => void;
@@ -103,17 +103,23 @@ export function CartProvider({
   const openCart = useCallback(() => setIsOpen(true), []);
   const closeCart = useCallback(() => setIsOpen(false), []);
 
-  const addItem = useCallback((item: Omit<CartItem, "quantity">) => {
-    setItems((prev) => {
-      const existing = prev.find((p) => p.key === item.key);
-      if (existing) {
-        return prev.map((p) =>
-          p.key === item.key ? { ...p, quantity: p.quantity + 1 } : p
-        );
-      }
-      return [...prev, { ...item, quantity: 1 }];
-    });
-  }, []);
+  const addItem = useCallback(
+    (item: Omit<CartItem, "quantity">, quantity = 1) => {
+      const amount = Math.max(1, Math.floor(quantity));
+      setItems((prev) => {
+        const existing = prev.find((p) => p.key === item.key);
+        if (existing) {
+          return prev.map((p) =>
+            p.key === item.key
+              ? { ...p, quantity: p.quantity + amount }
+              : p
+          );
+        }
+        return [...prev, { ...item, quantity: amount }];
+      });
+    },
+    [],
+  );
 
   const removeItem = useCallback((key: string) => {
     setItems((prev) => prev.filter((p) => p.key !== key));

@@ -24,7 +24,7 @@ export default function ProductCard({ product }: { product: ShopProduct }) {
   };
 
   return (
-    <div className="group flex flex-col bg-surface-container-lowest rounded-xl p-5 shadow-sm hover:shadow-md transition-all duration-300">
+    <div className="group flex flex-col bg-surface-container-lowest rounded-xl p-5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       <Link
         className="relative aspect-square w-full rounded-lg bg-surface-container-low overflow-hidden mb-5 block"
         href={ROUTES.product(product.slug)}

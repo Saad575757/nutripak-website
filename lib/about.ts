@@ -283,10 +283,17 @@ export const ABOUT_FAQS: FaqItem[] = [
 
 export const ABOUT_DOWNLOADS = {
   heading: "Downloads",
-  /** TODO: point these at the real PDF assets once they are supplied. */
   items: [
-    { label: "Nutripak Product Guide", href: "/downloads#nutripak-product-guide" },
-    { label: "Nutrition Fact Sheets", href: "/downloads#nutrition-fact-sheets" },
+    {
+      label: "Nutripak Product Guide",
+      href: "/downloads/nutripak-product-guide.pdf",
+      file: "PDF · 3 products",
+    },
+    {
+      label: "Nutrition Fact Sheets",
+      href: "/downloads/nutrition-fact-sheets.pdf",
+      file: "PDF · Per-serving facts",
+    },
   ],
 } as const;
 

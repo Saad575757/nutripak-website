@@ -16,6 +16,7 @@ export const ROUTES = {
   quiz: "/quiz",
   blog: "/blog",
   faqs: "/faqs",
+  downloads: "/downloads",
   login: "/login",
   signup: "/signup",
   forgotPassword: "/forgot-password",

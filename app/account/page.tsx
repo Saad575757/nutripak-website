@@ -29,7 +29,7 @@ const ORDER_STATUS_LABEL: Record<string, string> = {
 const ORDER_STATUS_CLASS: Record<string, string> = {
   PENDING: "bg-surface-variant text-on-surface",
   CONFIRMED: "bg-secondary-container text-on-secondary-fixed",
-  PROCESSING: "bg-primary-container text-primary",
+  PROCESSING: "bg-primary-container text-on-primary",
   SHIPPED: "bg-secondary/20 text-secondary",
   DELIVERED: "bg-primary text-on-primary",
   CANCELLED: "bg-error-container text-on-error-container",

@@ -1,61 +1,61 @@
 @import "tailwindcss";
 
 @theme {
-  /* ---- Material-3 color tokens (from home.html tailwind config) ---- */
-  --color-background: #faf8ff;
-  --color-on-background: #131b2e;
+  /* ---- Brand palette: teal #00695C, navy #000080, lime #AED254, ivory #FAF9F3 ---- */
+  --color-background: #faf9f3;
+  --color-on-background: #16211d;
 
-  --color-surface: #faf8ff;
-  --color-surface-bright: #faf8ff;
-  --color-surface-dim: #d2d9f4;
+  --color-surface: #faf9f3;
+  --color-surface-bright: #ffffff;
+  --color-surface-dim: #ddd8cc;
   --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f2f3ff;
-  --color-surface-container: #eaedff;
-  --color-surface-container-high: #e2e7ff;
-  --color-surface-container-highest: #dae2fd;
-  --color-surface-variant: #dae2fd;
-  --color-surface-tint: #3b6755;
+  --color-surface-container-low: #f2f0e6;
+  --color-surface-container: #e9e6d9;
+  --color-surface-container-high: #dfdbcb;
+  --color-surface-container-highest: #d4cfbc;
+  --color-surface-variant: #e5e1d3;
+  --color-surface-tint: #00695c;
 
-  --color-on-surface: #131b2e;
-  --color-on-surface-variant: #414944;
+  --color-on-surface: #16211d;
+  --color-on-surface-variant: #47534d;
 
-  --color-primary: #00271b;
+  --color-primary: #00695c;
   --color-on-primary: #ffffff;
-  --color-primary-container: #0f3e2e;
-  --color-on-primary-container: #7ba994;
-  --color-primary-fixed: #bdedd6;
-  --color-primary-fixed-dim: #a2d1ba;
-  --color-on-primary-fixed: #002116;
-  --color-on-primary-fixed-variant: #224f3e;
-  --color-inverse-primary: #a2d1ba;
+  --color-primary-container: #004d43;
+  --color-on-primary-container: #a7d9d0;
+  --color-primary-fixed: #b8e6de;
+  --color-primary-fixed-dim: #8fd3c9;
+  --color-on-primary-fixed: #002e28;
+  --color-on-primary-fixed-variant: #005046;
+  --color-inverse-primary: #8fd3c9;
 
-  --color-secondary: #006d43;
+  --color-secondary: #000080;
   --color-on-secondary: #ffffff;
-  --color-secondary-container: #56fbab;
-  --color-on-secondary-container: #007146;
-  --color-secondary-fixed: #59fead;
-  --color-secondary-fixed-dim: #31e193;
-  --color-on-secondary-fixed: #002111;
-  --color-on-secondary-fixed-variant: #005231;
+  --color-secondary-container: #aed254;
+  --color-on-secondary-container: #1f2e00;
+  --color-secondary-fixed: #c7e884;
+  --color-secondary-fixed-dim: #aed254;
+  --color-on-secondary-fixed: #1b2600;
+  --color-on-secondary-fixed-variant: #3a4d00;
 
-  --color-tertiary: #09007c;
+  --color-tertiary: #000060;
   --color-on-tertiary: #ffffff;
-  --color-tertiary-container: #1911af;
-  --color-on-tertiary-container: #9295ff;
-  --color-tertiary-fixed: #e1e0ff;
-  --color-tertiary-fixed-dim: #c0c1ff;
-  --color-on-tertiary-fixed: #07006c;
-  --color-on-tertiary-fixed-variant: #2f2ebe;
+  --color-tertiary-container: #e1e1f7;
+  --color-on-tertiary-container: #2a2a8a;
+  --color-tertiary-fixed: #d9d9f0;
+  --color-tertiary-fixed-dim: #b8b8e6;
+  --color-on-tertiary-fixed: #00004d;
+  --color-on-tertiary-fixed-variant: #2a2a8a;
 
   --color-error: #ba1a1a;
   --color-on-error: #ffffff;
   --color-error-container: #ffdad6;
   --color-on-error-container: #93000a;
 
-  --color-outline: #717974;
-  --color-outline-variant: #c0c8c2;
-  --color-inverse-surface: #283044;
-  --color-inverse-on-surface: #eef0ff;
+  --color-outline: #6f7a74;
+  --color-outline-variant: #c5c0b2;
+  --color-inverse-surface: #24322d;
+  --color-inverse-on-surface: #f4f1e7;
 
   /* ---- Spacing scale (rem) ---- */
   --spacing-margin: 3rem;
@@ -69,52 +69,52 @@
   --spacing-gutter-sm: 1rem;
 
   /* ---- Typography: font families (backed by next/font CSS vars) ---- */
-  --font-display-hero: var(--font-newsreader), ui-serif, Georgia, serif;
-  --font-display-hero-mobile: var(--font-newsreader), ui-serif, Georgia, serif;
-  --font-headline-lg: var(--font-newsreader), ui-serif, Georgia, serif;
-  --font-headline-lg-mobile: var(--font-newsreader), ui-serif, Georgia, serif;
-  --font-headline-md: var(--font-newsreader), ui-serif, Georgia, serif;
-  --font-headline-md-mobile: var(--font-newsreader), ui-serif, Georgia, serif;
-  --font-headline-sm: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-title-lg: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-title-md: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-body-lg: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-body-md: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-body-sm: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-label-md: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-label-sm: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-caption: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display-hero: var(--font-lobster), "Brush Script MT", cursive;
+  --font-display-hero-mobile: var(--font-lobster), "Brush Script MT", cursive;
+  --font-headline-lg: var(--font-lobster), "Brush Script MT", cursive;
+  --font-headline-lg-mobile: var(--font-lobster), "Brush Script MT", cursive;
+  --font-headline-md: var(--font-lobster), "Brush Script MT", cursive;
+  --font-headline-md-mobile: var(--font-lobster), "Brush Script MT", cursive;
+  --font-headline-sm: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-title-lg: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-title-md: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-body-lg: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-body-md: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-body-sm: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-label-md: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-label-sm: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-caption: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
   /* ---- Type scale (px / line-height / tracking / weight) ---- */
   --text-display-hero: 64px;
   --text-display-hero--line-height: 72px;
-  --text-display-hero--letter-spacing: -0.02em;
+  --text-display-hero--letter-spacing: 0em;
   --text-display-hero--font-weight: 400;
 
   --text-display-hero-mobile: 40px;
   --text-display-hero-mobile--line-height: 48px;
-  --text-display-hero-mobile--letter-spacing: -0.01em;
+  --text-display-hero-mobile--letter-spacing: 0em;
   --text-display-hero-mobile--font-weight: 400;
 
   --text-headline-lg: 48px;
   --text-headline-lg--line-height: 56px;
-  --text-headline-lg--letter-spacing: -0.015em;
+  --text-headline-lg--letter-spacing: 0em;
   --text-headline-lg--font-weight: 400;
 
   --text-headline-lg-mobile: 32px;
   --text-headline-lg-mobile--line-height: 40px;
-  --text-headline-lg-mobile--letter-spacing: -0.01em;
+  --text-headline-lg-mobile--letter-spacing: 0em;
   --text-headline-lg-mobile--font-weight: 400;
 
   --text-headline-md: 32px;
   --text-headline-md--line-height: 40px;
-  --text-headline-md--letter-spacing: -0.01em;
-  --text-headline-md--font-weight: 500;
+  --text-headline-md--letter-spacing: 0em;
+  --text-headline-md--font-weight: 400;
 
   --text-headline-md-mobile: 26px;
   --text-headline-md-mobile--line-height: 34px;
   --text-headline-md-mobile--letter-spacing: 0em;
-  --text-headline-md-mobile--font-weight: 500;
+  --text-headline-md-mobile--font-weight: 400;
 
   --text-headline-sm: 20px;
   --text-headline-sm--line-height: 28px;
@@ -231,8 +231,35 @@
     padding: 0;
   }
 
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 7rem;
+  }
+
   body {
     overscroll-behavior: none;
+  }
+
+  ::selection {
+    background-color: var(--color-secondary-container);
+    color: var(--color-on-secondary-fixed);
+  }
+
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  [role="button"] {
+    transition-property: color, background-color, border-color, box-shadow,
+      transform, opacity;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: 2px;
   }
 
   button:not(:disabled),
@@ -243,6 +270,25 @@
   ::-webkit-scrollbar {
     display: none;
   }
+}
+
+/* Skip link shown only when focused via keyboard. */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 600;
+  transform: translateY(-200%);
+  transition: transform 200ms ease;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
 }
 
 /* Pause marquee on hover */
@@ -260,11 +306,22 @@
 
 /* Reduced motion: strip the intro of movement */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .animate-intro-veil,
   .animate-intro-line,
   .animate-intro-fade,
   .animate-intro-sweep,
   .animate-intro-exit {
     animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }
