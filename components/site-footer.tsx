@@ -45,7 +45,6 @@ const FOOTER_COLUMNS: FooterColumn[] = [
     title: "ABOUT",
     links: [
       { label: "About Nutripak", href: ROUTES.about },
-      { label: "Our Team", href: ROUTES.about },
       { label: "Quality & Safety", href: `${ROUTES.about}#quality` },
       { label: "Careers", href: ROUTES.contact },
     ],
