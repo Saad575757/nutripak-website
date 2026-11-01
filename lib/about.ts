@@ -286,12 +286,12 @@ export const ABOUT_DOWNLOADS = {
   items: [
     {
       label: "Nutripak Product Guide",
-      href: "/downloads/nutripak-product-guide.pdf",
+      href: "/Nutripak Product Guide.pdf",
       file: "PDF · 3 products",
     },
     {
       label: "Nutrition Fact Sheets",
-      href: "/downloads/nutrition-fact-sheets.pdf",
+      href: "/Nutrition Fact Sheet.pdf",
       file: "PDF · Per-serving facts",
     },
   ],
