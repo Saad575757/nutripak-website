@@ -4,6 +4,7 @@ import { useState, type ComponentType } from "react";
 
 import HeroBold from "@/components/hero-examples/hero-bold";
 import HeroEditorial from "@/components/hero-examples/hero-editorial";
+import HeroLumen from "@/components/hero-examples/hero-lumen";
 import HeroRitual from "@/components/hero-examples/hero-ritual";
 
 interface HeroExample {
@@ -18,23 +19,30 @@ const HEROES: HeroExample[] = [
   {
     id: "pulse",
     name: "Pulse",
-    tag: "Bold split · Pepsi-inspired",
-    note: "High-energy dark hero with oversized type, a rotating halo and a floating product.",
+    tag: "Full-bleed dark campaign",
+    note: "Centered full-width campaign with oversized type and a glass proof rail.",
     component: HeroBold,
   },
   {
     id: "ritual",
     name: "Ritual",
-    tag: "Matcha reference · editorial poster",
-    note: "Sage poster hero with a giant wordmark, ringed product stage and floating benefit badges.",
+    tag: "Full-bleed sage campaign",
+    note: "Full-width product photography with a sage wash and editorial copy overlay.",
     component: HeroRitual,
   },
   {
     id: "atelier",
     name: "Atelier",
-    tag: "Modern bento · PROTEIOS",
-    note: "Cinematic product tile, lime editorial panel and glass stat cards.",
+    tag: "Full-bleed modern bento",
+    note: "Full-width product backdrop with a lime editorial panel and glass stat cards.",
     component: HeroEditorial,
+  },
+  {
+    id: "lumen",
+    name: "Lumen",
+    tag: "Full-bleed light editorial",
+    note: "Warm ivory wash, oversized type and a paper spec panel over full-width photography.",
+    component: HeroLumen,
   },
 ];
 
@@ -59,9 +67,9 @@ export default function HeroShowcase() {
                 Hero section concepts
               </h1>
               <p className="mt-2 max-w-xl font-body-md text-body-md text-on-surface-variant">
-                Three premium directions inspired by the references — bold
-                energy, quiet ritual, and editorial nutrition. Preview each on
-                its own or compare them stacked.
+                Four premium directions inspired by the references — bold
+                energy, quiet ritual, editorial nutrition, and a light type-led
+                alternative. Preview each on its own or compare them stacked.
               </p>
             </div>
 
@@ -92,7 +100,7 @@ export default function HeroShowcase() {
             <div
               role="tablist"
               aria-label="Hero concepts"
-              className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-3"
+              className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
             >
               {HEROES.map((hero, index) => {
                 const selected = index === active;
