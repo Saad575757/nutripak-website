@@ -1,30 +1,39 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
 
 import MaterialIcon from "@/components/material-icon";
+import HeroBackgroundSlider from "@/components/hero-examples/hero-background-slider";
 import Reveal from "@/components/hero-examples/reveal";
 import { Cta, Pill, Rating } from "@/components/hero-examples/ui";
-import { HERO_IMAGE, ROUTES } from "@/lib/site";
+import { getProductForSlug } from "@/lib/shop";
+import { HERO_SLIDES, ROUTES } from "@/lib/site";
 
-const STATS = [
-  { value: "100%", label: "Natural whey" },
-  { value: "Peptide", label: "Rich blend" },
-  { value: "0 g", label: "Added flavour" },
-];
+/** Time each slide stays visible before the next campaign message. */
+const SLIDE_MS = 6000;
 
 export default function HeroBold() {
+  const [active, setActive] = useState(0);
+  const slide = HERO_SLIDES[active];
+  const product = getProductForSlug(slide.slug);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const interval = window.setInterval(
+      () => setActive((index) => (index + 1) % HERO_SLIDES.length),
+      SLIDE_MS,
+    );
+
+    return () => window.clearInterval(interval);
+  }, []);
+
   return (
     <section
       className="relative isolate flex min-h-[calc(100svh_-_7rem)] w-full flex-col overflow-hidden bg-[#04241f] text-white"
       aria-labelledby="hero-bold-title"
     >
-      <Image
-        src={HERO_IMAGE}
-        alt="Two premium Nutripak supplement bottles on a light oak table"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-center"
-      />
+      <HeroBackgroundSlider active={active} />
       <div
         className="pointer-events-none absolute inset-0 bg-[#04241f]/72"
         aria-hidden="true"
@@ -46,40 +55,48 @@ export default function HeroBold() {
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/15 pb-4 text-[9px] font-bold uppercase tracking-[0.2em] text-white/55">
           <span className="inline-flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-secondary-container animate-hero-pulse" />
-            NUTRIPAK · PROTEIOS
+            NUTRIPAK · {slide.product}
           </span>
-          <span>No. 01 / Everyday fuel</span>
+          <span>
+            No. {String(active + 1).padStart(2, "0")} / {slide.product}
+          </span>
         </div>
 
         <div className="flex flex-1 flex-col items-center justify-center py-14 text-center md:py-20">
           <Reveal>
-            <Pill tone="light">New · Peptide-rich whey</Pill>
+            <Pill tone="light">{slide.product}</Pill>
           </Reveal>
 
           <Reveal delay={80}>
             <h1
               id="hero-bold-title"
-              className="mx-auto mt-7 max-w-[14ch] text-balance text-[clamp(3.4rem,8vw,7.2rem)] font-black leading-[0.86] tracking-[-0.06em]"
+              key={slide.src}
+              className="mx-auto mt-7 max-w-[18ch] animate-hero-fade-up text-balance text-[clamp(2.6rem,6vw,6rem)] font-black leading-[0.9] tracking-[-0.05em]"
             >
-              Power your{" "}
+              {slide.headline}{" "}
               <span className="font-display-hero font-normal italic tracking-normal text-secondary-container">
-                everyday.
+                {slide.accent}
               </span>
             </h1>
           </Reveal>
 
           <Reveal delay={160}>
-            <p className="mx-auto mt-7 max-w-2xl text-balance font-body-lg text-body-lg text-white/65">
-              Peptide-rich whey protein for faster absorption, lean strength and
-              recovery that keeps up with you — unflavoured, so it fits any
-              routine.
+            <p
+              key={slide.slug}
+              className="mx-auto mt-7 max-w-2xl animate-hero-fade-in text-balance font-body-lg text-body-lg text-white/65"
+            >
+              {product?.description}
             </p>
           </Reveal>
 
           <Reveal delay={240}>
             <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Cta href={ROUTES.product("proteios")} tone="lime">
-                Shop PROTEIOS
+              <Cta
+                key={slide.slug}
+                href={ROUTES.product(slide.slug)}
+                tone="lime"
+              >
+                Shop {slide.product}
               </Cta>
               <Cta
                 href={ROUTES.shop}
@@ -96,11 +113,11 @@ export default function HeroBold() {
         <Reveal delay={320} className="w-full">
           <div className="mx-auto grid w-full max-w-3xl grid-cols-1 gap-5 rounded-[1.6rem] border border-white/15 bg-white/[0.08] p-4 shadow-[0_50px_120px_-60px_rgba(0,0,0,0.95)] backdrop-blur-2xl md:grid-cols-[1fr_auto] md:items-center md:gap-10 md:p-5">
             <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-4 md:justify-start md:border-0 md:pb-0">
-              <Rating tone="light" label="4.9/5 from 12,500+ routines" />
+              <Rating tone="light" label={slide.rating} />
             </div>
 
             <dl className="grid grid-cols-3 divide-x divide-white/10">
-              {STATS.map((stat) => (
+              {slide.stats.map((stat) => (
                 <div key={stat.label} className="px-4 first:pl-0 last:pr-0">
                   <dt className="text-[7.5px] font-bold uppercase tracking-[0.11em] text-white/40">
                     {stat.label}

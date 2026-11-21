@@ -71,10 +71,10 @@
   /* ---- Typography: font families (backed by next/font CSS vars) ---- */
   --font-display-hero: var(--font-lobster), "Brush Script MT", cursive;
   --font-display-hero-mobile: var(--font-lobster), "Brush Script MT", cursive;
-  --font-headline-lg: var(--font-lobster), "Brush Script MT", cursive;
-  --font-headline-lg-mobile: var(--font-lobster), "Brush Script MT", cursive;
-  --font-headline-md: var(--font-lobster), "Brush Script MT", cursive;
-  --font-headline-md-mobile: var(--font-lobster), "Brush Script MT", cursive;
+  --font-headline-lg: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-headline-lg-mobile: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-headline-md: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-headline-md-mobile: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-headline-sm: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-title-lg: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-title-md: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -401,6 +401,15 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 140px 140px;
+}
+
+/* Pulse hero typography across the site: heavy Inter, tight tracking.
+   Unlayered so it wins over per-element font-normal/font-bold utilities. */
+.font-headline-lg,
+.font-headline-md {
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.03em;
 }
 
 /* Scroll-reveal used by the hero examples. */

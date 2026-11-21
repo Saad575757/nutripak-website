@@ -114,6 +114,49 @@ export const TRUST_FEATURES: TrustFeature[] = [
 
 export const HERO_IMAGE = "/home-hero-1.jpeg";
 
+/** Full-bleed backgrounds and campaign copy rotated by the hero slider. */
+export const HERO_SLIDES = [
+  {
+    src: "/1_no_text.jpg",
+    product: "ADA-glu",
+    slug: "ada-glu",
+    headline: "STRONGER TOGETHER.",
+    accent: "HEALTHIER EVERY DAY.",
+    rating: "4.8/5 from 9,600+ routines",
+    stats: [
+      { label: "Glycemic index", value: "Low" },
+      { label: "Protein content", value: "19.61%" },
+      { label: "Dietary fiber", value: "2 g" },
+    ],
+  },
+  {
+    src: "/2_no_text.jpg",
+    product: "SUBSET",
+    slug: "subset",
+    headline: "AGE IS JUST A NUMBER.",
+    accent: "STRENGTH IS A LIFESTYLE.",
+    rating: "4.9/5 from 18,000+ routines",
+    stats: [
+      { label: "Key nutrients", value: "26" },
+      { label: "Protein / serve", value: "8.8 g" },
+      { label: "Energy / serve", value: "236 kcal" },
+    ],
+  },
+  {
+    src: "/3_no_text.jpg",
+    product: "PROTEIOS",
+    slug: "proteios",
+    headline: "TRAIN HARD.",
+    accent: "RECOVER STRONG.",
+    rating: "4.9/5 from 12,500+ routines",
+    stats: [
+      { label: "Natural whey", value: "100%" },
+      { label: "Rich blend", value: "Peptide" },
+      { label: "Added flavour", value: "0 g" },
+    ],
+  },
+] as const;
+
 export const EDITORIAL_IMAGE =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuCj3tzgtaEeOzBHiiqTjHJUqjvuYlKkPMp0Oxz2OylY5-t1iNSbSdJBsRd49PrnTGwoTEB1g03vgz1GazaUNrvPO_ApeMoGehH9XRE3XVs7N9Ljhpofa2fHho8ou0AHsVTJDh6uwRYLGudjqzSv-zdoQ02ApmL3fz8xSn77hu9XLHXyaGDM0MU9CR_TMwZBW_X9lGW3q-ARCFNmJABq_U8ODU3T84aXhalJaN5WQIQJSmsXd3Z70n2Ewg";
 

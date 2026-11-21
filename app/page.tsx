@@ -1,6 +1,6 @@
 import FeaturedProducts from "@/components/home/featured-products";
 import GoalCategories from "@/components/home/goal-categories";
-import Hero from "@/components/home/hero";
+import HeroBold from "@/components/hero-examples/hero-bold";
 import HomepageIntro from "@/components/home/homepage-intro";
 import IntroBanner from "@/components/home/intro-banner";
 import MembershipBanner from "@/components/home/membership-banner";
@@ -19,7 +19,7 @@ export default async function HomePage() {
     <div className="flex flex-col w-full">
       <HomepageIntro />
       <IntroBanner />
-      <Hero />
+      <HeroBold />
       <TrustStrip />
       <GoalCategories />
       <QuizTeaser />
