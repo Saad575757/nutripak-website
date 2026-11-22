@@ -118,7 +118,7 @@ export const HERO_IMAGE = "/home-hero-1.jpeg";
 export const HERO_SLIDES = [
   {
     src: "/1_no_text.jpg",
-    mobileSrc: "/hero-mob1.jpg",
+    mobileSrc: "/hero-mob1.jpeg",
     product: "ADA-glu",
     slug: "ada-glu",
     headline: "STRONGER TOGETHER.",
@@ -132,7 +132,7 @@ export const HERO_SLIDES = [
   },
   {
     src: "/2_no_text.jpg",
-    mobileSrc: "/hero-mob2.jpg",
+    mobileSrc: "/hero-mob2.jpeg",
     product: "SUBSET",
     slug: "subset",
     headline: "AGE IS JUST A NUMBER.",
@@ -146,7 +146,7 @@ export const HERO_SLIDES = [
   },
   {
     src: "/3_no_text.jpg",
-    mobileSrc: "/hero-mob3.jpg",
+    mobileSrc: "/hero-mob3.jpeg",
     product: "PROTEIOS",
     slug: "proteios",
     headline: "TRAIN HARD.",
