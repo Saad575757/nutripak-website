@@ -1,3 +1,4 @@
+import ExpertSection from "@/components/home/expert-section";
 import FeaturedProducts from "@/components/home/featured-products";
 import GoalCategories from "@/components/home/goal-categories";
 import HeroBold from "@/components/hero-examples/hero-bold";
@@ -25,7 +26,7 @@ export default async function HomePage() {
       <QuizTeaser />
       <FeaturedProducts products={products} />
       {/* <EditorialBanner /> */}
-      {/* <ExpertSection /> */}
+      <ExpertSection />
       <ReviewsSection />
       <MembershipBanner />
     </div>
