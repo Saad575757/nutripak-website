@@ -90,9 +90,11 @@ export default function ExpertSection() {
               <h4 className="font-title-lg text-title-lg text-primary font-bold">
                 {item.doctor}
               </h4>
-              <p className="font-body-md text-body-md text-on-surface-variant">
-                {item.role}
-              </p>
+              {item.role ? (
+                <p className="font-body-md text-body-md text-on-surface-variant">
+                  {item.role}
+                </p>
+              ) : null}
               <div className="flex flex-wrap gap-2 mt-3">
                 <span className="px-3 py-1 rounded-full bg-secondary-container/30 text-secondary font-label-sm text-label-sm font-semibold uppercase tracking-wider">
                   Verified clinician

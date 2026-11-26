@@ -1,7 +1,7 @@
 export interface DoctorTestimonial {
   quote: string;
   doctor: string;
-  role: string;
+  role?: string;
   hospital?: string;
 }
 
@@ -36,5 +36,10 @@ export const DOCTOR_TESTIMONIALS: DoctorTestimonial[] = [
       "I use NUTRIPAK ADA-glu as a nutritional support option for patients with diabetes or impaired glucose tolerance who require better-balanced nutritional intake, particularly when dietary requirements need additional attention.\n\nPROTEIOS can be considered for patients with increased protein requirements, inadequate dietary protein intake, nutritional deficiencies, or those needing nutritional support during recovery.\n\nI believe targeted nutritional supplementation, alongside appropriate dietary counselling and medical management, can play a valuable role in supporting patients’ overall health and nutritional wellbeing.",
     doctor: "Dr Hina Ramzan Rajani",
     role: "Consultant Obstetrician and Gynaecologist",
+  },
+  {
+    quote:
+      "When patients need that extra nutritional boost, SUBSET is my preferred recommendation. It’s easy to prescribe, convenient for patients, and readily accepted. A practical solution to complement daily meals and support nutritional well-being.",
+    doctor: "Dr Naresh Golani",
   },
 ];
